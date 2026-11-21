@@ -25,7 +25,10 @@
 			>
 				manna.cards
 			</a>
-			<a href={resolve('/about')} class="text-sm {link}">About</a>
+			<div class="flex gap-4">
+				<a href={resolve('/changelog')} class="text-sm {link}">Changelog</a>
+				<a href={resolve('/about')} class="text-sm {link}">About</a>
+			</div>
 		</nav>
 	</header>
 	<div class="flex-1">
