@@ -5,6 +5,7 @@
  * every field. A share link is the definition as JSON, deflated, as unpadded base64url.
  */
 
+import { isCatechismId, type CatechismId } from './catechisms.ts';
 import type { Break, DeckDefinition, TranslationId } from './model.ts';
 import { TRANSLATIONS } from './translations.ts';
 
@@ -13,11 +14,24 @@ const DEFAULT_NAME = 'manna.cards';
 export const MAX_SHARE_BYTES = 1_000_000;
 const ID_ALPHABET = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-export function newDeck(name: string, translation: TranslationId): DeckDefinition {
+export function newDeck(
+	name: string,
+	translation: TranslationId,
+	catechism?: CatechismId
+): DeckDefinition {
 	const bytes = globalThis.crypto.getRandomValues(new Uint8Array(8));
 	// 256 is not a multiple of 36, so the first letters are slightly likelier; ids need no more.
 	const id = Array.from(bytes, (b) => ID_ALPHABET[b % ID_ALPHABET.length]).join('');
-	return { v: 1, id, name, translation, list: '', breaks: {}, revision: 0 };
+	return {
+		v: 1,
+		id,
+		name,
+		translation,
+		...(catechism && { catechism }),
+		list: '',
+		breaks: {},
+		revision: 0
+	};
 }
 
 /** Anki reads `::` in a deck name as a subdeck separator, so it becomes a single colon. */
@@ -34,6 +48,9 @@ export function parseDeckDefinition(value: unknown): DeckDefinition {
 	}
 	if (typeof o.translation !== 'string' || !Object.hasOwn(TRANSLATIONS, o.translation)) {
 		throw new Error(`Unknown translation: ${JSON.stringify(o.translation)}`);
+	}
+	if (o.catechism !== undefined && !isCatechismId(o.catechism)) {
+		throw new Error(`Unknown catechism: ${JSON.stringify(o.catechism)}`);
 	}
 	if (typeof o.name !== 'string') throw new Error('Deck name must be text');
 	if (typeof o.list !== 'string') throw new Error('Deck list must be text');
@@ -56,6 +73,7 @@ export function parseDeckDefinition(value: unknown): DeckDefinition {
 		id: o.id,
 		name: cleanDeckName(o.name),
 		translation: o.translation as TranslationId,
+		...(o.catechism !== undefined && { catechism: o.catechism }),
 		list: o.list,
 		breaks,
 		revision: o.revision

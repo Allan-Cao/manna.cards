@@ -5,8 +5,10 @@ import { unzipSync } from 'fflate';
 import initSqlJs from 'sql.js';
 import { describe, expect, it } from 'vitest';
 import { writeApkg } from './anki/apkg.ts';
-import { buildDeck, type LoadBooks } from './build.ts';
+import { buildDeck, type LoadBooks, type LoadCatechism } from './build.ts';
+import { CATECHISMS, type CatechismId } from './catechisms.ts';
 import type { BookId, BookText, DeckDefinition, NoteSpec, TranslationId } from './model.ts';
+import { FIXTURE } from './questions.fixture.ts';
 import { verseKey } from './refs.ts';
 import { splitUnits } from './units.ts';
 
@@ -50,6 +52,8 @@ describe('buildDeck', () => {
 			[2, 'Romans 8:39']
 		]);
 		expect(result.build.notes[0].fields.Answer).toContain('For God so loved the world');
+		expect(result.labels).toEqual(['John 3:16-17', 'Romans 8:39']);
+		expect(result.questions).toEqual([]);
 	});
 
 	it('fills the build from the definition and the export time', async () => {
@@ -116,6 +120,95 @@ describe('buildDeck', () => {
 		const result = await buildDeck(deck(), fromDisk, 1_800_000_000);
 		expect(result.build.notes).toEqual([]);
 		expect(result.groups).toEqual([]);
+	});
+});
+
+describe('buildDeck: catechism decks', () => {
+	const noBooks: LoadBooks = () => Promise.reject(new Error('no books for a catechism deck'));
+	const calls: CatechismId[] = [];
+	const loadCatechism: LoadCatechism = async (id) => {
+		calls.push(id);
+		return FIXTURE;
+	};
+	const catechismDeck = (list: string) => deck({ catechism: 'wsc', list });
+
+	it('builds one note per listed question, in list order, from the loaded text', async () => {
+		calls.length = 0;
+		const def = catechismDeck('# Rule\n2\n# End\nQ1\n3');
+		const result = await buildDeck(def, noBooks, 1_800_000_000, loadCatechism);
+		expect(calls).toEqual(['wsc']);
+		expect(result.errors).toEqual([]);
+		expect(result.passages).toEqual([]);
+		expect(result.groups).toEqual([]);
+		expect(result.staleBreaks).toEqual([]);
+		expect(result.questions.map((g) => [g.heading, g.questions.map((q) => q.reference)])).toEqual([
+			['Rule', ['WSC 2']],
+			['End', ['WSC 1', 'WSC 3']]
+		]);
+		expect(result.labels).toEqual(['WSC 2', 'WSC 1', 'WSC 3']);
+		expect(result.build.notes.map((n) => [n.order, n.guid])).toEqual([
+			[0, 'bm1:k3x9:cat:wsc:2'],
+			[1, 'bm1:k3x9:cat:wsc:1'],
+			[2, 'bm1:k3x9:cat:wsc:3']
+		]);
+		expect(result.build.notes[1].fields.Info).toBe(
+			'1 Corinthians 10:31; Psalm 73:25–28 · Westminster Shorter Catechism'
+		);
+		expect(result.build.notes[0].tags).toEqual(['bm::k3x9::r4']);
+	});
+
+	it('checks numbers against the catechism and still builds the valid lines', async () => {
+		const result = await buildDeck(catechismDeck('1\n0\n108'), noBooks, 0, loadCatechism);
+		expect(result.errors.map((e) => e.line)).toEqual([2, 3]);
+		expect(result.build.notes.map((n) => n.fields.Reference)).toEqual(['WSC 1']);
+	});
+
+	it('does not load the text for an empty list', async () => {
+		calls.length = 0;
+		const result = await buildDeck(catechismDeck(''), noBooks, 0, loadCatechism);
+		expect(calls).toEqual([]);
+		expect(result.build.notes).toEqual([]);
+	});
+
+	it('needs a catechism loader', async () => {
+		await expect(buildDeck(catechismDeck('1'), noBooks, 0)).rejects.toThrow(/catechism/i);
+	});
+
+	it('writes a package Anki can read', async () => {
+		const { build } = await buildDeck(catechismDeck('1-3'), noBooks, 1_800_000_000, loadCatechism);
+		const sqlDist = dirname(createRequire(import.meta.url).resolve('sql.js'));
+		const SQL = await initSqlJs({ locateFile: (f) => join(sqlDist, f) });
+		const db = new SQL.Database(unzipSync(writeApkg(build, SQL))['collection.anki2']);
+		const rows = db.exec(
+			'SELECT n.guid, n.sfld, n.flds, c.due FROM notes n JOIN cards c ON c.nid = n.id ORDER BY c.due'
+		)[0].values as [string, string, string, number][];
+		db.close();
+		expect(rows.map(([guid, sfld, , due]) => [guid, sfld, due])).toEqual([
+			['bm1:k3x9:cat:wsc:1', 'WSC 1', 0],
+			['bm1:k3x9:cat:wsc:2', 'WSC 2', 1],
+			['bm1:k3x9:cat:wsc:3', 'WSC 3', 2]
+		]);
+		expect(rows[0][2].split('\x1f')).toEqual(Object.values(build.notes[0].fields));
+	});
+});
+
+describe('bundled catechisms end to end', () => {
+	const fromStatic: LoadCatechism = async (id) =>
+		JSON.parse(
+			await readFile(new URL(`../../../static/catechisms/${id}.json`, import.meta.url), 'utf8')
+		);
+
+	it.each(Object.values(CATECHISMS))('$short builds every question', async ({ id, count }) => {
+		const def = deck({ catechism: id, list: `1-${count}` });
+		const { build, errors } = await buildDeck(def, fromDisk, 1_800_000_000, fromStatic);
+		expect(errors).toEqual([]);
+		expect(build.notes).toHaveLength(count);
+		expect(new Set(build.notes.map((n) => n.guid)).size).toBe(count);
+		for (const note of build.notes) {
+			expect(note.fields.Context).toMatch(/^<div class="line">.+<\/div>$/);
+			expect(note.fields.Answer).toMatch(/^<div class="line">.+<\/div>$/);
+			expect(note.fields.Info).toMatch(new RegExp(`${CATECHISMS[id].name}$`));
+		}
 	});
 });
 

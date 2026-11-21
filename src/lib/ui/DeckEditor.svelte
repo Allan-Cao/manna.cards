@@ -5,14 +5,16 @@
 	import type { BuildResult } from '#lib/core/build.ts';
 	import { buildDeck } from '#lib/core/build.ts';
 	import { cleanDeckName } from '#lib/core/deckdef.ts';
-	import { previewDeck, previewRows } from '#lib/core/editor.ts';
+	import { CATECHISMS } from '#lib/core/catechisms.ts';
+	import { previewDeck, previewQuestions, previewRows } from '#lib/core/editor.ts';
 	import type { Break, DeckDefinition, TranslationId } from '#lib/core/model.ts';
 	import { verseLabel } from '#lib/core/refs.ts';
 	import { TRANSLATIONS } from '#lib/core/translations.ts';
-	import { exportDeck, loadBooks, type ExportReport } from './browser.ts';
+	import { exportDeck, loadBooks, loadCatechism, type ExportReport } from './browser.ts';
 	import ConfirmDialog from './ConfirmDialog.svelte';
 	import ExportDialog from './ExportDialog.svelte';
 	import PassagePanel from './PassagePanel.svelte';
+	import QuestionPreview from './QuestionPreview.svelte';
 	import ShareDialog from './ShareDialog.svelte';
 	import { deckStored, loadDeck, loadExport, saveDeck, watchDeck } from './storage.ts';
 	import { button, field, label, muted, notice, primary } from './styles.ts';
@@ -22,6 +24,8 @@
 
 	// The editor keeps its own copy; the page remounts it for another deck.
 	const def = $state(untrack(() => structuredClone(initial)));
+	/** Set for a catechism deck, whose list holds question numbers. A deck never changes kind. */
+	const catechism = untrack(() => (def.catechism ? CATECHISMS[def.catechism] : null));
 	let exported = $state(loadExport(def.id));
 	/** The browser refused to store the deck, so it lasts only as long as this page. */
 	let unsaved = $state(false);
@@ -61,12 +65,13 @@
 			id: def.id,
 			name: '',
 			translation: def.translation,
+			...(catechism && { catechism: catechism.id }),
 			list,
 			breaks: $state.snapshot(def.breaks),
 			revision: 0
 		};
 		let current = true;
-		buildDeck(d, loadBooks, 0).then(
+		buildDeck(d, loadBooks, 0, loadCatechism).then(
 			(result) => {
 				if (!current) return;
 				// A passage added on its own starts open, wherever it is in the list.
@@ -84,6 +89,7 @@
 	const groups = $derived(built ? previewDeck(built.def, built.result) : []);
 	/** One flat list, so a passage's panel stays when a heading moves it into another group. */
 	const rows = $derived(previewRows(groups));
+	const questionRows = $derived(built ? previewQuestions(built.result.questions) : []);
 	const verses = $derived(
 		groups.flatMap((g) => g.passages.flatMap((p) => p.verses)).filter((v) => v.cards.length).length
 	);
@@ -99,7 +105,7 @@
 			: result.errors.length
 				? 'Fix the marked lines in the list to export.'
 				: result.build.notes.length === 0
-					? 'Add a passage to the list to export.'
+					? `Add a ${catechism ? 'question' : 'passage'} to the list to export.`
 					: ''
 	);
 	const renamed = $derived(exported && cleanDeckName(def.name) !== exported.name);
@@ -189,27 +195,37 @@
 					</p>
 				{/if}
 			</div>
-			<div>
-				<label for="deck-translation" class={label}>Translation</label>
-				<div class="mt-1">
-					<TranslationSelect
-						id="deck-translation"
-						bind:value={
-							() => def.translation,
-							(t) => {
-								if (t === def.translation) return;
-								if (exported) askTranslation = t;
-								else setTranslation(t);
+			{#if catechism}
+				<p class="text-sm {muted}">{catechism.name}</p>
+			{:else}
+				<div>
+					<label for="deck-translation" class={label}>Translation</label>
+					<div class="mt-1">
+						<TranslationSelect
+							id="deck-translation"
+							bind:value={
+								() => def.translation,
+								(t) => {
+									if (t === def.translation) return;
+									if (exported) askTranslation = t;
+									else setTranslation(t);
+								}
 							}
-						}
-					/>
+						/>
+					</div>
 				</div>
-			</div>
+			{/if}
 			<div>
-				<label for="deck-list" class={label}>Passages</label>
+				<label for="deck-list" class={label}>{catechism ? 'Questions' : 'Passages'}</label>
 				<p id="list-help" class="mt-1 text-sm {muted}">
-					One per line, for example <code>Psalm 23</code>, <code>John 3:16-18</code> or
-					<code>John 14:1-3, 6</code>. A line starting with <code>#</code> is a heading.
+					{#if catechism}
+						One per line, a number or a range, for example <code>5</code> or
+						<code>1-10</code>. The questions run from 1 to {catechism.count}. A line starting with
+						<code>#</code> is a heading.
+					{:else}
+						One per line, for example <code>Psalm 23</code>, <code>John 3:16-18</code> or
+						<code>John 14:1-3, 6</code>. A line starting with <code>#</code> is a heading.
+					{/if}
 				</p>
 				<textarea
 					id="deck-list"
@@ -233,7 +249,12 @@
 		<section aria-labelledby="cards-heading" class="min-w-0">
 			<div class="flex flex-wrap items-baseline justify-between gap-x-4">
 				<h2 id="cards-heading" class="text-xl font-semibold">Cards</h2>
-				{#if result}
+				{#if result && catechism}
+					<p class="text-sm {muted}" aria-live="polite">
+						{result.build.notes.length}
+						{result.build.notes.length === 1 ? 'question' : 'questions'}
+					</p>
+				{:else if result}
 					<p class="text-sm {muted}" aria-live="polite">
 						{result.passages.length}
 						{result.passages.length === 1 ? 'passage' : 'passages'} · {verses}
@@ -251,8 +272,25 @@
 					automatic ones are used.
 				</p>
 			{/if}
-			{#if result && groups.length === 0}
-				<p class="mt-3 {muted}">Cards appear here as you add passages to the list.</p>
+			{#if result && groups.length === 0 && questionRows.length === 0}
+				<p class="mt-3 {muted}">
+					Cards appear here as you add {catechism ? 'questions' : 'passages'} to the list.
+				</p>
+			{/if}
+			{#if catechism}
+				<div class="mt-4 space-y-3">
+					{#each questionRows as row (row.key)}
+						{#if row.kind === 'heading'}
+							<h3
+								class="border-b border-stone-200 pb-1 font-serif text-lg font-semibold not-first:mt-6 dark:border-stone-800"
+							>
+								{row.heading}
+							</h3>
+						{:else}
+							<QuestionPreview card={row.card} />
+						{/if}
+					{/each}
+				</div>
 			{/if}
 			<div class="mt-4">
 				{#each rows as row (row.key)}

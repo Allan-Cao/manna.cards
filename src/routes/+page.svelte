@@ -2,11 +2,13 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import { CATECHISMS, type CatechismId } from '#lib/core/catechisms.ts';
 	import { encodeShare, newDeck, parseDeckDefinition } from '#lib/core/deckdef.ts';
 	import { passageCount } from '#lib/core/editor.ts';
 	import type { DeckDefinition, TranslationId } from '#lib/core/model.ts';
 	import { TRANSLATIONS } from '#lib/core/translations.ts';
 	import ConfirmDialog from '#lib/ui/ConfirmDialog.svelte';
+	import ContentSelect from '#lib/ui/ContentSelect.svelte';
 	import { deleteDeck, listDecks, loadExport, saveDeck } from '#lib/ui/storage.ts';
 	import { button, field, label, link, muted, primary, quiet } from '#lib/ui/styles.ts';
 	import TranslationSelect from '#lib/ui/TranslationSelect.svelte';
@@ -22,6 +24,7 @@
 	});
 
 	let name = $state('');
+	let content = $state<'scripture' | CatechismId>('scripture');
 	let translation = $state<TranslationId>('bsb');
 	let deleting = $state<DeckDefinition | null>(null);
 	let fileError = $state('');
@@ -31,10 +34,24 @@
 		return at ? `exported ${new Date(at).toLocaleDateString()}` : 'not exported yet';
 	}
 
-	function create(deckName: string, list = '') {
-		const def = { ...newDeck(deckName.trim(), translation), list };
+	function summary(def: DeckDefinition): string {
+		const n = passageCount(def);
+		if (def.catechism) {
+			return `${CATECHISMS[def.catechism].short} · ${n} ${n === 1 ? 'question' : 'questions'}`;
+		}
+		return `${TRANSLATIONS[def.translation].short} · ${n} ${n === 1 ? 'passage' : 'passages'}`;
+	}
+
+	function create(deckName: string, list = '', catechism?: CatechismId) {
+		const def = { ...newDeck(deckName.trim(), translation, catechism), list };
 		saveDeck(def);
 		goto(resolve('/deck/[id]', { id: def.id }));
+	}
+
+	/** A catechism deck starts with every question. */
+	function createFromForm() {
+		if (content === 'scripture') return create(name);
+		create(name || CATECHISMS[content].name, `1-${CATECHISMS[content].count}`, content);
 	}
 
 	/** A deck file goes through /open, so a deck that is already here is handled the same way. */
@@ -77,10 +94,7 @@
 							<a href={resolve('/deck/[id]', { id: def.id })} class="font-medium break-words {link}"
 								>{def.name}</a
 							>
-							<p class="text-sm {muted}">
-								{TRANSLATIONS[def.translation].short} · {passageCount(def)}
-								{passageCount(def) === 1 ? 'passage' : 'passages'} · {exported(def)}
-							</p>
+							<p class="text-sm {muted}">{summary(def)} · {exported(def)}</p>
 						</div>
 						<button type="button" class={quiet} onclick={() => (deleting = def)}>
 							Delete<span class="sr-only"> {def.name}</span>
@@ -94,10 +108,10 @@
 	<section aria-labelledby="new-heading">
 		<h2 id="new-heading" class="text-xl font-semibold">New deck</h2>
 		<form
-			class="mt-3 grid gap-4 sm:grid-cols-[1fr_1fr_auto] sm:items-end"
+			class="mt-3 grid gap-4 sm:grid-cols-2 sm:items-end"
 			onsubmit={(e) => {
 				e.preventDefault();
-				create(name);
+				createFromForm();
 			}}
 		>
 			<div>
@@ -111,10 +125,20 @@
 				/>
 			</div>
 			<div>
-				<label for="new-translation" class={label}>Translation</label>
-				<div class="mt-1"><TranslationSelect id="new-translation" bind:value={translation} /></div>
+				<label for="new-content" class={label}>Content</label>
+				<div class="mt-1"><ContentSelect id="new-content" bind:value={content} /></div>
 			</div>
-			<button type="submit" class="{primary} h-10.5" disabled={!ready}>Create deck</button>
+			{#if content === 'scripture'}
+				<div>
+					<label for="new-translation" class={label}>Translation</label>
+					<div class="mt-1">
+						<TranslationSelect id="new-translation" bind:value={translation} />
+					</div>
+				</div>
+			{/if}
+			<button type="submit" class="{primary} h-10.5 sm:justify-self-start" disabled={!ready}>
+				Create deck
+			</button>
 		</form>
 	</section>
 

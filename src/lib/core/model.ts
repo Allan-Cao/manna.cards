@@ -4,6 +4,8 @@
  * The pipeline is: list text -> References -> Passages -> Units -> NoteSpecs -> .apkg
  */
 
+import type { CatechismId } from './catechisms.ts';
+
 export type TranslationId = 'bsb' | 'web' | 'kjv';
 
 /** USFM book code, e.g. 'GEN', 'PSA', 'JHN', '1JN'. */
@@ -104,6 +106,11 @@ export interface DeckDefinition {
 	id: string;
 	name: string;
 	translation: TranslationId;
+	/**
+	 * Set for a catechism deck, whose list holds question numbers (`5`, `1-10`) instead of
+	 * references. Absent for a scripture deck. The translation is kept but unused, breaks stay empty.
+	 */
+	catechism?: CatechismId;
 	/** One reference per line, `#` lines are headings. */
 	list: string;
 	/** Key is "BOOK.chapter.verse", e.g. "JHN.3.16". Missing key: automatic. Empty array: never split. */

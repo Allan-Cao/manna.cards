@@ -5,11 +5,14 @@ import {
 	insertedPassages,
 	passageCount,
 	previewDeck,
+	previewQuestions,
 	previewRows,
 	toggleBreak,
 	type PreviewPassage
 } from './editor.ts';
 import type { BookId, BookText, DeckDefinition, Verse } from './model.ts';
+import { parseQuestionList, planQuestions } from './questions.ts';
+import { FIXTURE } from './questions.fixture.ts';
 import { renderLines, renderTitle } from './render.ts';
 import { autoBreaks, verseWords } from './units.ts';
 
@@ -200,5 +203,38 @@ describe('insertedPassages', () => {
 describe('passageCount', () => {
 	it('counts the valid references, ignoring headings and mistakes', () => {
 		expect(passageCount(deck({ list: '# A\nJohn 3:16\nNope 1\n\nPsalm 23' }))).toBe(2);
+	});
+});
+
+describe('passageCount: catechism decks', () => {
+	it('counts the questions, ignoring headings, repeats and mistakes', () => {
+		const def = deck({ catechism: 'wsc', list: '# A\n1-10\n5\nQ12\n200\nJohn 3:16' });
+		expect(passageCount(def)).toBe(11);
+		expect(passageCount(deck({ catechism: 'wsc', list: '1-107' }))).toBe(107);
+	});
+});
+
+describe('previewQuestions', () => {
+	it('lists headings and questions with the answer, its hint and the proofs', () => {
+		const plan = planQuestions('wsc', FIXTURE, parseQuestionList('3\n# Of God\n1\n#\n2', 3).groups);
+		const rows = previewQuestions(plan);
+		expect(rows.map((r) => (r.kind === 'heading' ? `# ${r.heading}` : r.card.reference))).toEqual([
+			'WSC 3',
+			'# Of God',
+			'WSC 1',
+			'WSC 2'
+		]);
+		const row = rows[2];
+		expect(row).toMatchObject({
+			kind: 'question',
+			key: 'wsc:1',
+			card: {
+				reference: 'WSC 1',
+				question: 'What is the chief end of man?',
+				answer: [{ text: FIXTURE.questions[0].a, indent: 0 }],
+				hint: [{ text: 'M c e i t g G, a t e h f e.', indent: 0 }],
+				proofs: ['1 Corinthians 10:31', 'Psalm 73:25–28']
+			}
+		});
 	});
 });

@@ -1,8 +1,12 @@
-/** The browser side of the core: fetching the Bible text, writing the .apkg, saving files. */
+/**
+ * The browser side of the core: fetching the Bible and catechism texts, writing the .apkg,
+ * saving files.
+ */
 import { asset } from '$app/paths';
 import type { AssetPath } from '$app/types';
 import { writeApkg } from '#lib/core/anki/apkg.ts';
-import { buildDeck, type LoadBooks } from '#lib/core/build.ts';
+import { buildDeck, type LoadBooks, type LoadCatechism } from '#lib/core/build.ts';
+import type { CatechismId, CatechismText } from '#lib/core/catechisms.ts';
 import { cleanDeckName } from '#lib/core/deckdef.ts';
 import { cleanupSearch, diffExport } from '#lib/core/diff.ts';
 import { insertedPassages } from '#lib/core/editor.ts';
@@ -30,6 +34,21 @@ export const loadBooks: LoadBooks = async (translation, ids) =>
 	Object.fromEntries(
 		await Promise.all(ids.map(async (id) => [id, await loadBook(`text/${translation}/${id}.json`)]))
 	);
+
+const catechisms = new Map<CatechismId, Promise<CatechismText>>();
+
+export const loadCatechism: LoadCatechism = (id) => {
+	let text = catechisms.get(id);
+	if (!text) {
+		text = fetch(asset(`catechisms/${id}.json` as AssetPath)).then((response) => {
+			if (!response.ok) throw new Error(`Could not load the catechism (${response.status})`);
+			return response.json() as Promise<CatechismText>;
+		});
+		text.catch(() => catechisms.delete(id)); // try again next time
+		catechisms.set(id, text);
+	}
+	return text;
+};
 
 let sql: Promise<SqlJsStatic> | undefined;
 
@@ -69,17 +88,22 @@ export interface ExportReport {
 /** Builds and downloads the package for `def` (revision already bumped) and records the export. */
 export async function exportDeck(def: DeckDefinition): Promise<ExportReport> {
 	const exportedAt = Math.floor(Date.now() / 1000);
-	const [result, SQL] = await Promise.all([buildDeck(def, loadBooks, exportedAt), loadSql()]);
+	const [result, SQL] = await Promise.all([
+		buildDeck(def, loadBooks, exportedAt, loadCatechism),
+		loadSql()
+	]);
 	if (result.errors.length)
 		throw new Error('Some lines of the list have mistakes. Fix them first.');
-	if (result.build.notes.length === 0) throw new Error('The list has no passages yet.');
+	if (result.build.notes.length === 0) {
+		throw new Error(`The list has no ${def.catechism ? 'questions' : 'passages'} yet.`);
+	}
 	const bytes = writeApkg(result.build, SQL);
 	const name = fileName(def.name, 'apkg');
 	downloadFile(name, bytes as Uint8Array<ArrayBuffer>, 'application/octet-stream');
 
 	const previous = loadExport(def.id);
 	const next = {
-		labels: result.passages.map((p) => p.ref.label),
+		labels: result.labels,
 		guids: result.build.notes.map((n) => n.guid)
 	};
 	const deckName = result.build.deckName;

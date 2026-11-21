@@ -1,4 +1,9 @@
 export const changelog: { date: string; note: string }[] = [
+	{
+		date: '2026-11-20',
+		note: 'Added catechism decks: Westminster Shorter, Westminster Larger, the Baptist Catechism and the Heidelberg Catechism.'
+	},
+	{ date: '2026-11-20', note: 'Added this changelog.' },
 	{ date: '2026-11-20', note: 'Renamed the site to manna.cards.' },
 	{ date: '2026-11-20', note: 'Added a link to the Billy Graham decision card.' },
 	{ date: '2026-11-16', note: 'The tab title now follows the deck name when you rename it.' },
@@ -11,5 +16,7 @@ export const changelog: { date: string; note: string }[] = [
 ];
 
 export const planned: string[] = [
-	'Catechism decks (Westminster Shorter, Westminster Larger, Baptist Catechism, Heidelberg)'
+	'More catechisms (Heidelberg Short Catechism, Baptist Catechism for Kids), pending permission',
+	'Split long catechism answers into parts',
+	'Proof texts for the Westminster Shorter Catechism'
 ];

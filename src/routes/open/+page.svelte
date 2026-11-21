@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import { CATECHISMS } from '#lib/core/catechisms.ts';
 	import { decodeShare } from '#lib/core/deckdef.ts';
 	import { passageCount } from '#lib/core/editor.ts';
 	import type { DeckDefinition } from '#lib/core/model.ts';
@@ -33,6 +34,9 @@
 
 	function describe(def: DeckDefinition): string {
 		const n = passageCount(def);
+		if (def.catechism) {
+			return `${CATECHISMS[def.catechism].short}, ${n} ${n === 1 ? 'question' : 'questions'}`;
+		}
 		return `${TRANSLATIONS[def.translation].short}, ${n} ${n === 1 ? 'passage' : 'passages'}`;
 	}
 </script>

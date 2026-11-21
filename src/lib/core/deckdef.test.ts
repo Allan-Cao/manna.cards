@@ -32,6 +32,12 @@ describe('newDeck', () => {
 		});
 		expect(deck.id).toMatch(/^[a-z0-9]{8}$/);
 		expect(newDeck('x', 'bsb').id).not.toBe(deck.id);
+		expect(deck).not.toHaveProperty('catechism');
+	});
+
+	it('makes a catechism deck when given one', () => {
+		const deck = newDeck('Shorter', 'bsb', 'wsc');
+		expect(deck).toMatchObject({ v: 1, catechism: 'wsc', translation: 'bsb', breaks: {} });
 	});
 });
 
@@ -56,6 +62,15 @@ describe('cleanDeckName', () => {
 describe('parseDeckDefinition', () => {
 	it('accepts a valid definition and drops unknown properties', () => {
 		expect(parseDeckDefinition({ ...valid, extra: 1 })).toEqual(valid);
+	});
+
+	it('keeps a catechism and leaves it out of a scripture deck', () => {
+		expect(parseDeckDefinition({ ...valid, catechism: 'hc' })).toEqual({
+			...valid,
+			catechism: 'hc'
+		});
+		expect(parseDeckDefinition(valid)).not.toHaveProperty('catechism');
+		expect(parseDeckDefinition({ ...valid, catechism: undefined })).not.toHaveProperty('catechism');
 	});
 
 	it('cleans the name', () => {
@@ -84,7 +99,10 @@ describe('parseDeckDefinition', () => {
 		['non-string word', { ...valid, breaks: { 'JHN.3.16': [{ after: 1, word: 2 }] } }, /word/],
 		['negative revision', { ...valid, revision: -1 }, /revision/],
 		['fractional revision', { ...valid, revision: 1.5 }, /revision/],
-		['missing revision', { ...valid, revision: undefined }, /revision/]
+		['missing revision', { ...valid, revision: undefined }, /revision/],
+		['unknown catechism', { ...valid, catechism: 'abc' }, /catechism/],
+		['inherited catechism name', { ...valid, catechism: 'toString' }, /catechism/],
+		['null catechism', { ...valid, catechism: null }, /catechism/]
 	])('rejects %s', (_, value, message) => {
 		expect(() => parseDeckDefinition(value)).toThrow(message);
 	});
@@ -104,6 +122,11 @@ describe('share links', () => {
 		const text = await encodeShare(def);
 		expect(text).toMatch(/^[A-Za-z0-9_-]+$/);
 		expect(await decodeShare(text)).toEqual(def);
+	});
+
+	it('round-trips a catechism deck', async () => {
+		const def: DeckDefinition = { ...valid, catechism: 'wsc', list: '# God\n1-3\nQ5', breaks: {} };
+		expect(await decodeShare(await encodeShare(def))).toEqual(def);
 	});
 
 	it('keeps a typical 30-line list well under 2,000 characters', async () => {

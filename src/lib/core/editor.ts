@@ -8,6 +8,8 @@ import type { BuildResult } from './build.ts';
 import { firstVerseNumber, planCards, type PlannedCard } from './cards.ts';
 import type { Break, DeckDefinition, Line, Verse } from './model.ts';
 import { parseList } from './list.ts';
+import { CATECHISMS } from './catechisms.ts';
+import { parseQuestionList, type PlannedQuestionGroup } from './questions.ts';
 import { hintLines } from './render.ts';
 import { breakAfter, verseWords } from './units.ts';
 import { versificationFor } from './versification.ts';
@@ -125,8 +127,46 @@ export function insertedPassages(previous: string[] | null, next: string[]): str
 	return next.filter((label, i) => !old.has(label) && i < lastOld);
 }
 
-/** How many passages a deck's list holds, for deck lists. Invalid lines are not counted. */
+/** One catechism question as the editor shows it. */
+export interface PreviewQuestion {
+	reference: string;
+	question: string;
+	answer: Line[];
+	hint: Line[];
+	proofs: string[];
+}
+
+export type QuestionRow =
+	| { kind: 'heading'; key: string; heading: string }
+	| { kind: 'question'; key: string; card: PreviewQuestion };
+
+/** A catechism deck's questions as one flat list of headings and questions, like previewRows. */
+export function previewQuestions(groups: PlannedQuestionGroup[]): QuestionRow[] {
+	return groups.flatMap((group, g): QuestionRow[] => [
+		...(group.heading ? [{ kind: 'heading' as const, key: `#${g}`, heading: group.heading }] : []),
+		...group.questions.map(({ key, reference, question, answer }) => ({
+			kind: 'question' as const,
+			key,
+			card: {
+				reference,
+				question: question.q,
+				answer,
+				hint: hintLines(answer),
+				proofs: question.proofs
+			}
+		}))
+	]);
+}
+
+/**
+ * How many passages a deck's list holds, or questions for a catechism deck, for deck lists.
+ * Invalid lines are not counted.
+ */
 export function passageCount(def: DeckDefinition): number {
+	if (def.catechism) {
+		const { groups } = parseQuestionList(def.list, CATECHISMS[def.catechism].count);
+		return groups.reduce((n, g) => n + g.questions.length, 0);
+	}
 	const { groups } = parseList(def.list, versificationFor(def.translation));
 	return groups.reduce((n, g) => n + g.refs.length, 0);
 }
