@@ -315,6 +315,24 @@ export function mergeEsvText(...texts: EsvText[]): EsvText {
 	return { verses: sorted, covered: joinRanges(texts.flatMap((t) => t.covered)) };
 }
 
+/**
+ * Only the verses with these ids, and only their coverage, so that a verse dropped is fetched
+ * again when next needed. Keeps an in-memory cache within Crossway's 500 verses.
+ */
+export function trimEsvText(text: EsvText, keep: Iterable<number>): EsvText {
+	const ids = [...new Set(keep)].sort((a, b) => a - b);
+	const verses: EsvText['verses'] = {};
+	const runs: [number, number][] = [];
+	for (const id of ids) {
+		if (!text.covered.some(([a, b]) => a <= id && id <= b)) continue;
+		if (text.verses[id]) verses[id] = text.verses[id];
+		const last = runs.at(-1);
+		if (last && id === last[1] + 1) last[1] = id;
+		else runs.push([id, id]);
+	}
+	return { verses, covered: runs };
+}
+
 /** The verses no response in `text` has answered yet: what still has to be fetched. */
 export function esvMissing(verses: VerseRef[], text: EsvText): VerseRef[] {
 	return verses.filter((v) => {

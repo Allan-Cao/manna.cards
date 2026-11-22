@@ -12,6 +12,7 @@ import {
 	esvVersesNeeded,
 	mergeEsvText,
 	parseEsvResponse,
+	trimEsvText,
 	type EsvResponse,
 	type EsvText
 } from './esv.ts';
@@ -449,5 +450,35 @@ describe('mergeEsvText / esvMissing / esvBooks', () => {
 	it('still rejects a range past the end of the chapter', () => {
 		const books = esvBooks(a);
 		expect(() => passageFromBooks(ref('MAT', 17, 20, 17, 28), 'esv', books, V)).toThrow(/verse 28/);
+	});
+});
+
+describe('trimEsvText', () => {
+	const m = mergeEsvText(
+		parseEsvResponse(
+			response(
+				[[40017020, 40017023]],
+				['  [20] He spoke.\n\n  [22] They walked. [23] They slept.\n\n']
+			)
+		),
+		parseEsvResponse(response([[43003016, 43003016]], ['  [16] Light came.\n\n']))
+	);
+
+	it('keeps only the given verses and the coverage of them', () => {
+		const t = trimEsvText(m, [40017021, 40017022, 43003016, 43003017]);
+		expect(Object.keys(t.verses).map(Number)).toEqual([40017022, 43003016]);
+		// 21 stays covered (the ESV omits it); 17 was never covered.
+		expect(t.covered).toEqual([
+			[40017021, 40017022],
+			[43003016, 43003016]
+		]);
+		expect(esvMissing([r('MAT', 17, 20), r('MAT', 17, 21), r('MAT', 17, 23)], t)).toEqual([
+			r('MAT', 17, 20),
+			r('MAT', 17, 23)
+		]);
+	});
+
+	it('keeps nothing when given nothing', () => {
+		expect(trimEsvText(m, [])).toEqual({ verses: {}, covered: [] });
 	});
 });
