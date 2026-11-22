@@ -64,7 +64,13 @@ export function loadEsv(
 		if (missing.length) {
 			if (!wanted()) throw new Superseded();
 			// Nothing is kept when any request fails.
-			cache = mergeEsvText(cache, ...(await Promise.all(esvQuery(missing).map(fetchPassage))));
+			const fetched = mergeEsvText(
+				cache,
+				...(await Promise.all(esvQuery(missing).map(fetchPassage)))
+			);
+			// A verse the responses did not answer would otherwise show as one the ESV leaves out.
+			if (esvMissing(needed, fetched).length) throw new Error('Could not load some ESV verses');
+			cache = fetched;
 		}
 		for (const id of needed.map(esvId)) {
 			recent.delete(id);
