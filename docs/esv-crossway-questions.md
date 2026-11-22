@@ -9,13 +9,13 @@ ESV support is built but runs **only on a private, access-restricted test site**
 - **API key.** The key is held as a Cloudflare secret by a small server-side proxy (`/api/esv/passage`). It never reaches the browser, the git repository or the logs. The proxy fixes every API parameter, accepts only same-origin requests, and stores nothing.
 - **Requests.** Each deck build sends at most one batched `passage/text` query, for only the verses the browser doesn't already hold. Every query stays within 500 verses and half a book.
 - **Caching.** Text is cached in browser memory only, capped at 500 verses with least-recently-used eviction. It is never written to localStorage or IndexedDB and never cached on the server. Saved decks store references, not text.
-- **Per-deck limits.** An ESV deck may contain at most 500 verses, and at most half of any one book. Lead-in verses count toward both limits. Larger decks are blocked with an explanation.
+- **Per-deck limits.** An ESV deck may contain at most 500 verses, and at most half of any one book, rounded down. Verses the ESV numbers but omits, such as Matthew 17:21, still count. A deck over either limit is blocked before any text is fetched, with an explanation. Lead-in verses always come from the deck's own verses, so they never add to the count.
 - **Attribution.**
   - Every card shows the reference and "ESV", linked to https://www.esv.org.
   - Wherever the site shows ESV text, it also shows "ESV" and a link to www.esv.org.
   - The About page carries the full notice, starting "Scripture quotations marked 'ESV' …", followed by the Creative Commons, translation and 500-verse sentences.
   - The deck file's description carries the copyright notice returned by the API.
-- **Text.** Words, punctuation and capitalization are kept exactly as returned. Headings, footnotes and verse numbers are omitted, which the terms allow. Only line layout is adapted: poetry indentation and paragraph breaks.
+- **Text.** Words, punctuation and capitalization are kept exactly as returned. Headings, footnotes and verse numbers are omitted, which the terms allow. Only line layout is adapted: poetry indentation and paragraph breaks. Psalm superscriptions are kept, and the ESV's double brackets (“[[”) around disputed passages are kept as printed.
 
 ## Questions
 
@@ -24,7 +24,7 @@ ESV support is built but runs **only on a private, access-restricted test site**
 1. **Is a downloadable Anki deck allowed?** The deck file holds up to 500 verses, which the user keeps permanently in Anki on their own devices, possibly synced through AnkiWeb. Does this count as the user "downloading" up to 500 verses, which the terms allow? Or is it a storage or redistribution use that needs a formal license?
 2. **Does the 500-verse cap apply per deck, or per user in total?** A user can build several 500-verse decks, each one a separate download. We can't enforce a lifetime total, because there are no accounts. Is a per-deck limit enough?
 3. **Do single- and double-chapter books have to stay under half a book?** The terms exempt them for _queries_. For _downloads_, the copyright notice says "more than one half of any book" with no exemption. We currently cap every book at half, which means a user can't download all of Philemon, Jude, 2 John or 3 John. Is that the intended reading, or do these books get the same exemption for downloads?
-4. **Do lead-in verses count toward the limits?** Each card shows the previous verse as context, so a deck of John 3:16 also shows John 3:15. We count lead-in verses toward the 500-verse and half-book limits. Is that required, or do only the memorized verses count?
+4. **Is "half a book" counted correctly?** We count by the ESV's verse numbering, including verses it omits from the text such as Matthew 17:21, and round down. For example, Jude has 25 verses, so a deck may include at most 12. Is that the intended way to count?
 5. **Can users share deck files?** Users could share a downloaded deck with others, for example a church small group. Is that allowed as "redistribution" within the 500-verse and half-book rules? Should the site tell users not to share ESV decks?
 
 ### Changes to how the text is shown
@@ -32,7 +32,12 @@ ESV support is built but runs **only on a private, access-restricted test site**
 6. **Is splitting a verse across cards allowed?** Long verses are split across several cards, at points the user can adjust. Each card asks for one part and shows the earlier parts as context. No words are changed, but a card shows only part of a verse. Is that acceptable?
 7. **Is a first-letter hint allowed?** Cards have an optional hint that shows the first letter of each word, for example "F G s l t w" for "For God so loved the world". Is a derived aid like this allowed, or is it "changing the words"?
 8. **Is moving "Selah" onto its own line acceptable?** The API returns "Selah" at the end of a poetry line. To match the site's other translations, it may be shown on its own line, as many printed Bibles do. No words are added or removed.
-9. **Is it acceptable to omit psalm superscriptions?** A superscription such as "A Psalm of David…" is shown only on the card for verse 1. Would leaving it out entirely be acceptable, since it is closer to a heading?
+9. **Is our handling of superscriptions and notes acceptable?**
+   - Psalm superscriptions such as "A Psalm of David…" are kept, on the card for verse 1.
+   - Psalm 119's acrostic letters ("Aleph", "Beth"…) are treated as headings and omitted.
+   - Bracketed textual notes such as "[Some of the earliest manuscripts do not include 16:9–20.]" are treated as headings and omitted.
+
+   Is that acceptable?
 
 ### Attribution
 
