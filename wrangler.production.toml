@@ -1,0 +1,13 @@
+# Production (manna.cards): static files only, with NO Worker script and no ESV.
+# Deploy with `npm run deploy`. The preview Worker is wrangler.toml.
+
+name = "manna-cards"
+compatibility_date = "2026-11-01"
+workers_dev = false
+routes = [{ pattern = "manna.cards", custom_domain = true }]
+
+[assets]
+directory = "./build"
+# Unknown paths get build/404.html (the app shell, which shows "Not found").
+# Deck pages are rewritten to it with status 200 by static/_redirects.
+not_found_handling = "404-page"

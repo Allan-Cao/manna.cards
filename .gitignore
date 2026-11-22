@@ -8,6 +8,8 @@ node_modules
 # Env
 .env
 .env.*
+.dev.vars
+.dev.vars.*
 !.env.example
 !.env.test
 

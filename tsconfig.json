@@ -7,6 +7,7 @@
 	"include": [
 		"src",
 		"scripts",
+		"worker",
 		"tests/e2e",
 		"playwright.config.ts",
 		"vite.config.ts",

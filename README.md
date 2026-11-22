@@ -66,12 +66,19 @@ The note type id and its field list (`Reference, Context, Answer, Hint, Info`) m
 
 ## Deploying
 
-The site is static files. `wrangler.toml` serves `build/` from Cloudflare Workers as static assets, with no Worker script. Both commands build first:
+The site is static files served by Cloudflare Workers static assets. Both commands build first:
 
 ```bash
-npm run deploy:preview  # bible-memorization.allancao.workers.dev
-npm run deploy          # manna.cards (production)
+npm run deploy:preview  # wrangler.toml: bible-memorization.allancao.workers.dev, with the ESV proxy
+npm run deploy          # wrangler.production.toml: manna.cards, static only (no Worker script, no ESV)
 ```
+
+### ESV (preview only)
+
+The ESV (api.esv.org) is enabled only on the preview site. Crossway's terms forbid sharing or publishing the API key, so it stays server-side: `worker/index.ts` serves `GET /api/esv/passage?q=...` (the only route that runs the Worker; `run_worker_first = ["/api/*"]`), calls the API with fixed parameters, and stores nothing. The UI flag `__ESV_ENABLED__` is true only when built with `MANNA_ESV=1` (`deploy:preview`) and in `npm run dev` (set `MANNA_ESV=0` to turn it off).
+
+- Local dev: put `ESV=<key>` in `.env` (gitignored). A Vite middleware runs the same handler (`worker/esv.ts`).
+- Preview: `npm run esv:secret:preview` uploads `ESV` from `.env` as the `ESV_API_KEY` Worker secret.
 
 Any static host works if it serves `404.html` for unknown paths and `/deck/*` (see `static/_redirects`).
 

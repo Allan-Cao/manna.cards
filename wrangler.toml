@@ -1,22 +1,21 @@
-# Cloudflare Workers static assets: the site is files only, with no Worker script.
+# Preview Worker (bible-memorization.allancao.workers.dev): static assets plus the ESV proxy
+# in worker/index.ts. Production is wrangler.production.toml (static only, no ESV).
 #
-#   npm run deploy:preview  ->  bible-memorization.allancao.workers.dev
-#   npm run deploy          ->  manna.cards
+#   npm run deploy:preview  ->  this file
+#   npm run deploy          ->  wrangler.production.toml
 #
-# The top level is the preview Worker, so a bare `wrangler deploy` never touches prod.
+# The ESV API key is a Worker secret (`npm run esv:secret:preview`); never commit it.
 
 name = "bible-memorization"
+main = "worker/index.ts"
 compatibility_date = "2026-11-01"
 workers_dev = true
 
 [assets]
 directory = "./build"
+binding = "ASSETS"
+# Only /api/* runs the Worker; everything else is served straight from assets.
+run_worker_first = ["/api/*"]
 # Unknown paths get build/404.html (the app shell, which shows "Not found").
 # Deck pages are rewritten to it with status 200 by static/_redirects.
 not_found_handling = "404-page"
-
-# Production: a separate Worker served only on the custom domain.
-[env.production]
-name = "manna-cards"
-workers_dev = false
-routes = [{ pattern = "manna.cards", custom_domain = true }]
