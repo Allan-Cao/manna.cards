@@ -108,6 +108,13 @@ describe('writeApkg deck', () => {
 		expect(conf.curDeck).toBe(id);
 	});
 
+	it('writes the deck description, empty when the build has none', () => {
+		const id = ankiDeckId('k3f9x2ab');
+		expect(col(open(writeApkg(build(), SQL)).db).decks[id].desc).toBe('');
+		const described = build({ description: 'Text <b>notice</b>.' });
+		expect(col(open(writeApkg(described, SQL)).db).decks[id].desc).toBe('Text <b>notice</b>.');
+	});
+
 	it('keeps the deck id when the name changes', () => {
 		const a = col(open(writeApkg(build({ deckName: 'A' }), SQL)).db).decks;
 		const b = col(open(writeApkg(build({ deckName: 'B' }), SQL)).db).decks;

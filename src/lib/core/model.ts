@@ -153,4 +153,6 @@ export interface DeckBuild {
 	notes: NoteSpec[];
 	/** Unix time in seconds. Used as every note's modification time. */
 	exportedAt: number;
+	/** Deck description (HTML), shown on the deck's overview screen. Absent: none. */
+	description?: string;
 }

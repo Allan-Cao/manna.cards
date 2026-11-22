@@ -92,12 +92,16 @@ export async function buildDeck(
 	}
 
 	const versification = versificationFor(def.translation);
+	const { copyright, link } = TRANSLATIONS[def.translation];
+	const notice = copyright && {
+		description: link ? `${copyright}<br><a href="${link}">${link}</a>` : copyright
+	};
 	const { groups, errors } = parseList(def.list, versification);
 	const refs = groups.flatMap((g) => g.refs);
 	if (def.translation === 'esv') {
 		const limitErrors = checkEsvLimits(esvVersesNeeded(refs, versification), versification);
 		if (limitErrors.length) {
-			const build = { deckId: def.id, deckName, notes: [], exportedAt };
+			const build = { deckId: def.id, deckName, notes: [], exportedAt, ...notice };
 			return {
 				build,
 				groups,
@@ -115,7 +119,7 @@ export async function buildDeck(
 	const lengths = TRANSLATIONS[def.translation].remote ? versification : undefined;
 	const passages = refs.map((ref) => passageFromBooks(ref, def.translation, books, lengths));
 	const { notes, staleBreaks } = makeNotes(def, passages);
-	const build = { deckId: def.id, deckName, notes, exportedAt };
+	const build = { deckId: def.id, deckName, notes, exportedAt, ...notice };
 	const labels = passages.map((p) => p.ref.label);
 	return { build, groups, passages, questions: [], labels, errors, staleBreaks, limitErrors: [] };
 }

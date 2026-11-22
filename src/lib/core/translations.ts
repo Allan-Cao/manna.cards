@@ -15,6 +15,8 @@ export interface Translation {
 	remote?: true;
 	/** Notice the publisher requires wherever the text is shown, e.g. in the deck description. */
 	copyright?: string;
+	/** The publisher's site, linked from the translation name on every card and from the notice. */
+	link?: string;
 }
 
 export const TRANSLATIONS: Record<TranslationId, Translation> = {
@@ -26,6 +28,7 @@ export const TRANSLATIONS: Record<TranslationId, Translation> = {
 		short: 'ESV',
 		name: 'English Standard Version',
 		remote: true,
+		link: 'https://www.esv.org',
 		copyright:
 			'ESV® Bible (The Holy Bible, English Standard Version®), copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.'
 	}

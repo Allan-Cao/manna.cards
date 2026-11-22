@@ -361,6 +361,19 @@ describe('buildDeck: ESV', () => {
 		expect(result.build.notes[1].fields.Context).toContain('For the light came into the room,');
 	});
 
+	it('puts the copyright notice and a link to esv.org in the deck description', async () => {
+		const { build } = await buildDeck(
+			deck({ translation: 'esv', list: 'John 3:16' }),
+			esvLoader(),
+			1_800_000_000
+		);
+		expect(build.description).toBe(
+			'ESV® Bible (The Holy Bible, English Standard Version®), copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.<br><a href="https://www.esv.org">https://www.esv.org</a>'
+		);
+		const bsb = await buildDeck(deck({ list: 'John 3:16' }), fromDisk, 1_800_000_000);
+		expect('description' in bsb.build).toBe(false);
+	});
+
 	it('checks Crossway’s limits first and loads nothing when they are passed', async () => {
 		const calls: string[][] = [];
 		const result = await buildDeck(

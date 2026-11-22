@@ -321,6 +321,12 @@ describe('makeNotes: one note per unit', () => {
 		expect(note.tags).toEqual(['bm::abc::r7']);
 	});
 
+	it('links the ESV in Info to esv.org', () => {
+		const esv = { ...john3, translation: 'esv' as const };
+		const [note] = notes(deck({ translation: 'esv' }), [esv]);
+		expect(note.fields.Info).toBe('John 3:16-17 · <a href="https://www.esv.org">ESV</a>');
+	});
+
 	it('renders the answer with the verse number on the first unit only', () => {
 		const [, first, second] = field('Answer', deck(), [hebrews1]);
 		expect(first).toMatch(/^<div class="line"><span class="vn">3<\/span>The Son is/);

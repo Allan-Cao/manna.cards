@@ -118,7 +118,8 @@ export function makeNotes(
 	const notes: NoteSpec[] = [];
 	const staleBreaks: string[] = [];
 	const tags = [revisionTag(def)];
-	const short = TRANSLATIONS[def.translation].short;
+	const { short: name, link } = TRANSLATIONS[def.translation];
+	const short = link ? `<a href="${link}">${name}</a>` : name;
 
 	planCards(def.breaks, passages).forEach((verses, i) => {
 		for (const { verse, key, repeated, stale, cards } of verses) {

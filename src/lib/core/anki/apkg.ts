@@ -76,13 +76,13 @@ export function ankiDeckId(deckId: string): number {
 	return 2 ** 40 + (hash % 2 ** 40);
 }
 
-function deckJson(id: number, name: string, mod: number) {
+function deckJson(id: number, name: string, mod: number, desc = '') {
 	return {
 		id,
 		name,
 		mod,
 		usn: -1,
-		desc: '',
+		desc,
 		dyn: 0,
 		conf: DEFAULT_CONF_ID,
 		collapsed: false,
@@ -140,7 +140,7 @@ function writeCollection(db: Database, build: DeckBuild): void {
 	};
 	const decks = {
 		[DEFAULT_DECK_ID]: deckJson(DEFAULT_DECK_ID, 'Default', t),
-		[did]: deckJson(did, build.deckName, t)
+		[did]: deckJson(did, build.deckName, t, build.description)
 	};
 	db.run('INSERT INTO col VALUES (1, ?, ?, ?, 11, 0, 0, 0, ?, ?, ?, ?, ?)', [
 		t,
