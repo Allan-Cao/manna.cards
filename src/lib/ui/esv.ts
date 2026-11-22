@@ -15,6 +15,7 @@ import {
 	esvId,
 	esvMissing,
 	esvQuery,
+	esvQueryRanges,
 	esvVersesNeeded,
 	mergeEsvText,
 	parseEsvResponse,
@@ -50,7 +51,7 @@ async function fetchPassage(q: string): Promise<EsvText> {
 		throw new Error('Could not load the ESV text. Check your connection.');
 	}
 	if (!response.ok) throw new Error(failure(response.status));
-	return parseEsvResponse((await response.json()) as EsvResponse);
+	return parseEsvResponse((await response.json()) as EsvResponse, esvQueryRanges(q));
 }
 
 /** `wanted` says whether the build still needs the text once its turn comes. */

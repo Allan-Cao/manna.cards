@@ -93,7 +93,10 @@
 	});
 
 	const result = $derived(built?.result);
-	const groups = $derived(built ? previewDeck(built.def, built.result) : []);
+	// A deck over the ESV limits has no passages to show, only the limit errors.
+	const groups = $derived(
+		built && !built.result.limitErrors.length ? previewDeck(built.def, built.result) : []
+	);
 	/** One flat list, so a passage's panel stays when a heading moves it into another group. */
 	const rows = $derived(previewRows(groups));
 	const questionRows = $derived(built ? previewQuestions(built.result.questions) : []);
