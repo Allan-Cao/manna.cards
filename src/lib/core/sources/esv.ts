@@ -124,10 +124,13 @@ export function checkEsvLimits(verses: VerseRef[], versification: Versification)
 	return errors;
 }
 
+/** Longest `q` esvQuery writes, under the proxy's 2000-character limit (worker/esv.ts). */
+export const ESV_MAX_QUERY_LENGTH = 1900;
+
 /**
  * The `q` values that fetch these verses: contiguous runs within a chapter as "start-end" id
- * ranges, comma-separated (the API does not parse id ranges joined by ";"), at most 500 verses
- * per query. A deck within the limits needs a single query.
+ * ranges, a single verse as its id, comma-separated (the API does not parse ids joined by ";").
+ * At most 500 verses and ESV_MAX_QUERY_LENGTH characters per query.
  */
 export function esvQuery(verses: VerseRef[]): string[] {
 	const ids = [...new Set(verses.map(esvId))].sort((a, b) => a - b);
@@ -144,7 +147,14 @@ export function esvQuery(verses: VerseRef[]): string[] {
 		let start = first;
 		while (start <= end) {
 			const take = Math.min(end - start + 1, ESV_MAX_VERSES - count);
-			parts.push(`${start}-${start + take - 1}`);
+			const part = take === 1 ? `${start}` : `${start}-${start + take - 1}`;
+			if (parts.length && [...parts, part].join(',').length > ESV_MAX_QUERY_LENGTH) {
+				queries.push(parts.join(','));
+				parts = [];
+				count = 0;
+				continue;
+			}
+			parts.push(part);
 			count += take;
 			start += take;
 			if (count === ESV_MAX_VERSES) {
@@ -156,6 +166,14 @@ export function esvQuery(verses: VerseRef[]): string[] {
 	}
 	if (parts.length) queries.push(parts.join(','));
 	return queries;
+}
+
+/** The id ranges a `q` from esvQuery asks for: "19003001,43002001-43002002" -> [[...], [...]]. */
+export function esvQueryRanges(q: string): [number, number][] {
+	return q.split(',').map((part) => {
+		const [a, b = a] = part.split('-').map(Number);
+		return [a, b];
+	});
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -197,14 +215,28 @@ function rawLines(passage: string): RawLine[] {
 	return out;
 }
 
+/** Prose is indented 2, or 6 where it resumes inside a verse after a quoted poem (Hebrews 1:5). */
+function isProse(line: RawLine): boolean {
+	return line.lead % 4 === 2;
+}
+
+const MARKER_START = /^(\[\[)?\[\d+\]/;
+
 /**
- * A heading line: no verse marker, not a prose paragraph, and followed directly by an empty line
- * (poetry stanzas end with a line of spaces instead). Superscriptions, acrostic letters
- * ("Aleph"), and the textual notes before disputed passages look like this.
+ * A heading line: indented 0 or 4, no verse marker, followed directly by an empty line (poetry
+ * stanzas end with a line of spaces instead) and then by a line starting with a verse marker.
+ * Superscriptions, acrostic letters ("Aleph") and the textual notes before disputed passages look
+ * like this. Anything else is kept as text: dropping a heading by mistake is better than a verse.
  */
-function isHeading(line: RawLine): boolean {
+function isHeading(line: RawLine, next: RawLine | undefined): boolean {
 	MARKER.lastIndex = 0;
-	return line.lead !== 2 && line.beforeEmpty && !MARKER.test(line.text);
+	return (
+		(line.lead === 0 || line.lead === 4) &&
+		line.beforeEmpty &&
+		!MARKER.test(line.text) &&
+		!!next &&
+		MARKER_START.test(next.text)
+	);
 }
 
 function startsWithVerseOne(line: RawLine | undefined): boolean {
@@ -250,7 +282,7 @@ function parsePassage(passage: string, [startId]: [number, number], out: EsvText
 
 	const lines = rawLines(passage);
 	lines.forEach((line, i) => {
-		if (isHeading(line)) {
+		if (isHeading(line, lines[i + 1])) {
 			// A superscription stands before verse 1 of a psalm. Psalm 119's acrostic letters do too,
 			// but they are headings, not part of the text.
 			const target = current ? chapter + 1 : chapter;
@@ -259,9 +291,12 @@ function parsePassage(passage: string, [startId]: [number, number], out: EsvText
 			}
 			return;
 		}
-		const indent = line.lead === 2 ? 0 : indentOf(line.lead);
+		const indent = isProse(line) ? 0 : indentOf(line.lead);
 		// The start of the response says nothing about paragraphs unless it starts a chapter.
-		let paragraph = line === lines.find((l) => !isHeading(l)) ? start.verse === 1 : line.afterBlank;
+		let paragraph =
+			line === lines.find((l, j) => !isHeading(l, lines[j + 1]))
+				? start.verse === 1
+				: line.afterBlank;
 		let at = 0;
 		MARKER.lastIndex = 0;
 		for (let m = MARKER.exec(line.text); m; m = MARKER.exec(line.text)) {
@@ -281,14 +316,26 @@ function parsePassage(passage: string, [startId]: [number, number], out: EsvText
 	close();
 }
 
-/** The verses of one passage/text response. Verses the ESV leaves out are simply absent. */
-export function parseEsvResponse(response: EsvResponse): EsvText {
+/**
+ * The verses of one passage/text response. Verses the ESV leaves out are simply absent.
+ *
+ * Pass the ranges the query asked for (`esvQueryRanges(q)`): they are then what the response
+ * covers, and verses outside them are dropped. The ESV answers a request for an omitted verse
+ * alone (Matthew 17:21) with a neighbouring verse, so `parsed` may differ from the request, and
+ * no text that was not asked for is kept. Without them, `parsed` is taken as the coverage.
+ */
+export function parseEsvResponse(response: EsvResponse, requested?: [number, number][]): EsvText {
 	const verses: EsvText['verses'] = {};
 	response.passages.forEach((passage, i) => {
 		const range = response.parsed[i];
 		if (range) parsePassage(passage, range, verses);
 	});
-	return { verses, covered: joinRanges(response.parsed.map(([a, b]) => [a, b])) };
+	if (!requested) return { verses, covered: joinRanges(response.parsed) };
+	const covered = joinRanges(requested);
+	for (const id of Object.keys(verses).map(Number)) {
+		if (!covered.some(([a, b]) => a <= id && id <= b)) delete verses[id];
+	}
+	return { verses, covered };
 }
 
 function joinRanges(ranges: [number, number][]): [number, number][] {

@@ -7,7 +7,9 @@ import {
 	esvBooks,
 	esvId,
 	esvMissing,
+	ESV_MAX_QUERY_LENGTH,
 	esvQuery,
+	esvQueryRanges,
 	esvRef,
 	esvVersesNeeded,
 	mergeEsvText,
@@ -135,14 +137,30 @@ describe('checkEsvLimits', () => {
 describe('esvQuery', () => {
 	it('joins contiguous verses into per-chapter id ranges, in id order', () => {
 		const vs = [r('JHN', 2, 1), r('JHN', 1, 51), r('JHN', 2, 2), r('PSA', 3, 1), r('JHN', 2, 5)];
-		expect(esvQuery(vs)).toEqual([
-			'19003001-19003001,43001051-43001051,43002001-43002002,43002005-43002005'
+		expect(esvQuery(vs)).toEqual(['19003001,43001051,43002001-43002002,43002005']);
+	});
+
+	it('starts a new query before one would pass the length limit', () => {
+		// 300 scattered single verses: 9 characters each with the comma.
+		const vs = Array.from({ length: 300 }, (_, i) =>
+			r('PSA', 5 + Math.floor(i / 5), 1 + 2 * (i % 5))
+		);
+		const qs = esvQuery(vs);
+		expect(qs.length).toBe(2);
+		for (const q of qs) expect(q.length).toBeLessThanOrEqual(ESV_MAX_QUERY_LENGTH);
+		expect(qs.join(',').split(',')).toHaveLength(300);
+	});
+
+	it('reads a query back as id ranges', () => {
+		expect(esvQueryRanges('19003001,43002001-43002002')).toEqual([
+			[19003001, 19003001],
+			[43002001, 43002002]
 		]);
 	});
 
 	it('returns nothing for no verses, and drops duplicates', () => {
 		expect(esvQuery([])).toEqual([]);
-		expect(esvQuery([r('JUD', 1, 3), r('JUD', 1, 3)])).toEqual(['65001003-65001003']);
+		expect(esvQuery([r('JUD', 1, 3), r('JUD', 1, 3)])).toEqual(['65001003']);
 	});
 
 	it('keeps each query to 500 verses, splitting a long range', () => {
@@ -398,6 +416,65 @@ describe('parseEsvResponse', () => {
 			{ text: 'And one called out and said:', indent: 0 },
 			{ text: '“Sing, sing, sing to the Lord;', indent: 0, paragraph: true },
 			{ text: 'all the hills are glad!”', indent: 0 }
+		]);
+	});
+
+	it('keeps prose that resumes inside a verse after a quoted poem', () => {
+		const text = parseEsvResponse(
+			response(
+				[[58001005, 58001006]],
+				[
+					'  [5] For to which one did he ever say,\n\n' +
+						'    “You are my friend,\n        today I have found you”?\n    \n' +
+						'      Or again,\n\n' +
+						'    “I will be a lamp to him,\n        and he shall be a light to me”?\n    \n' +
+						'  [6] And again he says,\n\n'
+				]
+			)
+		);
+		expect(text.verses[58001005].lines.map((l) => [l.indent, l.text])).toEqual([
+			[0, 'For to which one did he ever say,'],
+			[0, '“You are my friend,'],
+			[1, 'today I have found you”?'],
+			[0, 'Or again,'],
+			[0, '“I will be a lamp to him,'],
+			[1, 'and he shall be a light to me”?']
+		]);
+		expect(text.verses[58001005].lines[3].paragraph).toBe(true);
+	});
+
+	it('keeps an unmarked one-line paragraph that is not followed by a verse marker', () => {
+		const text = parseEsvResponse(
+			response(
+				[[19003001, 19003001]],
+				['    [1] Sing to the hills,\n    \n    and to the sea.\n\n']
+			)
+		);
+		expect(text.verses[19003001].lines.map((l) => l.text)).toEqual([
+			'Sing to the hills,',
+			'and to the sea.'
+		]);
+	});
+
+	it('with the requested ranges: covers them all and keeps only verses inside them', () => {
+		// Asking for an omitted verse alone returns the verse before it instead.
+		const json = response([[40017020, 40017020]], ['  [20] He spoke to them.\n\n']);
+		expect(parseEsvResponse(json, [[40017021, 40017021]])).toEqual({
+			verses: {},
+			covered: [[40017021, 40017021]]
+		});
+		const both = response(
+			[
+				[40017020, 40017020],
+				[43003016, 43003017]
+			],
+			['  [20] He spoke to them.\n\n', '  [16] Light came. [17] It stayed.\n\n']
+		);
+		const text = parseEsvResponse(both, esvQueryRanges('40017021,43003017'));
+		expect(Object.keys(text.verses).map(Number)).toEqual([43003017]);
+		expect(text.covered).toEqual([
+			[40017021, 40017021],
+			[43003017, 43003017]
 		]);
 	});
 
