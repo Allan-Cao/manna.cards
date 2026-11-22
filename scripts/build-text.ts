@@ -440,7 +440,7 @@ export function versificationOf(books: BookText[]): Versification {
 // I/O
 
 /** eBible.org USFM downloads. Licence (from each details page): Public Domain. */
-export const SOURCES: Record<TranslationId, string> = {
+export const SOURCES: Record<Exclude<TranslationId, 'esv'>, string> = {
 	bsb: 'https://eBible.org/Scriptures/engbsb_usfm.zip',
 	// The Protestant edition, which renders the divine name "LORD" (eng-web says "Yahweh").
 	web: 'https://eBible.org/Scriptures/engwebp_usfm.zip',

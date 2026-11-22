@@ -6,8 +6,10 @@
 import type { TranslationId, Versification } from './model.ts';
 import data from './versification.json';
 
-const all: Record<TranslationId, Versification> = data;
+const all: Partial<Record<TranslationId, Versification>> = data;
 
 export function versificationFor(translation: TranslationId): Versification {
-	return all[translation];
+	const v = all[translation];
+	if (!v) throw new Error(`No versification for ${translation}`);
+	return v;
 }
