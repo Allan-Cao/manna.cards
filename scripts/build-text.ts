@@ -456,7 +456,14 @@ async function main(): Promise<void> {
 	const refresh = process.argv.includes('--refresh');
 	fs.mkdirSync(cache, { recursive: true });
 
-	const versification: Partial<Record<TranslationId, Versification>> = {};
+	// Start from the existing file so entries this script doesn't build (the ESV, from
+	// scripts/build-esv-versification.ts) are kept.
+	const versificationFile = path.join(root, 'src', 'lib', 'core', 'versification.json');
+	const versification: Partial<Record<TranslationId, Versification>> = fs.existsSync(
+		versificationFile
+	)
+		? JSON.parse(fs.readFileSync(versificationFile, 'utf8'))
+		: {};
 	for (const [translation, url] of Object.entries(SOURCES) as [TranslationId, string][]) {
 		const zipPath = path.join(cache, path.basename(url));
 		if (refresh || !fs.existsSync(zipPath)) {
@@ -493,7 +500,7 @@ async function main(): Promise<void> {
 	}
 
 	const prettier = await import('prettier');
-	const file = path.join(root, 'src', 'lib', 'core', 'versification.json');
+	const file = versificationFile;
 	const options = (await prettier.resolveConfig(file)) ?? {};
 	const json = await prettier.format(JSON.stringify(versification), { ...options, filepath: file });
 	fs.writeFileSync(file, json);
