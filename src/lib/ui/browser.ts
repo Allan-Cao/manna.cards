@@ -1,6 +1,6 @@
 /**
  * The browser side of the core: fetching the Bible and catechism texts, writing the .apkg,
- * saving files.
+ * saving files. The ESV is fetched verse by verse instead (esv.ts).
  */
 import { asset } from '$app/paths';
 import type { AssetPath } from '$app/types';
@@ -11,7 +11,9 @@ import { cleanDeckName } from '#lib/core/deckdef.ts';
 import { cleanupSearch, diffExport } from '#lib/core/diff.ts';
 import { insertedPassages } from '#lib/core/editor.ts';
 import type { BookText, DeckDefinition } from '#lib/core/model.ts';
+import { TRANSLATIONS } from '#lib/core/translations.ts';
 import type { SqlJsStatic } from 'sql.js';
+import { loadEsv } from './esv.ts';
 import { loadExport, saveExport } from './storage.ts';
 
 const books = new Map<string, Promise<BookText>>();
@@ -30,10 +32,23 @@ function loadBook(path: string): Promise<BookText> {
 	return book;
 }
 
-export const loadBooks: LoadBooks = async (translation, ids) =>
-	Object.fromEntries(
-		await Promise.all(ids.map(async (id) => [id, await loadBook(`text/${translation}/${id}.json`)]))
-	);
+/** `wanted` says whether the build is still needed, so that a replaced one fetches no ESV text. */
+export function booksLoader(wanted: () => boolean = () => true): LoadBooks {
+	return async (translation, ids, refs) => {
+		if (TRANSLATIONS[translation].remote) {
+			if (!__ESV_ENABLED__)
+				throw new Error(`The ${TRANSLATIONS[translation].short} is not available here.`);
+			return loadEsv(refs, wanted);
+		}
+		return Object.fromEntries(
+			await Promise.all(
+				ids.map(async (id) => [id, await loadBook(`text/${translation}/${id}.json`)])
+			)
+		);
+	};
+}
+
+export const loadBooks: LoadBooks = booksLoader();
 
 const catechisms = new Map<CatechismId, Promise<CatechismText>>();
 
@@ -94,6 +109,7 @@ export async function exportDeck(def: DeckDefinition): Promise<ExportReport> {
 	]);
 	if (result.errors.length)
 		throw new Error('Some lines of the list have mistakes. Fix them first.');
+	if (result.limitErrors.length) throw new Error(result.limitErrors.join(' '));
 	if (result.build.notes.length === 0) {
 		throw new Error(`The list has no ${def.catechism ? 'questions' : 'passages'} yet.`);
 	}
