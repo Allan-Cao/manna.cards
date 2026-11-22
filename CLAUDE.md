@@ -17,7 +17,9 @@ Scripts in `scripts/` run with `npx tsx scripts/<name>.ts`.
 
 adapter-static builds into `build/` with the app shell as `404.html`. Client-only routes (`/deck/[id]`) are served from it: `static/_redirects` rewrites `/deck/*` to it with status 200, and any other unknown path gets it with status 404.
 
-Hosting is Cloudflare Workers static assets (`wrangler.toml`, no Worker script, so it costs nothing). `static/_headers` caches the hashed files under `/_app/immutable/`. `npm run deploy` ships prod (the `manna-cards` Worker on manna.cards); `npm run deploy:preview` ships the top-level `bible-memorization` Worker on workers.dev.
+Hosting is Cloudflare Workers static assets. `static/_headers` caches the hashed files under `/_app/immutable/`. `npm run deploy` ships prod (`wrangler.production.toml`: the `manna-cards` Worker on manna.cards, static files only, no Worker script). `wrangler.toml` is the `bible-memorization` Worker (assets plus the ESV proxy in `worker/`): `npm run deploy:beta` ships the open beta (production build, no ESV) to bible-memorization.allancao.workers.dev; `npm run deploy:esv` uploads an ESV-enabled version to the `esv-` preview URL without deploying it.
+
+ESV is preview-only until Crossway confirms the open questions in `docs/esv-crossway-questions.md`. Never deploy ESV to prod or the beta, never expose the API key to the client, and never commit ESV text (tests use synthetic text).
 
 ## Conventions
 

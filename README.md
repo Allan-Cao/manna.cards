@@ -69,16 +69,17 @@ The note type id and its field list (`Reference, Context, Answer, Hint, Info`) m
 The site is static files served by Cloudflare Workers static assets. Both commands build first:
 
 ```bash
-npm run deploy:preview  # wrangler.toml: bible-memorization.allancao.workers.dev, with the ESV proxy
-npm run deploy          # wrangler.production.toml: manna.cards, static only (no Worker script, no ESV)
+npm run deploy:beta  # wrangler.toml: bible-memorization.allancao.workers.dev, open beta (production build, no ESV)
+npm run deploy:esv   # wrangler.toml: esv-bible-memorization.allancao.workers.dev, a preview URL with ESV
+npm run deploy       # wrangler.production.toml: manna.cards, static only (no Worker script, no ESV)
 ```
 
 ### ESV (preview only)
 
-The ESV (api.esv.org) is enabled only on the preview site. Crossway's terms forbid sharing or publishing the API key, so it stays server-side: `worker/index.ts` serves `GET /api/esv/passage?q=...` (the only route that runs the Worker; `run_worker_first = ["/api/*"]`), calls the API with fixed parameters, and stores nothing. The UI flag `__ESV_ENABLED__` is true only when built with `MANNA_ESV=1` (`deploy:preview`) and in `npm run dev` (set `MANNA_ESV=0` to turn it off).
+The ESV (api.esv.org) is enabled only on the `esv-` preview URL, which is behind Cloudflare Access. `deploy:esv` runs `wrangler versions upload --preview-alias esv`, so it never changes the live beta deployment. Crossway's terms forbid sharing or publishing the API key, so it stays server-side: `worker/index.ts` serves `GET /api/esv/passage?q=...` (the only route that runs the Worker; `run_worker_first = ["/api/*"]`), calls the API with fixed parameters, and stores nothing. The UI flag `__ESV_ENABLED__` is true only when built with `MANNA_ESV=1` (`deploy:esv`) and in `npm run dev` (set `MANNA_ESV=0` to turn it off).
 
 - Local dev: put `ESV=<key>` in `.env` (gitignored). A Vite middleware runs the same handler (`worker/esv.ts`).
-- Preview: `npm run esv:secret:preview` uploads `ESV` from `.env` as the `ESV_API_KEY` Worker secret.
+- Preview: `npm run esv:secret` uploads `ESV` from `.env` as the `ESV_API_KEY` Worker secret with `wrangler versions secret put` (never `wrangler secret put`, which would deploy the latest version, possibly the ESV build, to the beta). Secrets are shared by all versions, so `worker/index.ts` serves the proxy only on `*-bible-memorization.allancao.workers.dev` preview hosts (and localhost).
 
 Any static host works if it serves `404.html` for unknown paths and `/deck/*` (see `static/_redirects`).
 

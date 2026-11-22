@@ -1,15 +1,20 @@
-# Preview Worker (bible-memorization.allancao.workers.dev): static assets plus the ESV proxy
-# in worker/index.ts. Production is wrangler.production.toml (static only, no ESV).
+# bible-memorization Worker: static assets plus the ESV proxy in worker/index.ts.
+# Production is wrangler.production.toml (static only, no ESV).
 #
-#   npm run deploy:preview  ->  this file
-#   npm run deploy          ->  wrangler.production.toml
+#   npm run deploy:beta  ->  bible-memorization.allancao.workers.dev (open beta, production build, no ESV)
+#   npm run deploy:esv   ->  esv-bible-memorization.allancao.workers.dev (preview URL, uploads a
+#                            version without deploying it; behind Cloudflare Access)
+#   npm run deploy       ->  wrangler.production.toml (manna.cards)
 #
-# The ESV API key is a Worker secret (`npm run esv:secret:preview`); never commit it.
+# The ESV API key is a Worker secret shared by every version (`npm run esv:secret`, which uses
+# `wrangler versions secret put` so nothing is deployed). The Worker answers /api/esv only on
+# preview-URL hosts, so the open beta never exposes it. Never commit the key.
 
 name = "bible-memorization"
 main = "worker/index.ts"
 compatibility_date = "2026-11-01"
 workers_dev = true
+preview_urls = true
 
 [assets]
 directory = "./build"
