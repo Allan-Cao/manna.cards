@@ -115,10 +115,38 @@ describe('worker', () => {
 		expect(await res.text()).toBe('asset:/deck/abc');
 	});
 
+	const PREVIEW = 'https://esv-bible-memorization.allancao.workers.dev';
+	const atHost = (origin: string) =>
+		new Request(`${origin}/api/esv/passage?q=John+1:1`, { headers: sameOrigin });
+
+	it('serves the ESV route only on preview URLs and local dev', async () => {
+		for (const origin of [
+			PREVIEW,
+			'https://1a2b3c4d-bible-memorization.allancao.workers.dev',
+			'http://localhost:8787'
+		]) {
+			const res = await worker.fetch(atHost(origin), { ASSETS: assets });
+			expect(res.status, origin).toBe(503); // reached the handler (no key configured)
+		}
+	});
+
+	it('hides the ESV route on the open beta and any other host', async () => {
+		for (const origin of [
+			'https://bible-memorization.allancao.workers.dev',
+			'https://manna.cards',
+			'https://esv-bible-memorization.allancao.workers.dev.evil.example',
+			'https://x-bible-memorization.someoneelse.workers.dev'
+		]) {
+			const res = await worker.fetch(atHost(origin), { ASSETS: assets, ESV_API_KEY: KEY });
+			expect(res.status, origin).toBe(404);
+			expect(await res.text()).not.toContain(KEY);
+		}
+	});
+
 	it('serves the ESV route and 404s other /api paths', async () => {
-		const res = await worker.fetch(req('John 1:1'), { ASSETS: assets });
+		const res = await worker.fetch(atHost(PREVIEW), { ASSETS: assets });
 		expect(res.status).toBe(503);
-		const other = await worker.fetch(new Request(`${ORIGIN}/api/other`), { ASSETS: assets });
+		const other = await worker.fetch(new Request(`${PREVIEW}/api/other`), { ASSETS: assets });
 		expect(other.status).toBe(404);
 	});
 });
