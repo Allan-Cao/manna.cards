@@ -2,7 +2,15 @@
  * Passages from the committed Bible text (static/text/{translation}/{BOOK}.json).
  * Pure: the caller fetches the BookText files (see booksNeeded) and passes them in.
  */
-import type { BookId, BookText, Passage, Reference, TranslationId, Verse } from '../model.ts';
+import type {
+	BookId,
+	BookText,
+	Passage,
+	Reference,
+	TranslationId,
+	Verse,
+	Versification
+} from '../model.ts';
 
 /** The books a set of references needs, each once, in order of first use. */
 export function booksNeeded(refs: Reference[]): BookId[] {
@@ -15,11 +23,15 @@ export function booksNeeded(refs: Reference[]): BookId[] {
  * Every verse covered by the reference's ranges, in order. A verse number inside the chapter
  * that the stored text lacks (BSB Matthew 17:21) is returned with `omitted: true` and no lines.
  * A chapter runs to its highest stored verse, which is what versification.json records.
+ *
+ * Text fetched verse by verse (the ESV, sources/esv.ts) holds only some verses of a chapter, so
+ * it comes with its `versification`, which then gives the chapter lengths instead.
  */
 export function passageFromBooks(
 	ref: Reference,
 	translation: TranslationId,
-	books: Record<BookId, BookText>
+	books: Record<BookId, BookText>,
+	versification?: Versification
 ): Passage {
 	const verses: Verse[] = [];
 	for (const { start, end } of ref.ranges) {
@@ -31,9 +43,9 @@ export function passageFromBooks(
 			);
 		}
 		for (let c = start.chapter; c <= end.chapter; c++) {
-			const stored = book.chapters[c - 1];
-			if (!stored?.length) throw new Error(`${ref.label}: ${start.book} has no chapter ${c}`);
-			const last = stored[stored.length - 1].v;
+			const stored = book.chapters[c - 1] ?? [];
+			const last = versification ? versification[start.book]?.[c - 1] : stored.at(-1)?.v;
+			if (!last) throw new Error(`${ref.label}: ${start.book} has no chapter ${c}`);
 			const from = c === start.chapter ? start.verse : 1;
 			const to = c === end.chapter ? end.verse : last;
 			if (to > last) {
