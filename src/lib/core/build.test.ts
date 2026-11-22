@@ -9,6 +9,8 @@ import { buildDeck, type LoadBooks, type LoadCatechism } from './build.ts';
 import { CATECHISMS, type CatechismId } from './catechisms.ts';
 import type { BookId, BookText, DeckDefinition, NoteSpec, TranslationId } from './model.ts';
 import { FIXTURE } from './questions.fixture.ts';
+import { esvBooks, esvQuery, esvVersesNeeded, parseEsvResponse } from './sources/esv.ts';
+import { versificationFor } from './versification.ts';
 import { verseKey } from './refs.ts';
 import { splitUnits } from './units.ts';
 
@@ -79,9 +81,9 @@ describe('buildDeck', () => {
 
 	it('loads each needed book once, in the deck translation', async () => {
 		const calls: [string, BookId[]][] = [];
-		const spy: LoadBooks = (translation, ids) => {
+		const spy: LoadBooks = (translation, ids, refs) => {
 			calls.push([translation, ids]);
-			return fromDisk(translation, ids);
+			return fromDisk(translation, ids, refs);
 		};
 		const result = await buildDeck(
 			deck({ translation: 'kjv', list: 'John 3:16\nPsalm 23:1\nJohn 1:1' }),
@@ -114,6 +116,16 @@ describe('buildDeck', () => {
 		const copy = structuredClone(def);
 		await buildDeck(def, fromDisk, 1_800_000_000);
 		expect(def).toEqual(copy);
+	});
+
+	it('passes the references to the loader', async () => {
+		let seen: string[] = [];
+		const spy: LoadBooks = (translation, ids, refs) => {
+			seen = refs.map((r) => r.label);
+			return fromDisk(translation, ids, refs);
+		};
+		await buildDeck(deck({ list: 'John 3:16\n# H\nPsalm 23:1' }), spy, 1_800_000_000);
+		expect(seen).toEqual(['John 3:16', 'Psalm 23:1']);
 	});
 
 	it('builds an empty deck from an empty list', async () => {
@@ -302,5 +314,76 @@ describe.each(['bsb', 'web', 'kjv'] as TranslationId[])('golden cards: %s', (tra
 		await expect(
 			`${passages[0].ref.label} (${translation.toUpperCase()})\n\n${body}\n`
 		).toMatchFileSnapshot(`../../../tests/golden/cards/${translation}/${file}.txt`);
+	});
+});
+
+describe('buildDeck: ESV', () => {
+	// Made-up words in the shape of the ESV API's output: the ESV text is copyrighted.
+	const esvLoader =
+		(calls: string[][] = []): LoadBooks =>
+		async (translation, _ids, refs) => {
+			expect(translation).toBe('esv');
+			const needed = esvVersesNeeded(refs, versificationFor('esv'));
+			calls.push(esvQuery(needed));
+			const text = parseEsvResponse({
+				query: '',
+				canonical: '',
+				parsed: [
+					[43003016, 43003017],
+					[40017020, 40017021]
+				],
+				passage_meta: [],
+				passages: [
+					'  [16] For the light came into the room, [17] and the room was bright.\n\n',
+					'  [20] He spoke to them.\n\n'
+				]
+			});
+			return esvBooks(text);
+		};
+
+	it('builds from fetched verses, with an omitted verse marked', async () => {
+		const calls: string[][] = [];
+		const result = await buildDeck(
+			deck({ translation: 'esv', list: 'John 3:16-17\nMatthew 17:20-21' }),
+			esvLoader(calls),
+			1_800_000_000
+		);
+		expect(calls).toEqual([['40017020-40017021,43003016-43003017']]);
+		expect(result.errors).toEqual([]);
+		expect(result.limitErrors).toEqual([]);
+		expect(result.passages[1].verses.map((v) => v.omitted ?? false)).toEqual([false, true]);
+		expect(result.build.notes.map((n) => n.fields.Reference)).toEqual([
+			'John 3:16',
+			'John 3:17',
+			'Matthew 17:20'
+		]);
+		expect(result.build.notes[1].fields.Answer).toContain('and the room was bright.');
+		expect(result.build.notes[1].fields.Context).toContain('For the light came into the room,');
+	});
+
+	it('checks Crossway’s limits first and loads nothing when they are passed', async () => {
+		const calls: string[][] = [];
+		const result = await buildDeck(
+			deck({ translation: 'esv', list: 'Jude 1-14\nJohn 3:16' }),
+			esvLoader(calls),
+			1_800_000_000
+		);
+		expect(calls).toEqual([]);
+		expect(result.limitErrors).toEqual([
+			'ESV decks may include at most half of a book: Jude has 25 verses, so at most 12; this deck shows 14.'
+		]);
+		expect(result.errors).toEqual([]);
+		expect(result.groups.map((g) => g.refs.map((r) => r.label))).toEqual([
+			['Jude 1-14', 'John 3:16']
+		]);
+		expect(result.passages).toEqual([]);
+		expect(result.labels).toEqual([]);
+		expect(result.build.notes).toEqual([]);
+	});
+
+	it('reports no limit errors for other translations', async () => {
+		const result = await buildDeck(deck({ list: 'Jude 1-25' }), fromDisk, 1_800_000_000);
+		expect(result.limitErrors).toEqual([]);
+		expect(result.passages[0].verses).toHaveLength(25);
 	});
 });

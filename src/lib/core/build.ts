@@ -17,6 +17,7 @@ import type {
 	Group,
 	ListError,
 	Passage,
+	Reference,
 	TranslationId
 } from './model.ts';
 import {
@@ -25,12 +26,19 @@ import {
 	planQuestions,
 	type PlannedQuestionGroup
 } from './questions.ts';
+import { checkEsvLimits, esvVersesNeeded } from './sources/esv.ts';
 import { booksNeeded, passageFromBooks } from './sources/static.ts';
+import { TRANSLATIONS } from './translations.ts';
 import { versificationFor } from './versification.ts';
 
+/**
+ * Loads the text a deck needs. A bundled translation is loaded by whole book (`bookIds`); a remote
+ * one (the ESV) by verse, from `refs` (see sources/esv.ts), and may hold only those verses.
+ */
 export type LoadBooks = (
 	translation: TranslationId,
-	bookIds: BookId[]
+	bookIds: BookId[],
+	refs: Reference[]
 ) => Promise<Record<BookId, BookText>>;
 
 export type LoadCatechism = (id: CatechismId) => Promise<CatechismText>;
@@ -52,6 +60,11 @@ export interface BuildResult {
 	errors: ListError[];
 	/** Verse keys whose saved breaks no longer match the text, so automatic breaks were used. */
 	staleBreaks: string[];
+	/**
+	 * Errors about the whole deck rather than a line: Crossway's ESV limits (500 verses, half a
+	 * book). When there are any, no text was loaded and the build has no notes.
+	 */
+	limitErrors: string[];
 }
 
 export async function buildDeck(
@@ -73,16 +86,36 @@ export async function buildDeck(
 			questions,
 			labels: notes.map((n) => n.fields.Reference),
 			errors,
-			staleBreaks: []
+			staleBreaks: [],
+			limitErrors: []
 		};
 	}
 
-	const { groups, errors } = parseList(def.list, versificationFor(def.translation));
+	const versification = versificationFor(def.translation);
+	const { groups, errors } = parseList(def.list, versification);
 	const refs = groups.flatMap((g) => g.refs);
-	const books = await loadBooks(def.translation, booksNeeded(refs));
-	const passages = refs.map((ref) => passageFromBooks(ref, def.translation, books));
+	if (def.translation === 'esv') {
+		const limitErrors = checkEsvLimits(esvVersesNeeded(refs, versification), versification);
+		if (limitErrors.length) {
+			const build = { deckId: def.id, deckName, notes: [], exportedAt };
+			return {
+				build,
+				groups,
+				passages: [],
+				questions: [],
+				labels: [],
+				errors,
+				staleBreaks: [],
+				limitErrors
+			};
+		}
+	}
+	const books = await loadBooks(def.translation, booksNeeded(refs), refs);
+	// Remote text holds only the verses fetched, so chapter lengths come from the versification.
+	const lengths = TRANSLATIONS[def.translation].remote ? versification : undefined;
+	const passages = refs.map((ref) => passageFromBooks(ref, def.translation, books, lengths));
 	const { notes, staleBreaks } = makeNotes(def, passages);
 	const build = { deckId: def.id, deckName, notes, exportedAt };
 	const labels = passages.map((p) => p.ref.label);
-	return { build, groups, passages, questions: [], labels, errors, staleBreaks };
+	return { build, groups, passages, questions: [], labels, errors, staleBreaks, limitErrors: [] };
 }
