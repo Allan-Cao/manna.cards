@@ -6,10 +6,11 @@
 
 	let { value = $bindable(), id }: { value: TranslationId; id: string } = $props();
 
-	const items = Object.values(TRANSLATIONS).map((t) => ({
-		value: t.id,
-		label: `${t.name} (${t.short})`
-	}));
+	const labelOf = (id: TranslationId) => `${TRANSLATIONS[id].name} (${TRANSLATIONS[id].short})`;
+	// The ESV is offered only where it is enabled (the preview site).
+	const items = Object.values(TRANSLATIONS)
+		.filter((t) => !t.remote || __ESV_ENABLED__)
+		.map((t) => ({ value: t.id, label: labelOf(t.id) }));
 </script>
 
 <Select.Root
@@ -19,7 +20,8 @@
 	allowDeselect={false}
 >
 	<Select.Trigger {id} class="{field} flex items-center justify-between gap-2 text-left">
-		<span class="truncate">{items.find((item) => item.value === value)?.label}</span>
+		<!-- A stored deck may be in a translation not offered here. -->
+		<span class="truncate">{labelOf(value)}</span>
 		<span aria-hidden="true" class="text-stone-500">▾</span>
 	</Select.Trigger>
 	<Select.Portal>

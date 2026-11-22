@@ -10,14 +10,14 @@
 	import type { Break, DeckDefinition, TranslationId } from '#lib/core/model.ts';
 	import { verseLabel } from '#lib/core/refs.ts';
 	import { TRANSLATIONS } from '#lib/core/translations.ts';
-	import { exportDeck, loadBooks, loadCatechism, type ExportReport } from './browser.ts';
+	import { booksLoader, exportDeck, loadCatechism, type ExportReport } from './browser.ts';
 	import ConfirmDialog from './ConfirmDialog.svelte';
 	import ExportDialog from './ExportDialog.svelte';
 	import PassagePanel from './PassagePanel.svelte';
 	import QuestionPreview from './QuestionPreview.svelte';
 	import ShareDialog from './ShareDialog.svelte';
 	import { deckStored, loadDeck, loadExport, saveDeck, watchDeck } from './storage.ts';
-	import { button, field, label, muted, notice, primary } from './styles.ts';
+	import { button, field, label, link, muted, notice, primary } from './styles.ts';
 	import TranslationSelect from './TranslationSelect.svelte';
 
 	let { initial }: { initial: DeckDefinition } = $props();
@@ -45,11 +45,13 @@
 		})
 	);
 
-	// The list is rebuilt a moment after typing stops; breaks and translation apply at once.
+	// The list is rebuilt a moment after typing stops; breaks and translation apply at once. A
+	// remote translation (the ESV) waits longer, since each new passage is a request.
 	let list = $state(def.list);
 	$effect(() => {
 		const text = def.list;
-		const timer = setTimeout(() => (list = text), 300);
+		const wait = TRANSLATIONS[def.translation].remote ? 800 : 300;
+		const timer = setTimeout(() => (list = text), wait);
 		return () => clearTimeout(timer);
 	});
 
@@ -71,7 +73,12 @@
 			revision: 0
 		};
 		let current = true;
-		buildDeck(d, loadBooks, 0, loadCatechism).then(
+		buildDeck(
+			d,
+			booksLoader(() => current),
+			0,
+			loadCatechism
+		).then(
 			(result) => {
 				if (!current) return;
 				// A passage added on its own starts open, wherever it is in the list.
@@ -99,14 +106,21 @@
 			return verseLabel({ book, chapter: Number(chapter), verse: Number(verse) });
 		})
 	);
+	const translation = $derived(TRANSLATIONS[def.translation]);
+	/** A stored deck in a translation this site does not offer (the ESV off the preview site). */
+	const unavailable = $derived(!catechism && !!translation.remote && !__ESV_ENABLED__);
 	const blocked = $derived(
-		!result
-			? 'The cards are still being made.'
-			: result.errors.length
-				? 'Fix the marked lines in the list to export.'
-				: result.build.notes.length === 0
-					? `Add a ${catechism ? 'question' : 'passage'} to the list to export.`
-					: ''
+		unavailable
+			? `The ${translation.short} is not available on this site.`
+			: !result
+				? 'The cards are still being made.'
+				: result.errors.length
+					? 'Fix the marked lines in the list to export.'
+					: result.limitErrors.length
+						? 'Shorten the list to export.'
+						: result.build.notes.length === 0
+							? `Add a ${catechism ? 'question' : 'passage'} to the list to export.`
+							: ''
 	);
 	const renamed = $derived(exported && cleanDeckName(def.name) !== exported.name);
 
@@ -263,8 +277,26 @@
 					</p>
 				{/if}
 			</div>
-			{#if buildError}
+			{#if unavailable}
+				<p role="alert" class="{notice} mt-3">
+					This deck uses the {translation.name} ({translation.short}), which is not available on
+					this site. Choose another translation to see and export its cards.
+				</p>
+			{:else if buildError}
 				<p role="alert" class="mt-3 text-red-700 dark:text-red-400">{buildError}</p>
+			{/if}
+			{#if result?.limitErrors.length}
+				<ul role="alert" class="mt-3 space-y-1 text-red-700 dark:text-red-400">
+					{#each result.limitErrors as error (error)}
+						<li>{error}</li>
+					{/each}
+				</ul>
+			{/if}
+			{#if !catechism && def.translation === 'esv' && !unavailable}
+				<p class="mt-3 text-sm {muted}">
+					Scripture quotations are from the {TRANSLATIONS.esv.copyright}
+					<a class={link} href="https://www.esv.org">www.esv.org</a>
+				</p>
 			{/if}
 			{#if stale.length}
 				<p class="{notice} mt-3">

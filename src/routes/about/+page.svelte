@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ESV_COPYRIGHT_PAGE } from '#lib/core/translations.ts';
 	import { link, muted } from '#lib/ui/styles.ts';
 </script>
 
@@ -29,7 +30,12 @@
 	<section>
 		<h2 class="text-xl font-semibold">Bible text</h2>
 		<p class="mt-3 {muted}">
-			All three translations come from <a class={link} href="https://ebible.org/">eBible.org</a>.
+			{#if __ESV_ENABLED__}
+				The BSB, WEB and KJV come from <a class={link} href="https://ebible.org/">eBible.org</a>;
+				the ESV is fetched from Crossway's ESV API as you build a deck, and is not stored.
+			{:else}
+				All three translations come from <a class={link} href="https://ebible.org/">eBible.org</a>.
+			{/if}
 		</p>
 		<dl class="mt-3 space-y-3">
 			<div>
@@ -44,6 +50,15 @@
 				<dt class="font-medium">King James Version (KJV)</dt>
 				<dd class={muted}>Public domain outside the United Kingdom.</dd>
 			</div>
+			{#if __ESV_ENABLED__}
+				<div>
+					<dt class="font-medium">English Standard Version (ESV)</dt>
+					<dd class={muted}>
+						{ESV_COPYRIGHT_PAGE}
+						<a class={link} href="https://www.esv.org">www.esv.org</a>
+					</dd>
+				</div>
+			{/if}
 		</dl>
 	</section>
 </main>
