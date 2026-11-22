@@ -18,7 +18,8 @@ export default defineConfig({
 	webServer: process.env.BASE_URL
 		? undefined
 		: {
-				command: 'npm run build && npm run preview -- --port 4173 --strictPort',
+				// With the ESV on (a preview-site build), so tests/e2e/esv.spec.ts can run.
+				command: 'MANNA_ESV=1 npm run build && npm run preview -- --port 4173 --strictPort',
 				url: local,
 				reuseExistingServer: !process.env.CI,
 				timeout: 120_000
