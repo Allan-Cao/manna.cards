@@ -17,6 +17,19 @@ export const CATECHISMS: Record<CatechismId, Catechism> = {
 	bc: { id: 'bc', short: 'BC', name: 'The Baptist Catechism', count: 114 }
 };
 
+/** Catechisms the app no longer offers, by id, with their names. Saved decks and links may still use them. */
+export const RETIRED_CATECHISMS: Readonly<Record<string, string>> = {
+	hc: 'Heidelberg Catechism',
+	wlc: 'Westminster Larger Catechism'
+};
+
+/** The name of a retired catechism, or null when `value` is not one. */
+export function retiredCatechism(value: unknown): string | null {
+	return typeof value === 'string' && Object.hasOwn(RETIRED_CATECHISMS, value)
+		? RETIRED_CATECHISMS[value]
+		: null;
+}
+
 export function isCatechismId(value: unknown): value is CatechismId {
 	return typeof value === 'string' && Object.hasOwn(CATECHISMS, value);
 }

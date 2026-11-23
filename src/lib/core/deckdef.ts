@@ -5,7 +5,7 @@
  * every field. A share link is the definition as JSON, deflated, as unpadded base64url.
  */
 
-import { isCatechismId, type CatechismId } from './catechisms.ts';
+import { isCatechismId, retiredCatechism, type CatechismId } from './catechisms.ts';
 import type { Break, DeckDefinition, TranslationId } from './model.ts';
 import { TRANSLATIONS } from './translations.ts';
 
@@ -40,6 +40,18 @@ export function cleanDeckName(name: string): string {
 	return clean || DEFAULT_NAME;
 }
 
+/** Thrown for a deck that is otherwise valid but asks for a catechism the app no longer offers. */
+export class RetiredCatechismError extends Error {
+	constructor(
+		readonly deck: { id: string; name: string },
+		/** The catechism's name, e.g. "Heidelberg Catechism". */
+		readonly catechism: string
+	) {
+		super(`This deck uses the ${catechism}, which manna.cards no longer offers.`);
+		this.name = 'RetiredCatechismError';
+	}
+}
+
 export function parseDeckDefinition(value: unknown): DeckDefinition {
 	const o = asObject(value, 'deck');
 	if (o.v !== 1) throw new Error(`Unsupported deck version: ${JSON.stringify(o.v)}`);
@@ -49,7 +61,8 @@ export function parseDeckDefinition(value: unknown): DeckDefinition {
 	if (typeof o.translation !== 'string' || !Object.hasOwn(TRANSLATIONS, o.translation)) {
 		throw new Error(`Unknown translation: ${JSON.stringify(o.translation)}`);
 	}
-	if (o.catechism !== undefined && !isCatechismId(o.catechism)) {
+	const retired = retiredCatechism(o.catechism);
+	if (o.catechism !== undefined && !retired && !isCatechismId(o.catechism)) {
 		throw new Error(`Unknown catechism: ${JSON.stringify(o.catechism)}`);
 	}
 	if (typeof o.name !== 'string') throw new Error('Deck name must be text');
@@ -67,13 +80,14 @@ export function parseDeckDefinition(value: unknown): DeckDefinition {
 			return { after: b.after, word: b.word };
 		});
 	}
+	if (retired) throw new RetiredCatechismError({ id: o.id, name: cleanDeckName(o.name) }, retired);
 
 	return {
 		v: 1,
 		id: o.id,
 		name: cleanDeckName(o.name),
 		translation: o.translation as TranslationId,
-		...(o.catechism !== undefined && { catechism: o.catechism }),
+		...(o.catechism !== undefined && { catechism: o.catechism as CatechismId }),
 		list: o.list,
 		breaks,
 		revision: o.revision

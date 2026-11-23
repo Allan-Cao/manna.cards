@@ -5,7 +5,8 @@ import {
 	encodeShare,
 	MAX_SHARE_BYTES,
 	newDeck,
-	parseDeckDefinition
+	parseDeckDefinition,
+	RetiredCatechismError
 } from './deckdef.ts';
 import type { DeckDefinition } from './model.ts';
 
@@ -107,6 +108,30 @@ describe('parseDeckDefinition', () => {
 		expect(() => parseDeckDefinition(value)).toThrow(message);
 	});
 
+	it.each([
+		['hc', 'Heidelberg Catechism'],
+		['wlc', 'Westminster Larger Catechism']
+	])('names the retired catechism %s and keeps the deck id and name', (id, catechism) => {
+		let error: unknown;
+		try {
+			parseDeckDefinition({ ...valid, name: ' A::B ', catechism: id, breaks: {} });
+		} catch (e) {
+			error = e;
+		}
+		expect(error).toBeInstanceOf(RetiredCatechismError);
+		const retired = error as RetiredCatechismError;
+		expect(retired.catechism).toBe(catechism);
+		expect(retired.deck).toEqual({ id: valid.id, name: 'A:B' });
+		expect(retired.message).toContain(catechism);
+		expect(retired.message).toMatch(/no longer/);
+	});
+
+	it('reports other mistakes before a retired catechism', () => {
+		expect(() => parseDeckDefinition({ ...valid, catechism: 'hc', revision: -1 })).toThrow(
+			/revision/
+		);
+	});
+
 	it('drops unknown properties inside breaks', () => {
 		const parsed = parseDeckDefinition({
 			...valid,
@@ -122,6 +147,11 @@ describe('share links', () => {
 		const text = await encodeShare(def);
 		expect(text).toMatch(/^[A-Za-z0-9_-]+$/);
 		expect(await decodeShare(text)).toEqual(def);
+	});
+
+	it('rejects a link to a retired catechism by name', async () => {
+		const text = await encodeShare({ ...valid, catechism: 'wlc' } as unknown as DeckDefinition);
+		await expect(decodeShare(text)).rejects.toThrow(/Westminster Larger Catechism.*no longer/);
 	});
 
 	it('round-trips a catechism deck', async () => {
