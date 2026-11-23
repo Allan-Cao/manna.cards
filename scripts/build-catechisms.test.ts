@@ -3,6 +3,7 @@ import { BOOKS } from '../src/lib/core/books.ts';
 import {
 	OSIS_TO_USFM,
 	cleanAnswer,
+	cleanQuestion,
 	convertCatechism,
 	fixOcr,
 	osisToLabel,
@@ -58,10 +59,24 @@ describe('cleanAnswer', () => {
 	it('collapses whitespace and strips markers', () => {
 		expect(cleanAnswer('  God,[1]  and   man.[2] ')).toBe('God, and man.');
 	});
+	it('removes space before punctuation', () => {
+		expect(cleanAnswer('The work of creation , is good ; and right : yes .')).toBe(
+			'The work of creation, is good; and right: yes.'
+		);
+		expect(cleanAnswer('Is it so ? Yes !')).toBe('Is it so? Yes!');
+	});
 	it('adds a final period only when missing', () => {
 		expect(cleanAnswer('God is first')).toBe('God is first.');
 		expect(cleanAnswer('Is it so?')).toBe('Is it so?');
 		expect(cleanAnswer('He said "Amen."')).toBe('He said "Amen."');
+	});
+});
+
+describe('cleanQuestion', () => {
+	it('collapses whitespace and removes space before punctuation', () => {
+		expect(cleanQuestion('  What is  sin ,  and transgression ? ')).toBe(
+			'What is sin, and transgression?'
+		);
 	});
 });
 

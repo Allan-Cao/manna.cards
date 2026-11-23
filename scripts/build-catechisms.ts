@@ -165,13 +165,18 @@ export function fixOcr(text: string): string {
 	return text.replace(/[A-Za-z]+/g, (w) => OCR_FIXES[w] ?? w);
 }
 
-const collapse = (s: string) => s.replace(/\s+/g, ' ').trim();
+/** Collapses whitespace and drops any space left before punctuation ("Creation ," becomes "Creation,"). */
+const collapse = (s: string) =>
+	s
+		.replace(/\s+/g, ' ')
+		.replace(/ ([,;:.?!])/g, '$1')
+		.trim();
 
 export function cleanQuestion(text: string): string {
 	return collapse(text);
 }
 
-/** Trims, collapses whitespace, strips `[n]` proof markers and ends the answer with terminal punctuation. */
+/** Trims, collapses whitespace (see `collapse`), strips `[n]` proof markers and ends the answer with terminal punctuation. */
 export function cleanAnswer(text: string): string {
 	let out = collapse(text.replace(/\s*\[\d+\]/g, ''));
 	if (out !== '' && !/[.!?]["'”’)]*$/.test(out)) out += '.';
