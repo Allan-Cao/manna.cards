@@ -1,6 +1,6 @@
 /**
  * Converts Creeds.json (NonlinearFruit, public domain texts) into the app's bundled catechisms:
- *   static/catechisms/{wsc,wlc,bc,hc}.json  one CatechismText per catechism, compact JSON
+ *   static/catechisms/{wsc,bc}.json  one CatechismText per catechism, compact JSON
  *
  * Run:  npx tsx scripts/build-catechisms.ts            (downloads the sources into .cache/creeds/ once)
  *       npx tsx scripts/build-catechisms.ts --refresh  (downloads them again)
@@ -219,9 +219,7 @@ export function convertCatechism(id: CatechismId, raw: RawCatechism): CatechismT
 
 const SOURCES: Record<CatechismId, string> = {
 	wsc: 'westminster_shorter_catechism.json',
-	wlc: 'westminster_larger_catechism.json',
-	bc: '1695_baptist_catechism.json',
-	hc: 'heidelberg_catechism.json'
+	bc: '1695_baptist_catechism.json'
 };
 
 const BASE_URL = 'https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/';

@@ -1,6 +1,6 @@
 /** The bundled catechisms, in the order the picker lists them, and the shape of their text files. */
 
-export type CatechismId = 'wsc' | 'wlc' | 'bc' | 'hc';
+export type CatechismId = 'wsc' | 'bc';
 
 export interface Catechism {
 	id: CatechismId;
@@ -14,9 +14,7 @@ export interface Catechism {
 
 export const CATECHISMS: Record<CatechismId, Catechism> = {
 	wsc: { id: 'wsc', short: 'WSC', name: 'Westminster Shorter Catechism', count: 107 },
-	wlc: { id: 'wlc', short: 'WLC', name: 'Westminster Larger Catechism', count: 196 },
-	bc: { id: 'bc', short: 'BC', name: 'The Baptist Catechism', count: 114 },
-	hc: { id: 'hc', short: 'HC', name: 'Heidelberg Catechism', count: 129 }
+	bc: { id: 'bc', short: 'BC', name: 'The Baptist Catechism', count: 114 }
 };
 
 export function isCatechismId(value: unknown): value is CatechismId {

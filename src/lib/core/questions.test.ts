@@ -89,7 +89,7 @@ describe('parseQuestionList: errors', () => {
 describe('questionLabel', () => {
 	it('is the short name and number', () => {
 		expect(questionLabel('wsc', 1)).toBe('WSC 1');
-		expect(questionLabel('hc', 129)).toBe('HC 129');
+		expect(questionLabel('bc', 114)).toBe('BC 114');
 	});
 });
 
@@ -182,7 +182,7 @@ describe('makeQuestionNotes', () => {
 			'bm1:k3x9:cat:wsc:3'
 		]);
 		expect(notes('3\n1')[0].guid).toBe('bm1:k3x9:cat:wsc:3');
-		expect(questionGuid('k3x9', 'hc', 12)).toBe('bm1:k3x9:cat:hc:12');
+		expect(questionGuid('k3x9', 'bc', 12)).toBe('bm1:k3x9:cat:bc:12');
 	});
 
 	it('tags every note with the revision', () => {

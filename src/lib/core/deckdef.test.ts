@@ -65,9 +65,9 @@ describe('parseDeckDefinition', () => {
 	});
 
 	it('keeps a catechism and leaves it out of a scripture deck', () => {
-		expect(parseDeckDefinition({ ...valid, catechism: 'hc' })).toEqual({
+		expect(parseDeckDefinition({ ...valid, catechism: 'bc' })).toEqual({
 			...valid,
-			catechism: 'hc'
+			catechism: 'bc'
 		});
 		expect(parseDeckDefinition(valid)).not.toHaveProperty('catechism');
 		expect(parseDeckDefinition({ ...valid, catechism: undefined })).not.toHaveProperty('catechism');

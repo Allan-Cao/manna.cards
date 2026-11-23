@@ -19,7 +19,7 @@ describe('osisToLabel', () => {
 	it('labels a single verse', () => {
 		expect(osisToLabel('Isa.44.6')).toBe('Isaiah 44:6');
 		expect(osisToLabel('Ps.23.1')).toBe('Psalm 23:1');
-		expect(osisToLabel('1Cor.6.19')).toBe('1 Corinthians 6:19');
+		expect(osisToLabel('2Tim.3.16')).toBe('2 Timothy 3:16');
 	});
 	it('labels a verse range with an en dash', () => {
 		expect(osisToLabel('Rom.14.7-Rom.14.9')).toBe('Romans 14:7–9');
@@ -46,9 +46,9 @@ describe('osisToLabel', () => {
 
 describe('referencesToLabels', () => {
 	it('splits comma-joined references and dedupes in order', () => {
-		expect(referencesToLabels(['1Cor.6.19,1Cor.6.2', 'Isa.44.6', '1Cor.6.19'])).toEqual([
-			'1 Corinthians 6:19',
-			'1 Corinthians 6:2',
+		expect(referencesToLabels(['2Tim.3.16,2Tim.3.1', 'Isa.44.6', '2Tim.3.16'])).toEqual([
+			'2 Timothy 3:16',
+			'2 Timothy 3:1',
 			'Isaiah 44:6'
 		]);
 	});

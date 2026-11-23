@@ -1,5 +1,9 @@
 export const changelog: { date: string; note: string }[] = [
 	{
+		date: '2026-11-23',
+		note: 'Removed the Heidelberg and Westminster Larger catechisms: their long answers do not work as one card per question.'
+	},
+	{
 		date: '2026-11-20',
 		note: 'Added catechism decks: Westminster Shorter, Westminster Larger, the Baptist Catechism and the Heidelberg Catechism.'
 	},
@@ -16,7 +20,7 @@ export const changelog: { date: string; note: string }[] = [
 ];
 
 export const planned: string[] = [
-	'More catechisms (Heidelberg Short Catechism, Baptist Catechism for Kids), pending permission',
+	'More catechisms (Baptist Catechism for Kids), pending permission',
 	'Split long catechism answers into parts',
 	'Proof texts for the Westminster Shorter Catechism'
 ];
