@@ -3,30 +3,45 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { CATECHISMS, type CatechismId } from '#lib/core/catechisms.ts';
-	import { encodeShare, newDeck, parseDeckDefinition } from '#lib/core/deckdef.ts';
+	import {
+		encodeShare,
+		newDeck,
+		parseDeckDefinition,
+		RetiredCatechismError
+	} from '#lib/core/deckdef.ts';
 	import { passageCount } from '#lib/core/editor.ts';
 	import type { DeckDefinition, TranslationId } from '#lib/core/model.ts';
 	import { TRANSLATIONS } from '#lib/core/translations.ts';
 	import ConfirmDialog from '#lib/ui/ConfirmDialog.svelte';
 	import ContentSelect from '#lib/ui/ContentSelect.svelte';
-	import { deleteDeck, listDecks, loadExport, saveDeck } from '#lib/ui/storage.ts';
+	import {
+		deleteDeck,
+		listDecks,
+		listRetiredDecks,
+		loadExport,
+		saveDeck,
+		type RetiredDeck
+	} from '#lib/ui/storage.ts';
 	import { button, field, label, link, muted, primary, quiet } from '#lib/ui/styles.ts';
 	import TranslationSelect from '#lib/ui/TranslationSelect.svelte';
 	import ot from '../../presets/ot.txt?raw';
 	import nt from '../../presets/nt.txt?raw';
 
 	let decks = $state<DeckDefinition[]>([]);
+	/** Decks for a catechism that is no longer offered: listed so they can be deleted. */
+	let retired = $state<RetiredDeck[]>([]);
 	/** The page is prerendered: until it is running here, its buttons would do nothing or reload. */
 	let ready = $state(false);
 	onMount(() => {
 		decks = listDecks();
+		retired = listRetiredDecks();
 		ready = true;
 	});
 
 	let name = $state('');
 	let content = $state<'scripture' | CatechismId>('scripture');
 	let translation = $state<TranslationId>('bsb');
-	let deleting = $state<DeckDefinition | null>(null);
+	let deleting = $state<{ id: string; name: string } | null>(null);
 	let fileError = $state('');
 
 	function exported(def: DeckDefinition): string {
@@ -64,6 +79,10 @@
 			const def = parseDeckDefinition(JSON.parse(await file.text()));
 			goto(resolve(`/open#${await encodeShare(def)}`));
 		} catch (e) {
+			if (e instanceof RetiredCatechismError) {
+				fileError = `${file.name}: ${e.message}`;
+				return;
+			}
 			fileError = `${file.name} is not a deck file: ${e instanceof Error ? e.message : e}`;
 		}
 	}
@@ -82,7 +101,7 @@
 
 	<section aria-labelledby="decks-heading">
 		<h2 id="decks-heading" class="text-xl font-semibold">Your decks</h2>
-		{#if decks.length === 0}
+		{#if decks.length === 0 && retired.length === 0}
 			<p class="mt-3 {muted}">You have no decks yet. Make one below or start from an example.</p>
 		{:else}
 			<ul
@@ -98,6 +117,19 @@
 						</div>
 						<button type="button" class={quiet} onclick={() => (deleting = def)}>
 							Delete<span class="sr-only"> {def.name}</span>
+						</button>
+					</li>
+				{/each}
+				{#each retired as deck (deck.id)}
+					<li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
+						<div class="min-w-0">
+							<p class="font-medium break-words">{deck.name}</p>
+							<p class="text-sm {muted}">
+								The {deck.catechism} is no longer available, so this deck cannot be built.
+							</p>
+						</div>
+						<button type="button" class={quiet} onclick={() => (deleting = deck)}>
+							Delete<span class="sr-only"> {deck.name}</span>
 						</button>
 					</li>
 				{/each}
@@ -201,5 +233,6 @@
 	onconfirm={() => {
 		if (deleting) deleteDeck(deleting.id);
 		decks = listDecks();
+		retired = listRetiredDecks();
 	}}
 />

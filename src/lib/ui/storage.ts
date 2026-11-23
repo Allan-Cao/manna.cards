@@ -2,7 +2,7 @@
  * Decks and export snapshots in localStorage. Every access is guarded: when storage is blocked
  * or full, an in-memory copy keeps the app working for the visit.
  */
-import { parseDeckDefinition } from '#lib/core/deckdef.ts';
+import { parseDeckDefinition, RetiredCatechismError } from '#lib/core/deckdef.ts';
 import type { DeckDefinition, TranslationId } from '#lib/core/model.ts';
 
 /** What the last export contained, to describe the next one. `at` is in milliseconds. */
@@ -75,6 +75,31 @@ export function listDecks(): DeckDefinition[] {
 		.filter((key) => key.startsWith(DECK))
 		.map((key) => loadDeck(key.slice(DECK.length)))
 		.filter((def) => def !== null)
+		.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** A saved deck for a catechism the app no longer offers: it can only be deleted. */
+export interface RetiredDeck {
+	id: string;
+	name: string;
+	/** The catechism's name, e.g. "Heidelberg Catechism". */
+	catechism: string;
+}
+
+export function loadRetiredDeck(id: string): RetiredDeck | null {
+	try {
+		parseDeckDefinition(read(DECK + id));
+	} catch (e) {
+		if (e instanceof RetiredCatechismError) return { ...e.deck, catechism: e.catechism };
+	}
+	return null;
+}
+
+export function listRetiredDecks(): RetiredDeck[] {
+	return keys()
+		.filter((key) => key.startsWith(DECK))
+		.map((key) => loadRetiredDeck(key.slice(DECK.length)))
+		.filter((deck) => deck !== null)
 		.sort((a, b) => a.name.localeCompare(b.name));
 }
 

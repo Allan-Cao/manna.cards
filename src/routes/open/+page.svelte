@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { CATECHISMS } from '#lib/core/catechisms.ts';
-	import { decodeShare } from '#lib/core/deckdef.ts';
+	import { decodeShare, RetiredCatechismError } from '#lib/core/deckdef.ts';
 	import { passageCount } from '#lib/core/editor.ts';
 	import type { DeckDefinition } from '#lib/core/model.ts';
 	import { TRANSLATIONS } from '#lib/core/translations.ts';
@@ -13,12 +13,15 @@
 	let incoming = $state<DeckDefinition | null>(null);
 	let mine = $state<DeckDefinition | null>(null);
 	let error = $state('');
+	/** Set when the link is for a catechism the app no longer offers: a new link would not help. */
+	let retired = $state(false);
 
 	onMount(async () => {
 		try {
 			incoming = await decodeShare(location.hash.slice(1));
 			mine = loadDeck(incoming.id);
 		} catch (e) {
+			retired = e instanceof RetiredCatechismError;
 			error = e instanceof Error ? e.message : String(e);
 		}
 	});
@@ -48,7 +51,11 @@
 	{#if error}
 		<p role="alert" class="mt-4 text-red-700 dark:text-red-400">{error}</p>
 		<p class="mt-3 {muted}">
-			Ask the person who sent it for a new link, or copy the whole link again.
+			{#if retired}
+				Its questions can no longer be built here. Cards already in Anki stay there.
+			{:else}
+				Ask the person who sent it for a new link, or copy the whole link again.
+			{/if}
 		</p>
 		<p class="mt-3"><a class={link} href={resolve('/')}>Go to your decks</a></p>
 	{:else if incoming && mine}
