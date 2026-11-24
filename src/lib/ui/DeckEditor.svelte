@@ -8,9 +8,8 @@
 	import { buildDeck } from '#lib/core/build.ts';
 	import { cleanDeckName } from '#lib/core/deckdef.ts';
 	import { CATECHISMS } from '#lib/core/catechisms.ts';
-	import { previewDeck, previewQuestions, previewRows } from '#lib/core/editor.ts';
+	import { breaksLabel, previewDeck, previewQuestions, previewRows } from '#lib/core/editor.ts';
 	import type { Break, DeckDefinition, TranslationId } from '#lib/core/model.ts';
-	import { verseLabel } from '#lib/core/refs.ts';
 	import { TRANSLATIONS } from '#lib/core/translations.ts';
 	import { booksLoader, exportDeck, loadCatechism, type ExportReport } from './browser.ts';
 	import ConfirmDialog from './ConfirmDialog.svelte';
@@ -101,16 +100,13 @@
 	);
 	/** One flat list, so a passage's panel stays when a heading moves it into another group. */
 	const rows = $derived(previewRows(groups));
-	const questionRows = $derived(built ? previewQuestions(built.result.questions) : []);
+	const questionRows = $derived(
+		built ? previewQuestions(built.result.questions, built.def.breaks) : []
+	);
 	const verses = $derived(
 		groups.flatMap((g) => g.passages.flatMap((p) => p.verses)).filter((v) => v.cards.length).length
 	);
-	const stale = $derived(
-		(result?.staleBreaks ?? []).map((key) => {
-			const [book, chapter, verse] = key.split('.');
-			return verseLabel({ book, chapter: Number(chapter), verse: Number(verse) });
-		})
-	);
+	const stale = $derived((result?.staleBreaks ?? []).map(breaksLabel));
 	const translation = $derived(TRANSLATIONS[def.translation]);
 	/** A stored deck in a translation this site does not offer (the ESV off the preview site). */
 	const unavailable = $derived(!catechism && !!translation.remote && !__ESV_ENABLED__);
@@ -261,8 +257,9 @@
 			<h2 id="cards-heading" class="text-xl font-semibold">Cards</h2>
 			{#if result && catechism}
 				<p class="text-sm {muted}" aria-live="polite">
-					{result.build.notes.length}
-					{result.build.notes.length === 1 ? 'question' : 'questions'}
+					{result.labels.length}
+					{result.labels.length === 1 ? 'question' : 'questions'} · {result.build.notes.length}
+					{result.build.notes.length === 1 ? 'card' : 'cards'}
 				</p>
 			{:else if result}
 				<p class="text-sm {muted}" aria-live="polite">
@@ -309,7 +306,10 @@
 							{row.heading}
 						</h3>
 					{:else}
-						<QuestionPreview card={row.card} />
+						<QuestionPreview
+							item={row.item}
+							onbreaks={(breaks) => setBreaks(row.item.key, breaks)}
+						/>
 					{/if}
 				{/each}
 			</div>

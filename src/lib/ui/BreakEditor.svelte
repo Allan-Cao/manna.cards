@@ -1,34 +1,42 @@
 <script lang="ts">
 	import { ToggleGroup } from 'bits-ui';
-	import { toggleBreak, type PreviewVerse } from '#lib/core/editor.ts';
-	import type { Break } from '#lib/core/model.ts';
-	import { verseLabel } from '#lib/core/refs.ts';
+	import { toggleBreak } from '#lib/core/editor.ts';
+	import type { Break, Line } from '#lib/core/model.ts';
 	import { verseWords } from '#lib/core/units.ts';
 	import { button, focus } from './styles.ts';
 
 	let {
-		item,
+		label,
+		lines,
+		breaks,
+		saved,
 		onchange,
 		ondone
 	}: {
-		item: PreviewVerse;
-		/** `undefined` returns the verse to automatic breaks. */
+		/** The verse or question, e.g. "John 3:16" or "WSC 12". */
+		label: string;
+		/** The whole verse or answer. */
+		lines: Line[];
+		/** The breaks in use, saved or automatic. */
+		breaks: Break[];
+		/** The breaks in use are ones the user saved. */
+		saved: boolean;
+		/** `undefined` returns the text to automatic breaks. */
 		onchange: (breaks: Break[] | undefined) => void;
 		ondone: () => void;
 	} = $props();
 
-	const words = $derived(verseWords(item.verse));
-	const at = $derived(new Set(item.breaks.map((b) => b.after)));
+	const words = $derived(verseWords({ lines }));
+	const at = $derived(new Set(breaks.map((b) => b.after)));
 	/** The gaps that hold a break, as the toggle group's value. */
-	const pressed = $derived(item.breaks.map((b) => String(b.after)));
+	const pressed = $derived(breaks.map((b) => String(b.after)));
 
 	/** The group reports its whole new value; the one gap that differs is the one to toggle. */
 	function toggle(next: string[]) {
 		const changed =
 			next.find((gap) => !pressed.includes(gap)) ?? pressed.find((gap) => !next.includes(gap));
-		if (changed !== undefined) onchange(toggleBreak(item.verse, item.breaks, Number(changed)));
+		if (changed !== undefined) onchange(toggleBreak({ lines }, breaks, Number(changed)));
 	}
-	const label = $derived(verseLabel(item.verse.ref));
 </script>
 
 <div
@@ -37,7 +45,7 @@
 	<p class="text-sm text-amber-950 dark:text-amber-100">
 		Tap between two words to split {label} there. Tap a break to remove it. Arrow keys move between gaps.
 	</p>
-	<!-- One tab stop for the whole verse: the group moves focus between gaps with the arrow keys. -->
+	<!-- One tab stop for the whole text: the group moves focus between gaps with the arrow keys. -->
 	<ToggleGroup.Root
 		type="multiple"
 		aria-label="Breaks in {label}"
@@ -65,7 +73,7 @@
 		{/each}
 	</ToggleGroup.Root>
 	<div class="mt-3 flex flex-wrap items-center justify-end gap-2">
-		{#if item.saved}
+		{#if saved}
 			<button type="button" class={button} onclick={() => onchange(undefined)}>
 				Reset to automatic
 			</button>

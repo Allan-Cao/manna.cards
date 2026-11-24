@@ -62,7 +62,10 @@
 			{:else}
 				{#if editing === item.key}
 					<BreakEditor
-						{item}
+						label={verseLabel(item.verse.ref)}
+						lines={item.verse.lines}
+						breaks={item.breaks}
+						saved={item.saved}
 						onchange={(breaks) => onbreaks(item.key, breaks)}
 						ondone={() => (editing = null)}
 					/>
