@@ -27,6 +27,10 @@ test('make a catechism deck, narrow its list and export it', async ({ page }) =>
 	await expect(page.getByText('3 questions')).toBeVisible();
 	await expect(page.getByText('What is the chief end of man?')).toBeVisible();
 	await expect(page.getByText('WSC 3')).toBeVisible();
+	// The Assembly's proofs, from the 1649 printing.
+	await expect(page.locator('article').filter({ hasText: 'WSC 1' })).toContainText(
+		'1 Corinthians 10:31; Romans 11:36; Psalm 73:25–28'
+	);
 
 	const download: Promise<Download> = page.waitForEvent('download');
 	await page.getByRole('button', { name: 'Export for Anki' }).click();
@@ -34,6 +38,9 @@ test('make a catechism deck, narrow its list and export it', async ({ page }) =>
 	expect(file.suggestedFilename().replaceAll('_', ' ')).toBe('Shorter Catechism.apkg');
 	const files = unzipSync(new Uint8Array(await readFile((await file.path())!)));
 	expect(files['collection.anki2']).toBeDefined();
+	expect(new TextDecoder().decode(files['collection.anki2'])).toContain(
+		'2 Timothy 1:13; 2 Timothy 3:16 · Westminster Shorter Catechism'
+	);
 
 	// The deck list shows the catechism and how many questions it asks.
 	await page.goto('/');
