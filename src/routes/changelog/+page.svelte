@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { Collapsible } from 'bits-ui';
+	import type { Attachment } from 'svelte/attachments';
 	import { changelog, planned } from '#lib/changelog.ts';
-	import { button } from '#lib/ui/styles.ts';
 
-	/** How many entries show before "Show earlier changes". */
-	const RECENT = 10;
+	/** How many entries each scroll batch adds. */
+	const BATCH = 10;
 
-	/** Entries grouped by date, newest first; a date split by the cut appears in both groups. */
+	/** Entries grouped by date, newest first. */
 	function byDate(entries: typeof changelog): { date: string; notes: string[] }[] {
 		const days: { date: string; notes: string[] }[] = [];
 		for (const { date, note } of entries) {
@@ -17,9 +16,23 @@
 		return days;
 	}
 
-	const recent = byDate(changelog.slice(0, RECENT));
-	const earlier = byDate(changelog.slice(RECENT));
-	let open = $state(false);
+	let shown = $state(BATCH);
+	const visible = $derived(byDate(changelog.slice(0, shown)));
+
+	/** Shows the next batch when the element scrolls into view; shows everything without IntersectionObserver. */
+	const more: Attachment = (sentinel) => {
+		if (typeof IntersectionObserver === 'undefined') {
+			shown = changelog.length;
+			return;
+		}
+		// Reading `shown` re-runs this after each batch, so a sentinel still in view loads the next one.
+		const next = Math.min(shown + BATCH, changelog.length);
+		const observer = new IntersectionObserver((hits) => {
+			if (hits.some((hit) => hit.isIntersecting)) shown = next;
+		});
+		observer.observe(sentinel);
+		return () => observer.disconnect();
+	};
 </script>
 
 <svelte:head><title>Changelog · manna.cards</title></svelte:head>
@@ -53,16 +66,9 @@
 
 	<section aria-labelledby="changes-heading" class="space-y-5">
 		<h2 id="changes-heading" class="font-heading text-xl font-bold">Changes</h2>
-		{@render days(recent)}
-		{#if earlier.length}
-			<Collapsible.Root bind:open class="space-y-5">
-				<Collapsible.Content class="space-y-5">
-					{@render days(earlier)}
-				</Collapsible.Content>
-				<Collapsible.Trigger class="{button} min-h-11">
-					{open ? 'Hide earlier changes' : 'Show earlier changes'}
-				</Collapsible.Trigger>
-			</Collapsible.Root>
+		{@render days(visible)}
+		{#if shown < changelog.length}
+			<div {@attach more} aria-hidden="true"></div>
 		{/if}
 	</section>
 </main>
