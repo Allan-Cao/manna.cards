@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # No secrets: the ESV API key is never used in CI, and tests/e2e/esv.spec.ts mocks the
+    # proxy with synthetic text.
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # CLAUDE.md and README.md: Node 22.17 or newer.
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm run check
+
+      - run: npm test
+
+      # The production build (no ESV), as `npm run deploy` and `deploy:beta` ship it.
+      - name: Build (production, no ESV)
+        run: MANNA_ESV=0 npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox
+
+      # playwright.config.ts rebuilds with MANNA_ESV=1 (the UI flag only, no key) and serves it
+      # with `vite preview`, so the mocked ESV spec runs. With CI set (GitHub sets CI=true) it
+      # never reuses an already running server.
+      - name: E2E tests
+        run: npm run test:e2e
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+          if-no-files-found: ignore
