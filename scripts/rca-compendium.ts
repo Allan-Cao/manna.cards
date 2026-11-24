@@ -165,7 +165,8 @@ export interface Citation {
 /**
  * The citations printed inside answers, by question. They become proof labels, so the answer to
  * recite holds only the Compendium's words. The citation in the question of Q38 stays: it is part
- * of what is asked. Q43 cites Rom. 5:10 as printed here and in Beets (1915).
+ * of what is asked. Q43 prints Rom. 5:10 here and in Beets (1915), a misprint for Rom. 5:1, which
+ * is what the proof label cites.
  */
 export const COMPENDIUM_CITATIONS: Readonly<Record<number, readonly Citation[]>> = {
 	3: [
@@ -176,7 +177,7 @@ export const COMPENDIUM_CITATIONS: Readonly<Record<number, readonly Citation[]>>
 	30: [{ from: ', Acts 4:12.', to: '.', ref: 'Acts 4:12' }],
 	35: [{ from: ', Rom. 4:25.', to: '.', ref: 'Rom 4:25' }],
 	36: [{ from: ', Eph. 1:20, 21.', to: '.', ref: 'Eph 1:20, 21' }],
-	43: [{ from: ', Rom. 5:10.', to: '.', ref: 'Rom 5:10' }],
+	43: [{ from: ', Rom. 5:10.', to: '.', ref: 'Rom 5:1' }],
 	49: [{ from: ', Rom. 10:14-17.', to: '.', ref: 'Rom 10:14-17' }],
 	59: [{ from: 'St. Paul, (1 Cor. 11:23-26), "For', to: 'St. Paul, "For', ref: '1 Cor 11:23-26' }],
 	63: [{ from: 'by Christ, (Matt. 18:15-17.) "If', to: 'by Christ, "If', ref: 'Matt 18:15-17' }],
