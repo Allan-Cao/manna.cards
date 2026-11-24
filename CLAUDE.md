@@ -29,3 +29,7 @@ ESV is preview-only until Crossway confirms the open questions in `docs/esv-cros
 - Look: Figtree (body) and Averia Serif Libre (headings, bold, 18px and up), self-hosted from Fontsource. Umber tokens (`paper`, `ink`, `muted`, `accent`, `line`, `field`, each with a `-dark` partner used under `dark:`). Backgrounds stay plain paper: show state with borders, text colour and underlines, not fills. Card text in previews keeps `font-serif`, since Anki cards use Anki's own font.
 - Conventional Commits, committed often.
 - No backward-compatibility obligations to the old Python tool.
+
+## Working with Claude
+
+- Use subagents liberally: hand investigation and implementation to Sonnet or Haiku subagents, and keep the main session for coordination and decisions, to preserve its context.
