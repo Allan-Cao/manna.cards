@@ -1,6 +1,10 @@
 export const changelog: { date: string; note: string }[] = [
 	{
 		date: '2026-11-23',
+		note: 'Wider pages on desktop: every page now uses the same, roomier width.'
+	},
+	{
+		date: '2026-11-23',
 		note: 'New fonts and colours: Averia Serif Libre headings, Figtree text and warm brown accents, in light and dark mode.'
 	},
 	{

@@ -18,7 +18,7 @@
 <div class="flex min-h-screen flex-col">
 	<header class="border-b border-line dark:border-line-dark">
 		<nav
-			class="mx-auto flex max-w-6xl items-baseline justify-between gap-4 px-4 py-3"
+			class="mx-auto flex max-w-[1180px] items-baseline justify-between gap-4 px-4 py-3"
 			aria-label="Main"
 		>
 			<a href={resolve('/')} class="rounded font-heading text-lg font-bold tracking-tight {focus}">
@@ -34,7 +34,7 @@
 		{@render children()}
 	</div>
 	<footer class="border-t border-line dark:border-line-dark">
-		<p class="mx-auto max-w-6xl px-4 py-6 text-sm {muted}">
+		<p class="mx-auto max-w-[1180px] px-4 py-6 text-sm {muted}">
 			<a href="{resolve('/about')}#texts" class={link}>Bible and catechism texts</a> are public
 			domain or used by permission. Code released under the
 			<a href="https://github.com/Allan-Cao/manna.cards" class={link}>MIT License</a>.

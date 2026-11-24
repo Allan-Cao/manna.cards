@@ -336,7 +336,7 @@
 	</section>
 {/snippet}
 
-<main class="mx-auto max-w-6xl px-4 pt-8 {wide.current ? 'pb-8' : 'pb-4'}">
+<main class="mx-auto max-w-[1180px] px-4 pt-8 {wide.current ? 'pb-8' : 'pb-4'}">
 	<div class="flex flex-wrap items-start justify-between gap-4">
 		<h1 class="min-w-0 font-heading text-2xl font-bold tracking-tight break-words sm:text-3xl">
 			{cleanDeckName(def.name)}

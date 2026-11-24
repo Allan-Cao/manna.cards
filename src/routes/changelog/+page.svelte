@@ -37,7 +37,7 @@
 	{/each}
 {/snippet}
 
-<main class="mx-auto max-w-2xl space-y-10 px-4 py-10 leading-relaxed">
+<main class="mx-auto max-w-[1180px] space-y-10 px-4 py-10 leading-relaxed">
 	<h1 class="font-heading text-3xl font-bold tracking-tight">Changelog</h1>
 
 	{#if planned.length}

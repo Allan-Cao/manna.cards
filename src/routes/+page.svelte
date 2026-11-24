@@ -127,7 +127,7 @@
 	</DropdownMenu.Root>
 {/snippet}
 
-<main class="mx-auto max-w-6xl px-4 py-8 lg:py-10">
+<main class="mx-auto max-w-[1180px] px-4 py-8 lg:py-10">
 	<div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-12">
 		{#if hasDecks}
 			<section aria-labelledby="decks-heading" class="min-w-0 lg:flex-1">

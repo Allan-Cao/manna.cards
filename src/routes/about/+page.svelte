@@ -42,7 +42,7 @@
 
 <svelte:head><title>About · manna.cards</title></svelte:head>
 
-<main class="mx-auto max-w-2xl space-y-10 px-4 py-10 leading-relaxed">
+<main class="mx-auto max-w-[1180px] space-y-10 px-4 py-10 leading-relaxed">
 	<section>
 		<h1 class="font-heading text-3xl font-bold tracking-tight">About</h1>
 		<p class="mt-4">

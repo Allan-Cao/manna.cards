@@ -46,7 +46,7 @@
 
 <svelte:head><title>Open a shared deck · manna.cards</title></svelte:head>
 
-<main class="mx-auto max-w-2xl px-4 py-10">
+<main class="mx-auto max-w-[1180px] px-4 py-10">
 	<h1 class="font-heading text-2xl font-bold tracking-tight">Open a shared deck</h1>
 	{#if error}
 		<p role="alert" class="mt-4 text-red-700 dark:text-red-400">{error}</p>
