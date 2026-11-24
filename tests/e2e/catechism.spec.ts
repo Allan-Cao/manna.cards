@@ -40,6 +40,59 @@ test('make a catechism deck, narrow its list and export it', async ({ page }) =>
 	await expect(page.getByText(/WSC · 3 questions · exported/)).toBeVisible();
 });
 
+test('a long answer is asked in parts, whose breaks can be moved and are kept', async ({
+	page
+}) => {
+	await page.goto('/');
+	await page.getByLabel('Name').fill('Effectual calling');
+	await page.getByRole('radio', { name: 'Catechism' }).click();
+	await page.getByLabel('Catechism', { exact: true }).click();
+	await page.getByRole('option', { name: 'Westminster Shorter Catechism' }).click();
+	await page.getByRole('button', { name: 'Create deck' }).click();
+	await expect(page).toHaveURL(/\/deck\/[a-z0-9]+$/);
+
+	await page.getByLabel('Questions').fill('1\n31');
+	await expect(page.getByText('2 questions · 3 cards')).toBeVisible();
+	const card = (reference: string) =>
+		page.locator('article').filter({ has: page.getByText(reference, { exact: true }) });
+	await expect(card('WSC 1')).toBeVisible();
+	await expect(card('WSC 31 (1/2)')).toContainText('What is effectual calling?');
+	await expect(card('WSC 31 (1/2)')).toContainText(
+		"Effectual calling is the work of God's Spirit, whereby, convincing us of our sin and misery, enlightening our minds in the knowledge of Christ,"
+	);
+	// The second part asks again, with the first part as its lead-in.
+	const second = card('WSC 31 (2/2)');
+	await expect(second).toContainText('What is effectual calling?');
+	await expect(second).toContainText('enlightening our minds in the knowledge of Christ,');
+	await expect(second).toContainText('and renewing our wills, he doth persuade and enable us');
+
+	// Move the break: add one after “whereby,” and remove the automatic one.
+	await card('WSC 31 (1/2)').getByRole('button', { name: 'Adjust breaks' }).click();
+	await expect(page.getByRole('group', { name: 'Breaks in WSC 31' })).toBeVisible();
+	await page.getByRole('button', { name: 'Break after “whereby,”' }).click();
+	await expect(page.getByText('2 questions · 4 cards')).toBeVisible();
+	await page.getByRole('button', { name: 'Remove the break after “Christ,”', exact: true }).click();
+	await expect(page.getByText('2 questions · 3 cards')).toBeVisible();
+	await expect(card('WSC 31 (1/2)')).toContainText(
+		"Effectual calling is the work of God's Spirit, whereby,"
+	);
+	await expect(card('WSC 31 (2/2)')).toContainText('convincing us of our sin and misery');
+	await page.getByRole('button', { name: 'Done' }).click();
+
+	// The breaks are saved with the deck.
+	await page.reload();
+	await expect(page.getByText('2 questions · 3 cards')).toBeVisible();
+	await expect(card('WSC 31 (2/2)')).toContainText('convincing us of our sin and misery');
+
+	const download: Promise<Download> = page.waitForEvent('download');
+	await page.getByRole('button', { name: 'Export for Anki' }).click();
+	const files = unzipSync(new Uint8Array(await readFile((await (await download).path())!)));
+	const collection = new TextDecoder().decode(files['collection.anki2']);
+	expect(collection).toContain('WSC 31 (1/2)');
+	expect(collection).toContain('WSC 31 (2/2)');
+	expect(collection).toMatch(/bm1:[a-z0-9]+:cat:wsc:31:1/);
+});
+
 test('a Baptist Catechism for Children deck starts with its sections and credits the church', async ({
 	page
 }) => {
@@ -100,14 +153,17 @@ test('a Compendium deck starts with its parts, keeps the Creed a line per articl
 
 	await list.fill("# Man's Deliverance\n19-20");
 	await expect(page.getByText('2 questions')).toBeVisible();
-	const q19 = page.locator('article').filter({ hasText: 'HSC 19' });
+	// Both answers are long, so they are asked in parts.
+	await expect(page.getByText('2 questions · 5 cards')).toBeVisible();
+	const q19 = page.locator('article').filter({ hasText: 'HSC 19 (2/2)' });
 	await expect(q19).toContainText('What is true faith?');
 	await expect(q19).toContainText('an hearty confidence that all my sins are forgiven me');
-	const q20 = page.locator('article').filter({ hasText: 'HSC 20' });
-	await expect(q20).toContainText(
+	await expect(page.locator('article').filter({ hasText: 'HSC 20 (1/3)' })).toContainText(
 		'I. I believe in God, the Father Almighty, maker of heaven and earth.'
 	);
-	await expect(q20).toContainText('XII. And the life everlasting.');
+	await expect(page.locator('article').filter({ hasText: 'HSC 20 (3/3)' })).toContainText(
+		'XII. And the life everlasting.'
+	);
 
 	const download: Promise<Download> = page.waitForEvent('download');
 	await page.getByRole('button', { name: 'Export for Anki' }).click();
