@@ -25,7 +25,7 @@
 
 {#snippet card(card: PreviewAnswer, first: boolean)}
 	<article
-		class="rounded-lg border border-stone-200 bg-white px-4 py-3 dark:border-stone-800 dark:bg-stone-900"
+		class="rounded-lg border border-line bg-paper px-4 py-3 dark:border-line-dark dark:bg-paper-dark"
 	>
 		<div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
 			<p class="text-sm font-semibold">{card.reference}</p>
@@ -41,14 +41,14 @@
 				{/if}
 			</div>
 		</div>
-		<div class="mt-2 font-serif leading-relaxed text-stone-500 dark:text-stone-400">
+		<div class="mt-2 font-serif leading-relaxed text-muted dark:text-muted-dark">
 			<p>{item.question}</p>
 			{#if card.lead}
 				<div class="mt-2"><Lines lines={card.lead} /></div>
 			{/if}
 		</div>
 		<div
-			class="mt-3 border-t border-dashed border-stone-200 pt-3 font-serif text-lg leading-relaxed dark:border-stone-700"
+			class="mt-3 border-t border-dashed border-line pt-3 font-serif text-lg leading-relaxed dark:border-line-dark"
 		>
 			{#if hints[card.index]}
 				<span class="sr-only">First letters:</span>

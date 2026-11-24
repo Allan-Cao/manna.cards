@@ -21,7 +21,7 @@
 	{/key}
 {:else if retired}
 	<main class="mx-auto max-w-2xl px-4 py-10">
-		<h1 class="font-serif text-2xl font-semibold break-words">{retired.name}</h1>
+		<h1 class="font-heading text-2xl font-bold break-words">{retired.name}</h1>
 		<p role="alert" class="mt-3">
 			The {retired.catechism} is no longer available, so this deck cannot be built. Its cards stay in
 			Anki.
@@ -30,7 +30,7 @@
 	</main>
 {:else}
 	<main class="mx-auto max-w-2xl px-4 py-10">
-		<h1 class="font-serif text-2xl font-semibold">Deck not found</h1>
+		<h1 class="font-heading text-2xl font-bold">Deck not found</h1>
 		<p class="mt-3 {muted}">
 			Decks are saved only in the browser that made them. To move one, open it there and choose
 			Share.

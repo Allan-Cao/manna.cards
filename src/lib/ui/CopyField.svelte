@@ -23,7 +23,7 @@
 		aria-readonly="true"
 		aria-label={label}
 		tabindex="0"
-		class="{focus} max-h-24 min-w-0 flex-1 overflow-y-auto rounded-md border border-stone-300 bg-stone-50 px-3 py-2 font-mono text-sm break-all select-all dark:border-stone-700 dark:bg-stone-950"
+		class="{focus} max-h-24 min-w-0 flex-1 overflow-y-auto rounded-md border border-field bg-paper px-3 py-2 font-mono text-sm break-all select-all dark:border-field-dark dark:bg-paper-dark"
 	>
 		{value}
 	</div>

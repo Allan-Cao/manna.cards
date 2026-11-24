@@ -22,12 +22,12 @@
 
 <AlertDialog.Root bind:open>
 	<AlertDialog.Portal>
-		<AlertDialog.Overlay class="fixed inset-0 z-40 bg-stone-950/60" />
+		<AlertDialog.Overlay class="fixed inset-0 z-40 bg-ink/40" />
 		<AlertDialog.Content
-			class="fixed top-1/2 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6 shadow-xl dark:border dark:border-stone-700 dark:bg-stone-900"
+			class="fixed top-1/2 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border border-line bg-paper p-6 dark:border-line-dark dark:bg-paper-dark"
 		>
 			<AlertDialog.Title class="text-lg font-semibold">{title}</AlertDialog.Title>
-			<AlertDialog.Description class="mt-2 leading-relaxed text-stone-700 dark:text-stone-300">
+			<AlertDialog.Description class="mt-2 leading-relaxed text-ink dark:text-ink-dark">
 				{description}
 			</AlertDialog.Description>
 			<div class="mt-6 flex flex-wrap justify-end gap-2">

@@ -32,7 +32,7 @@
 
 		{#if !changes.firstExport}
 			<section aria-labelledby="changes-heading">
-				<h3 id="changes-heading" class="font-semibold text-stone-900 dark:text-stone-100">
+				<h3 id="changes-heading" class="font-semibold text-ink dark:text-ink-dark">
 					Changes since your last export
 				</h3>
 				<ul class="mt-1 list-disc space-y-1 pl-5">
@@ -59,7 +59,7 @@
 
 		{#if changes.removedNotes > 0}
 			<section aria-labelledby="cleanup-heading">
-				<h3 id="cleanup-heading" class="font-semibold text-stone-900 dark:text-stone-100">
+				<h3 id="cleanup-heading" class="font-semibold text-ink dark:text-ink-dark">
 					Delete the old cards
 				</h3>
 				<p class="mt-1">Anki does not delete cards on import. After importing:</p>

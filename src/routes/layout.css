@@ -1,1 +1,21 @@
 @import 'tailwindcss';
+
+/* The site's fonts and Umber colours. Each colour has a -dark partner for dark mode. */
+@theme {
+	--font-sans: 'Figtree Variable', ui-sans-serif, system-ui, sans-serif;
+	--font-heading: 'Averia Serif Libre', ui-serif, Georgia, serif;
+
+	--color-paper: #ffffff;
+	--color-ink: #1c1917;
+	--color-muted: #5f574f;
+	--color-accent: #7a4b24;
+	--color-line: #ddd6ce;
+	--color-field: #8f8275;
+
+	--color-paper-dark: #171412;
+	--color-ink-dark: #f2ede6;
+	--color-muted-dark: #b3a89c;
+	--color-accent-dark: #d6a46e;
+	--color-line-dark: #3b342e;
+	--color-field-dark: #8a7d71;
+}

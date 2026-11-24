@@ -49,7 +49,7 @@
 	let sharing = $state<DeckDefinition | null>(null);
 	/** Until the page runs here it cannot know, so the prerendered page greets a first visit. */
 	const hasDecks = $derived(decks.length > 0 || retired.length > 0);
-	const menuItem = `flex min-h-11 cursor-default items-center rounded px-3 text-sm data-highlighted:bg-stone-100 dark:data-highlighted:bg-stone-800 ${focus}`;
+	const menuItem = `flex min-h-11 cursor-default items-center rounded px-3 text-sm data-highlighted:text-accent data-highlighted:underline dark:data-highlighted:text-accent-dark ${focus}`;
 	let fileError = $state('');
 
 	function exported(def: DeckDefinition): string {
@@ -99,7 +99,7 @@
 {#snippet menu(deck: { id: string; name: string }, def?: DeckDefinition)}
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger
-			class="flex size-11 shrink-0 items-center justify-center rounded-md hover:bg-stone-100 dark:hover:bg-stone-800 {focus}"
+			class="flex size-11 shrink-0 items-center justify-center rounded-md hover:text-accent dark:hover:text-accent-dark {focus}"
 			aria-label="Options for {deck.name}"
 		>
 			<span aria-hidden="true">⋯</span>
@@ -108,7 +108,7 @@
 			<DropdownMenu.Content
 				align="end"
 				sideOffset={4}
-				class="z-50 min-w-48 rounded-md border border-stone-200 bg-white p-1 shadow-lg dark:border-stone-700 dark:bg-stone-900"
+				class="z-50 min-w-48 rounded-md border border-line bg-paper p-1 dark:border-line-dark dark:bg-paper-dark"
 			>
 				{#if def}
 					<DropdownMenu.Item class={menuItem} onSelect={() => (sharing = def)}>
@@ -117,7 +117,7 @@
 					<DropdownMenu.Item class={menuItem} onSelect={() => downloadDeckFile(def)}>
 						Download deck file
 					</DropdownMenu.Item>
-					<DropdownMenu.Separator class="my-1 h-px bg-stone-200 dark:bg-stone-700" />
+					<DropdownMenu.Separator class="my-1 h-px bg-line dark:bg-line-dark" />
 				{/if}
 				<DropdownMenu.Item class={menuItem} onSelect={() => (deleting = deck)}>
 					Delete
@@ -131,11 +131,11 @@
 	<div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-12">
 		{#if hasDecks}
 			<section aria-labelledby="decks-heading" class="min-w-0 lg:flex-1">
-				<h1 id="decks-heading" class="font-serif text-2xl font-semibold tracking-tight">
+				<h1 id="decks-heading" class="font-heading text-2xl font-bold tracking-tight">
 					Your decks
 				</h1>
 				<ul
-					class="mt-3 divide-y divide-stone-200 rounded-lg border border-stone-200 bg-white dark:divide-stone-800 dark:border-stone-800 dark:bg-stone-900"
+					class="mt-3 divide-y divide-line rounded-lg border border-line bg-paper dark:divide-line-dark dark:border-line-dark dark:bg-paper-dark"
 				>
 					{#each decks as def (def.id)}
 						<li class="flex items-center gap-2 pr-1">
@@ -167,9 +167,7 @@
 			</section>
 		{:else}
 			<section class="lg:flex-1">
-				<h1 class="font-serif text-3xl font-semibold tracking-tight">
-					Memorize Scripture with Anki
-				</h1>
+				<h1 class="font-heading text-3xl font-bold tracking-tight">Memorize Scripture with Anki</h1>
 				<p class="mt-3 text-lg {muted}">
 					Build a deck from Bible passages or a catechism, then import it into
 					<a class={link} href="https://apps.ankiweb.net/">Anki</a>.
@@ -178,7 +176,7 @@
 		{/if}
 
 		<section aria-labelledby="new-heading" class="lg:w-96 lg:shrink-0">
-			<h2 id="new-heading" class="text-xl font-semibold">New deck</h2>
+			<h2 id="new-heading" class="font-heading text-xl font-bold">New deck</h2>
 			<form
 				class="mt-3 space-y-4"
 				onsubmit={(e) => {
@@ -194,7 +192,7 @@
 					{#each [{ value: 'bible', label: 'Bible passages' }, { value: 'catechism', label: 'Catechism' }] as option (option.value)}
 						<RadioGroup.Item
 							value={option.value}
-							class="flex min-h-11 items-center gap-2 rounded-md border border-stone-300 px-3 text-left text-sm font-medium data-[state=checked]:border-stone-900 dark:border-stone-700 dark:data-[state=checked]:border-stone-100 {focus}"
+							class="flex min-h-11 items-center gap-2 rounded-md border border-field px-3 text-left text-sm font-medium data-[state=checked]:border-accent data-[state=checked]:text-accent dark:border-field-dark dark:data-[state=checked]:border-accent-dark dark:data-[state=checked]:text-accent-dark {focus}"
 						>
 							{#snippet children({ checked })}
 								<span
@@ -265,7 +263,7 @@
 			{/if}
 
 			<label
-				class="{button} mt-8 cursor-pointer focus-within:outline-2 focus-within:outline-amber-600"
+				class="{button} mt-8 cursor-pointer focus-within:outline-2 focus-within:outline-accent dark:focus-within:outline-accent-dark"
 			>
 				Open a deck file…
 				<input

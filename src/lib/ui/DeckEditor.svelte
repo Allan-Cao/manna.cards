@@ -254,7 +254,7 @@
 {#snippet cardsPanel()}
 	<section aria-labelledby="cards-heading" class="min-w-0">
 		<div class="flex flex-wrap items-baseline justify-between gap-x-4">
-			<h2 id="cards-heading" class="text-xl font-semibold">Cards</h2>
+			<h2 id="cards-heading" class="font-heading text-xl font-bold">Cards</h2>
 			{#if result && catechism}
 				<p class="text-sm {muted}" aria-live="polite">
 					{result.labels.length}
@@ -301,7 +301,7 @@
 				{#each questionRows as row (row.key)}
 					{#if row.kind === 'heading'}
 						<h3
-							class="border-b border-stone-200 pb-1 font-serif text-lg font-semibold not-first:mt-6 dark:border-stone-800"
+							class="border-b border-line pb-1 font-heading text-lg font-bold not-first:mt-6 dark:border-line-dark"
 						>
 							{row.heading}
 						</h3>
@@ -318,7 +318,7 @@
 			{#each rows as row (row.key)}
 				{#if row.kind === 'heading'}
 					<h3
-						class="mb-2 border-b border-stone-200 pb-1 font-serif text-lg font-semibold not-first:mt-6 dark:border-stone-800"
+						class="mb-2 border-b border-line pb-1 font-heading text-lg font-bold not-first:mt-6 dark:border-line-dark"
 					>
 						{row.heading}
 					</h3>
@@ -338,7 +338,7 @@
 
 <main class="mx-auto max-w-6xl px-4 pt-8 {wide.current ? 'pb-8' : 'pb-4'}">
 	<div class="flex flex-wrap items-start justify-between gap-4">
-		<h1 class="min-w-0 font-serif text-2xl font-semibold tracking-tight break-words sm:text-3xl">
+		<h1 class="min-w-0 font-heading text-2xl font-bold tracking-tight break-words sm:text-3xl">
 			{cleanDeckName(def.name)}
 		</h1>
 		{#if wide.current}
@@ -363,7 +363,7 @@
 		</div>
 	{:else}
 		<Tabs.Root bind:value={tab} class="mt-4">
-			<Tabs.List class="grid grid-cols-2 border-b border-stone-200 dark:border-stone-800">
+			<Tabs.List class="grid grid-cols-2 border-b border-line dark:border-line-dark">
 				<Tabs.Trigger value="list" class={tabTrigger}
 					>{catechism ? 'Questions' : 'Passages'}</Tabs.Trigger
 				>
@@ -377,7 +377,7 @@
 
 {#if !wide.current}
 	<div
-		class="sticky bottom-0 z-10 border-t border-stone-200 bg-white px-4 py-3 dark:border-stone-800 dark:bg-stone-950"
+		class="sticky bottom-0 z-10 border-t border-line bg-paper px-4 py-3 dark:border-line-dark dark:bg-paper-dark"
 	>
 		{#if blocked}<p id="export-blocked" class="mb-2 text-sm {muted}">{blocked}</p>{/if}
 		<div class="grid grid-cols-[1fr_2fr] gap-2">{@render actions()}</div>

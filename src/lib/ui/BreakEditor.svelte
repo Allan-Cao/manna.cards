@@ -39,10 +39,8 @@
 	}
 </script>
 
-<div
-	class="rounded-lg border border-amber-300 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30"
->
-	<p class="text-sm text-amber-950 dark:text-amber-100">
+<div class="rounded-lg border border-accent p-4 dark:border-accent-dark">
+	<p class="text-sm">
 		Tap between two words to split {label} there. Tap a break to remove it. Arrow keys move between gaps.
 	</p>
 	<!-- One tab stop for the whole text: the group moves focus between gaps with the arrow keys. -->
@@ -64,8 +62,8 @@
 						class={[
 							'block rounded-full',
 							at.has(i)
-								? 'h-7 w-1 bg-amber-600 group-hover:bg-red-600 dark:bg-amber-400'
-								: 'h-4 w-px bg-stone-300 group-hover:h-6 group-hover:w-0.5 group-hover:bg-amber-500 dark:bg-stone-600'
+								? 'h-7 w-1 bg-accent group-hover:bg-red-600 dark:bg-accent-dark dark:group-hover:bg-red-400'
+								: 'h-4 w-px bg-field group-hover:h-6 group-hover:w-0.5 group-hover:bg-accent dark:bg-field-dark dark:group-hover:bg-accent-dark'
 						]}
 					></span>
 				</ToggleGroup.Item>

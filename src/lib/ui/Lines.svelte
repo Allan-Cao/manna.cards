@@ -11,11 +11,11 @@
 		class={[
 			indent[line.indent],
 			line.paragraph && i > 0 && 'mt-3',
-			line.selah && 'text-sm text-stone-500 italic dark:text-stone-400'
+			line.selah && 'text-sm text-muted italic dark:text-muted-dark'
 		]}
 	>
 		{#if i === 0 && verseNumber !== undefined}
-			<sup class="mr-0.5 font-sans text-[0.65em] font-semibold text-stone-500 dark:text-stone-400"
+			<sup class="mr-0.5 font-sans text-[0.65em] font-semibold text-muted dark:text-muted-dark"
 				>{verseNumber}</sup
 			>{/if}{line.text}
 	</div>

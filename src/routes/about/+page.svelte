@@ -44,7 +44,7 @@
 
 <main class="mx-auto max-w-2xl space-y-10 px-4 py-10 leading-relaxed">
 	<section>
-		<h1 class="font-serif text-3xl font-semibold tracking-tight">About</h1>
+		<h1 class="font-heading text-3xl font-bold tracking-tight">About</h1>
 		<p class="mt-4">
 			manna.cards makes <a class={link} href="https://apps.ankiweb.net/">Anki</a> flash cards from Bible
 			passages and catechism questions.
@@ -52,10 +52,10 @@
 	</section>
 
 	<section aria-labelledby="questions-heading">
-		<h2 id="questions-heading" class="text-xl font-semibold">Questions</h2>
+		<h2 id="questions-heading" class="font-heading text-xl font-bold">Questions</h2>
 		<Accordion.Root
 			type="multiple"
-			class="mt-3 divide-y divide-stone-200 border-y border-stone-200 dark:divide-stone-800 dark:border-stone-800"
+			class="mt-3 divide-y divide-line border-y border-line dark:divide-line-dark dark:border-line-dark"
 		>
 			{#each questions as item (item.q)}
 				<Accordion.Item value={item.q}>
@@ -66,8 +66,7 @@
 							{item.q}
 							<span
 								aria-hidden="true"
-								class="text-stone-500 transition-transform group-data-[state=open]:rotate-180"
-								>▾</span
+								class="text-muted transition-transform group-data-[state=open]:rotate-180">▾</span
 							>
 						</Accordion.Trigger>
 					</Accordion.Header>
@@ -78,7 +77,7 @@
 	</section>
 
 	<section id="texts" aria-labelledby="texts-heading" class="space-y-6">
-		<h2 id="texts-heading" class="text-xl font-semibold">Texts and copyright</h2>
+		<h2 id="texts-heading" class="font-heading text-xl font-bold">Texts and copyright</h2>
 		<section>
 			<h3 class="font-semibold">Bible translations</h3>
 			<p class="mt-3 {muted}">
@@ -147,7 +146,7 @@
 	</section>
 
 	<section aria-labelledby="code-heading">
-		<h2 id="code-heading" class="text-xl font-semibold">Code</h2>
+		<h2 id="code-heading" class="font-heading text-xl font-bold">Code</h2>
 		<p class="mt-3">
 			The code is on <a class={link} href="https://github.com/Allan-Cao/Bible-Memorization"
 				>GitHub</a

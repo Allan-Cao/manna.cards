@@ -38,11 +38,11 @@
 {/snippet}
 
 <main class="mx-auto max-w-2xl space-y-10 px-4 py-10 leading-relaxed">
-	<h1 class="font-serif text-3xl font-semibold tracking-tight">Changelog</h1>
+	<h1 class="font-heading text-3xl font-bold tracking-tight">Changelog</h1>
 
 	{#if planned.length}
 		<section aria-labelledby="planned-heading">
-			<h2 id="planned-heading" class="text-xl font-semibold">Planned</h2>
+			<h2 id="planned-heading" class="font-heading text-xl font-bold">Planned</h2>
 			<ul class="mt-3 list-disc space-y-1 pl-5">
 				{#each planned as item (item)}
 					<li>{item}</li>
@@ -52,7 +52,7 @@
 	{/if}
 
 	<section aria-labelledby="changes-heading" class="space-y-5">
-		<h2 id="changes-heading" class="text-xl font-semibold">Changes</h2>
+		<h2 id="changes-heading" class="font-heading text-xl font-bold">Changes</h2>
 		{@render days(recent)}
 		{#if earlier.length}
 			<Collapsible.Root bind:open class="space-y-5">

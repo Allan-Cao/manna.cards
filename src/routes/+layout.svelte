@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '@fontsource-variable/figtree/wght.css';
+	import '@fontsource/averia-serif-libre/latin-700.css';
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.svg';
 	import { resolve } from '$app/paths';
@@ -14,15 +16,12 @@
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">
-	<header class="border-b border-stone-200 dark:border-stone-800">
+	<header class="border-b border-line dark:border-line-dark">
 		<nav
 			class="mx-auto flex max-w-6xl items-baseline justify-between gap-4 px-4 py-3"
 			aria-label="Main"
 		>
-			<a
-				href={resolve('/')}
-				class="rounded font-serif text-lg font-semibold tracking-tight {focus}"
-			>
+			<a href={resolve('/')} class="rounded font-heading text-lg font-bold tracking-tight {focus}">
 				manna.cards
 			</a>
 			<div class="flex gap-4">
@@ -34,7 +33,7 @@
 	<div class="flex-1">
 		{@render children()}
 	</div>
-	<footer class="border-t border-stone-200 dark:border-stone-800">
+	<footer class="border-t border-line dark:border-line-dark">
 		<p class="mx-auto max-w-6xl px-4 py-6 text-sm {muted}">
 			<a href="{resolve('/about')}#texts" class={link}>Bible and catechism texts</a> are public
 			domain or used by permission. Code released under the

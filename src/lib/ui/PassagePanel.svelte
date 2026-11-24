@@ -33,12 +33,12 @@
 <Collapsible.Root bind:open>
 	<svelte:element this={`h${level}`}>
 		<Collapsible.Trigger
-			class="group flex w-full items-baseline justify-between gap-3 rounded-md px-2 py-2 text-left hover:bg-stone-100 dark:hover:bg-stone-900 {focus}"
+			class="group flex w-full items-baseline justify-between gap-3 rounded-md px-2 py-2 text-left hover:text-accent dark:hover:text-accent-dark {focus}"
 		>
 			<span class="flex items-baseline gap-2 font-medium">
 				<span
 					aria-hidden="true"
-					class="inline-block w-3 text-stone-500 transition-transform group-data-[state=open]:rotate-90"
+					class="inline-block w-3 text-muted transition-transform group-data-[state=open]:rotate-90"
 					>▸</span
 				>
 				{passage.label}

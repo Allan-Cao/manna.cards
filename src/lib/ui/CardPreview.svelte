@@ -10,7 +10,7 @@
 </script>
 
 <article
-	class="rounded-lg border border-stone-200 bg-white px-4 py-3 dark:border-stone-800 dark:bg-stone-900"
+	class="rounded-lg border border-line bg-paper px-4 py-3 dark:border-line-dark dark:bg-paper-dark"
 >
 	<div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
 		<p class="text-sm font-semibold">{card.reference}</p>
@@ -22,7 +22,7 @@
 	{#if card.lead}
 		<div
 			class={[
-				'mt-2 font-serif leading-relaxed text-stone-500 dark:text-stone-400',
+				'mt-2 font-serif leading-relaxed text-muted dark:text-muted-dark',
 				card.lead.title && 'text-sm italic'
 			]}
 		>
@@ -32,7 +32,7 @@
 	<div
 		class={[
 			'font-serif text-lg leading-relaxed',
-			card.lead ? 'mt-3 border-t border-dashed border-stone-200 pt-3 dark:border-stone-700' : 'mt-2'
+			card.lead ? 'mt-3 border-t border-dashed border-line pt-3 dark:border-line-dark' : 'mt-2'
 		]}
 	>
 		{#if hint}

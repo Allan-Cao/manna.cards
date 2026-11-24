@@ -25,6 +25,7 @@ ESV is preview-only until Crossway confirms the open questions in `docs/esv-cros
 
 - Core is framework-free and uses relative imports only. ESLint forbids `svelte`, `svelte/*`, `@sveltejs/*`, `$app/*` and `#lib` imports under `src/lib/core/`.
 - Write tests first (TDD) for all core logic. Tests live beside the code as `*.test.ts` in `src/lib/core/` and `scripts/`, run in plain Node.
-- UI is built from Bits UI primitives styled with Tailwind utility classes. No hand-written CSS (the only stylesheet is `@import 'tailwindcss';`).
+- UI is built from Bits UI primitives styled with Tailwind utility classes. No hand-written CSS: the only stylesheet, `src/routes/layout.css`, is `@import 'tailwindcss';` plus one `@theme` block for the fonts and the Umber colour tokens.
+- Look: Figtree (body) and Averia Serif Libre (headings, bold, 18px and up), self-hosted from Fontsource. Umber tokens (`paper`, `ink`, `muted`, `accent`, `line`, `field`, each with a `-dark` partner used under `dark:`). Backgrounds stay plain paper: show state with borders, text colour and underlines, not fills. Card text in previews keeps `font-serif`, since Anki cards use Anki's own font.
 - Conventional Commits, committed often.
 - No backward-compatibility obligations to the old Python tool.

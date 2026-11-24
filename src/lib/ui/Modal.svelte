@@ -12,12 +12,12 @@
 
 <Dialog.Root bind:open>
 	<Dialog.Portal>
-		<Dialog.Overlay class="fixed inset-0 z-40 bg-stone-950/60" />
+		<Dialog.Overlay class="fixed inset-0 z-40 bg-ink/40" />
 		<Dialog.Content
-			class="fixed top-1/2 left-1/2 z-50 max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl bg-white p-6 shadow-xl dark:border dark:border-stone-700 dark:bg-stone-900"
+			class="fixed top-1/2 left-1/2 z-50 max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-line bg-paper p-6 dark:border-line-dark dark:bg-paper-dark"
 		>
 			<Dialog.Title class="text-lg font-semibold">{title}</Dialog.Title>
-			<div class="mt-3 space-y-4 leading-relaxed text-stone-700 dark:text-stone-300">
+			<div class="mt-3 space-y-4 leading-relaxed text-ink dark:text-ink-dark">
 				{@render children()}
 			</div>
 			<div class="mt-6 flex justify-end">
