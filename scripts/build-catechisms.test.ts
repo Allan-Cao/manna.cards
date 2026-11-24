@@ -3,8 +3,10 @@ import { BOOKS } from '../src/lib/core/books.ts';
 import {
 	OSIS_TO_USFM,
 	cleanAnswer,
+	cleanAnswerLines,
 	cleanQuestion,
 	convertCatechism,
+	convertCompendium,
 	convertFairview,
 	fixOcr,
 	osisToLabel,
@@ -70,6 +72,14 @@ describe('cleanAnswer', () => {
 		expect(cleanAnswer('God is first')).toBe('God is first.');
 		expect(cleanAnswer('Is it so?')).toBe('Is it so?');
 		expect(cleanAnswer('He said "Amen."')).toBe('He said "Amen."');
+	});
+});
+
+describe('cleanAnswerLines', () => {
+	it('cleans each line, keeps the line breaks and ends the last line with punctuation', () => {
+		expect(
+			cleanAnswerLines('That  is  so ,  as  follows :\nI. Thou  shalt\nII. Thou  shalt  not')
+		).toBe('That is so, as follows:\nI. Thou shalt\nII. Thou shalt not.');
 	});
 });
 
@@ -184,5 +194,69 @@ ${questions.slice(2).join('\n')}
 	it('rejects sections that start elsewhere than the registry says', () => {
 		const moved = { ...small, sections: [small.sections[0], { heading: 'Ten Things', first: 2 }] };
 		expect(() => convertFairview(page(good), moved, [3])).toThrow(/sections/);
+	});
+});
+
+describe('convertCompendium', () => {
+	const small = {
+		id: 'hsc' as const,
+		short: 'HSC',
+		name: 'Small',
+		count: 3,
+		credit: 'Small, public domain.',
+		sections: [
+			{ heading: 'Introduction', first: 1 },
+			{ heading: 'Misery', first: 2 }
+		]
+	};
+	const book = (q3 = 'Q.  3.  How  then ?') => `Psalms
+A  COMPENDIUM
+OF  THE  LORD.
+Question  1.  How  many  things  are  necessary ?
+Answer.  Three :  first,  how  great  my  sins  are
+
+THE  FIRST  PART.
+Of  the  Misery  of  Man.
+Q.  2.  Whence  knowest  thou  it?
+A.  Out  of  the  law,  Heb.  2 :  17,  as  follows :
+I.  Com.  Thou  shalt  have  no  other  gods.
+COMPENDIUM.  29
+${q3}
+A.  Thus.
+When  those  who  are  inclined  to  become  members
+CONFESSION`;
+
+	it('reads the Compendium, keeping line breaks in lists and tidying references', () => {
+		expect(convertCompendium(book(), small, [])).toEqual({
+			id: 'hsc',
+			source: 'Small, public domain.',
+			questions: [
+				{
+					n: 1,
+					q: 'How many things are necessary?',
+					a: 'Three: first, how great my sins are.',
+					proofs: []
+				},
+				{
+					n: 2,
+					q: 'Whence knowest thou it?',
+					a: 'Out of the law, Heb. 2:17, as follows:\nI. Com. Thou shalt have no other gods.',
+					proofs: []
+				},
+				{ n: 3, q: 'How then?', a: 'Thus.', proofs: [] }
+			]
+		});
+	});
+	it('applies the fixes it is given', () => {
+		const fixed = convertCompendium(book('Q.  S.  How  then ?'), small, [['Q. S.', 'Q. 3.']]);
+		expect(fixed.questions[2].n).toBe(3);
+	});
+	it('rejects a wrong count or numbering', () => {
+		expect(() => convertCompendium(book(), { ...small, count: 4 }, [])).toThrow(/expected 4/);
+		expect(() => convertCompendium(book('Q.  4.  How  then ?'), small, [])).toThrow(/numbered 4/);
+	});
+	it('rejects parts that start elsewhere than the registry says', () => {
+		const moved = { ...small, sections: [small.sections[0], { heading: 'Misery', first: 3 }] };
+		expect(() => convertCompendium(book(), moved, [])).toThrow(/sections/);
 	});
 });

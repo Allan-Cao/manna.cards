@@ -2,7 +2,8 @@
  * Builds the app's bundled catechisms:
  *   static/catechisms/{id}.json  one CatechismText per catechism, compact JSON
  * wsc and bc come from Creeds.json (NonlinearFruit, public domain texts); bcc from Fairview Baptist
- * Church's web page, used by permission (see fairview-catechism.ts).
+ * Church's web page, used by permission (see fairview-catechism.ts); hsc from the Internet Archive's
+ * OCR of an 1860 public-domain printing of the Compendium (see rca-compendium.ts).
  *
  * Run:  npx tsx scripts/build-catechisms.ts            (downloads the sources into .cache/ once)
  *       npx tsx scripts/build-catechisms.ts --refresh  (downloads them again)
@@ -27,6 +28,15 @@ import {
 	splitProof,
 	straightenQuotes
 } from './fairview-catechism.ts';
+import {
+	COMPENDIUM_FIXES,
+	applyFixes,
+	normaliseLines,
+	parseCompendium,
+	sliceCompendium,
+	tidyReferences,
+	type Fix
+} from './rca-compendium.ts';
 
 /** OSIS book code (as Creeds.json spells it) to USFM code, for all 66 books. */
 export const OSIS_TO_USFM: Readonly<Record<string, string>> = {
@@ -195,6 +205,14 @@ export function cleanAnswer(text: string): string {
 	return out;
 }
 
+/** Cleans each line as `cleanAnswer` would, keeping the line breaks (one per commandment or article). */
+export function cleanAnswerLines(text: string): string {
+	return cleanAnswer(text.split('\n').map(collapse).filter(Boolean).join('\u0000')).replaceAll(
+		'\u0000',
+		'\n'
+	);
+}
+
 export interface RawEntry {
 	Number: number;
 	Question: string;
@@ -277,6 +295,37 @@ export function convertFairview(
 	return { id, source: credit, questions };
 }
 
+/**
+ * The Compendium from the OCR text of its printing (see rca-compendium.ts), corrected by `fixes`.
+ * Besides the usual checks, the printed parts start where the registry's sections do; the registry
+ * may add a first section for the questions before the first part.
+ */
+export function convertCompendium(
+	djvu: string,
+	catechism: Catechism = CATECHISMS.hsc,
+	fixes: readonly Fix[] = COMPENDIUM_FIXES
+): CatechismText {
+	const { id, credit, count, sections } = catechism;
+	if (!credit) throw new Error(`${id}: the registry has no credit for this source`);
+	const parsed = parseCompendium(applyFixes(normaliseLines(sliceCompendium(djvu)), fixes));
+	const questions = parsed.entries.map(({ n, q, a }): CatechismQuestion => ({
+		n,
+		q: cleanQuestion(tidyReferences(q)),
+		a: tidyReferences(cleanAnswerLines(a)),
+		proofs: []
+	}));
+	checkQuestions(id, count, questions);
+	const printed = parsed.sections.map((s) => s.first);
+	if (printed[0] !== 1) printed.unshift(1);
+	const registry = (sections ?? []).map((s) => s.first);
+	if (printed.join(',') !== registry.join(',')) {
+		throw new Error(
+			`${id}: the printed sections start at ${printed.join(',')}, the registry's at ${registry.join(',')}`
+		);
+	}
+	return { id, source: credit, questions };
+}
+
 interface Source {
 	url: string;
 	/** Under .cache/. */
@@ -298,6 +347,11 @@ const SOURCES: Record<CatechismId, Source> = {
 		url: 'https://www.fairviewbaptistchurch.ca/childrens-catechism/',
 		cache: 'fairview/childrens-catechism.html',
 		convert: (body) => convertFairview(body)
+	},
+	hsc: {
+		url: 'https://archive.org/download/psalmshymnswit00refo/psalmshymnswit00refo_djvu.txt',
+		cache: 'archive/psalmshymnswit00refo_djvu.txt',
+		convert: (body) => convertCompendium(body)
 	}
 };
 

@@ -1,6 +1,6 @@
 /** The bundled catechisms, in the order the picker lists them, and the shape of their text files. */
 
-export type CatechismId = 'wsc' | 'bc' | 'bcc';
+export type CatechismId = 'wsc' | 'bc' | 'bcc' | 'hsc';
 
 export interface Catechism {
 	id: CatechismId;
@@ -11,8 +11,9 @@ export interface Catechism {
 	/** Number of questions, so lists can be validated without loading the text. */
 	count: number;
 	/**
-	 * The credit its publisher asks for, starting with `name`. Shown on cards in place of the name,
-	 * as the deck description and on the about page. Absent for public-domain texts.
+	 * The credit its publisher asks for, or the translation and printing it was taken from, starting
+	 * with `name`. Shown on cards in place of the name, as the deck description and on the about
+	 * page. Absent for the public-domain texts from Creeds.json.
 	 */
 	credit?: string;
 	/** The catechism's own parts, by first question, in order. A new deck lists them as headings. */
@@ -36,6 +37,20 @@ export const CATECHISMS: Record<CatechismId, Catechism> = {
 			{ heading: 'Prayer', first: 105 },
 			{ heading: 'Word, Church and Ordinances', first: 122 },
 			{ heading: 'Last Things', first: 136 }
+		]
+	},
+	hsc: {
+		id: 'hsc',
+		short: 'HSC',
+		name: 'Compendium of the Heidelberg Catechism',
+		count: 74,
+		credit:
+			"Compendium of the Heidelberg Catechism (Faukelius, 1608), tr. Archibald Laidlie (1767), as printed in the Reformed Protestant Dutch Church's Psalms and Hymns (1860). Public domain.",
+		sections: [
+			{ heading: 'Introduction', first: 1 },
+			{ heading: 'The Misery of Man', first: 2 },
+			{ heading: "Man's Deliverance", first: 14 },
+			{ heading: 'Gratitude to God', first: 64 }
 		]
 	}
 };
