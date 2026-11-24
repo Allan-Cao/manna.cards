@@ -4,21 +4,10 @@
 	import { ESV_COPYRIGHT_PAGE } from '#lib/core/translations.ts';
 	import { focus, link, muted } from '#lib/ui/styles.ts';
 
-	const verses: { ref: string; text: string }[] = [
-		{
-			ref: 'Psalm 119:11',
-			text: 'Thy word have I hid in mine heart, that I might not sin against thee.'
-		},
-		{
-			ref: 'Psalm 1:2',
-			text: 'But his delight is in the law of the LORD; and in his law doth he meditate day and night.'
-		}
-	];
-
 	const questions: { q: string; a: string }[] = [
 		{
 			q: 'Why memorize Scripture with Anki?',
-			a: 'Anki uses spaced repetition: it shows each card again just before you would forget it, and waits longer each time you remember. Verses you know well come up rarely, so a few minutes a day keeps every passage you have learned.'
+			a: 'The blessed man meditates on the law of the LORD "day and night" (Psalm 1:2). Anki helps with that. It uses spaced repetition: it shows each card again just before you would forget it, and waits longer each time you remember. Verses you know well come up rarely, so a few minutes a day keeps every passage you have learned.'
 		},
 		{
 			q: 'What is on a card?',
@@ -64,14 +53,12 @@
 			manna.cards makes <a class={link} href="https://apps.ankiweb.net/">Anki</a> flash cards from Bible
 			passages and catechism questions.
 		</p>
-		<div class="mt-6 space-y-4">
-			{#each verses as verse (verse.ref)}
-				<figure class="border-l-2 border-accent pl-4 dark:border-accent-dark">
-					<blockquote class="font-serif text-lg">{verse.text}</blockquote>
-					<figcaption class="mt-1 text-sm {muted}">{verse.ref} (KJV)</figcaption>
-				</figure>
-			{/each}
-		</div>
+		<figure class="mt-6 border-l-2 border-accent pl-4 dark:border-accent-dark">
+			<blockquote class="font-serif text-lg">
+				Thy word have I hid in mine heart, that I might not sin against thee.
+			</blockquote>
+			<figcaption class="mt-1 text-sm {muted}">Psalm 119:11 (KJV)</figcaption>
+		</figure>
 	</section>
 
 	<section aria-labelledby="questions-heading">
