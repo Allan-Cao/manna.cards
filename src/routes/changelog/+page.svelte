@@ -40,14 +40,16 @@
 <main class="mx-auto max-w-2xl space-y-10 px-4 py-10 leading-relaxed">
 	<h1 class="font-serif text-3xl font-semibold tracking-tight">Changelog</h1>
 
-	<section aria-labelledby="planned-heading">
-		<h2 id="planned-heading" class="text-xl font-semibold">Planned</h2>
-		<ul class="mt-3 list-disc space-y-1 pl-5">
-			{#each planned as item (item)}
-				<li>{item}</li>
-			{/each}
-		</ul>
-	</section>
+	{#if planned.length}
+		<section aria-labelledby="planned-heading">
+			<h2 id="planned-heading" class="text-xl font-semibold">Planned</h2>
+			<ul class="mt-3 list-disc space-y-1 pl-5">
+				{#each planned as item (item)}
+					<li>{item}</li>
+				{/each}
+			</ul>
+		</section>
+	{/if}
 
 	<section aria-labelledby="changes-heading" class="space-y-5">
 		<h2 id="changes-heading" class="text-xl font-semibold">Changes</h2>

@@ -1,6 +1,14 @@
 export const changelog: { date: string; note: string }[] = [
 	{
 		date: '2026-11-23',
+		note: "Added the Westminster Assembly's Scripture proofs to the Shorter Catechism, from its 1649 printing."
+	},
+	{
+		date: '2026-11-23',
+		note: 'Long catechism answers are split into parts like long verses, and you can move the breaks.'
+	},
+	{
+		date: '2026-11-23',
 		note: 'Redesigned the site for phones: the deck editor has tabs, each deck on the home page has a menu, and every page has a footer. The about page is now questions and answers.'
 	},
 	{
@@ -31,7 +39,4 @@ export const changelog: { date: string; note: string }[] = [
 	{ date: '2026-11-14', note: 'Added the about page and share links.' }
 ];
 
-export const planned: string[] = [
-	'Split long catechism answers into parts',
-	'Proof texts for the Westminster Shorter Catechism'
-];
+export const planned: string[] = [];
