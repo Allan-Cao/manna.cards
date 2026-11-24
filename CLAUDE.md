@@ -10,7 +10,7 @@ Scripts in `scripts/` run with `npx tsx scripts/<name>.ts`.
 - `$lib` is replaced by `#lib`, a Node subpath import declared in `package.json` `"imports"` (`#lib` and `#lib/*`). Include file extensions: `#lib/foo.js`.
 - tsconfig extends `$app/tsconfig` instead of `./.svelte-kit/tsconfig.json`, with explicit `include` and `"types": ["$app/types", "node"]`.
 - Layout and page props types are imported from `./$types` (`LayoutProps`).
-- Vitest config lives in `vite.config.ts` (`test` key). Node >=22.17, TypeScript 6, Vite 8.
+- Vitest config lives in `vite.config.ts` (`test` key). Node >=24 (npm 11), TypeScript 6, Vite 8.
 - Other removals in the migration guide (not used here yet): `$app/stores` (use `$app/state`), `$app/environment` (now `$app/env`), `$env/*` (deprecated for `$app/env/private` and `$app/env/public`).
 
 ## Static output

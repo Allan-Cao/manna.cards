@@ -34,7 +34,7 @@ Berean Standard Bible (BSB), World English Bible (WEB) and King James Version (K
 
 ## Development
 
-Requires Node 22.17 or newer.
+Requires Node 24 or newer (npm 11).
 
 ```bash
 npm install
