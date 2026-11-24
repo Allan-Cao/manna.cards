@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import type { Break, Line, Verse } from './model.ts';
-import { SOFT_MAX_PART_WORDS, autoBreaks, breakAfter, splitUnits, verseWords } from './units.ts';
+import {
+	SOFT_MAX_PART_WORDS,
+	autoBreaks,
+	breakAfter,
+	splitText,
+	splitUnits,
+	verseWords
+} from './units.ts';
 
 const verse = (ref: string, ...lines: (string | Line)[]): Verse => {
 	const [book, chapter, v] = ref.split('.');
@@ -398,5 +405,41 @@ describe('splitUnits: breaks in use', () => {
 		expect(splitUnits(hebrews1_3, []).breaks).toEqual([]);
 		const omitted: Verse = { ref: hebrews1_3.ref, lines: [], omitted: true };
 		expect(splitUnits(omitted).breaks).toEqual([]);
+	});
+});
+
+describe('splitText: any lines, such as a catechism answer', () => {
+	// WSC 31, public domain.
+	const answer: { lines: Line[] } = {
+		lines: [
+			{
+				text: 'Effectual calling is the work of God’s Spirit, whereby, convincing us of our sin and misery, enlightening our minds in the knowledge of Christ, and renewing our wills, he doth persuade and enable us to embrace Jesus Christ, freely offered to us in the gospel.',
+				indent: 0
+			}
+		]
+	};
+	const text = (parts: Line[][]) => parts.map((part) => part.map((l) => l.text).join(' '));
+
+	it('splits like a verse: automatic breaks, saved breaks, none, or stale', () => {
+		const auto = splitText(answer);
+		expect(auto.breaks).toEqual(autoBreaks(answer));
+		expect(auto.parts.length).toBeGreaterThan(1);
+		expect(text(auto.parts).join(' ')).toBe(answer.lines[0].text);
+		expect(auto.stale).toBe(false);
+
+		const saved = [breakAfter(answer, 8)];
+		expect(text(splitText(answer, saved).parts)).toEqual([
+			'Effectual calling is the work of God’s Spirit, whereby,',
+			'convincing us of our sin and misery, enlightening our minds in the knowledge of Christ, and renewing our wills, he doth persuade and enable us to embrace Jesus Christ, freely offered to us in the gospel.'
+		]);
+		expect(splitText(answer, []).parts).toEqual([answer.lines]);
+		expect(splitText(answer, [{ after: 8, word: 'nope' }])).toMatchObject({
+			stale: true,
+			breaks: auto.breaks
+		});
+	});
+
+	it('gives no parts for no lines', () => {
+		expect(splitText({ lines: [] })).toEqual({ parts: [], stale: false, breaks: [] });
 	});
 });

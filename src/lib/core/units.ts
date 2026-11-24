@@ -1,13 +1,19 @@
 /**
  * Splits a verse into the units that cards ask for. Most verses are one unit; only long verses
  * are split, into 2 or 3 parts of at most SOFT_MAX_PART_WORDS where possible, at their strongest
- * punctuation, unless the user saved breaks.
+ * punctuation, unless the user saved breaks. A catechism answer is split the same way
+ * (splitText): anything made of lines can be.
  *
- * Words are the lines' texts split on whitespace, numbered from 0 across the whole verse.
+ * Words are the lines' texts split on whitespace, numbered from 0 across the whole text.
  * Selah lines are not counted, never start a unit, and stay with the unit before them.
  */
 
 import type { Break, Line, Unit, Verse } from './model.ts';
+
+/** What can be split: a verse, or a catechism answer. */
+export interface Text {
+	lines: Line[];
+}
 
 /** A verse with more words than this is split. About what can be recited from one prompt. */
 export const MAX_WORDS = 30;
@@ -31,7 +37,7 @@ interface Word {
 	line: number;
 }
 
-function countedWords(verse: Verse): Word[] {
+function countedWords(verse: Text): Word[] {
 	const words: Word[] = [];
 	verse.lines.forEach((line, i) => {
 		if (line.selah) return;
@@ -40,13 +46,13 @@ function countedWords(verse: Verse): Word[] {
 	return words;
 }
 
-/** The counted words of a verse; `Break.after` indexes into this. */
-export function verseWords(verse: Verse): string[] {
+/** The counted words of a verse or answer; `Break.after` indexes into this. */
+export function verseWords(verse: Text): string[] {
 	return countedWords(verse).map((w) => w.text);
 }
 
 /** The break the editor saves when the user clicks between word `after` and the next one. */
-export function breakAfter(verse: Verse, after: number): Break {
+export function breakAfter(verse: Text, after: number): Break {
 	return { after, word: verseWords(verse)[after] };
 }
 
@@ -65,7 +71,7 @@ interface Candidate {
 	strength: number;
 }
 
-export function autoBreaks(verse: Verse): Break[] {
+export function autoBreaks(verse: Text): Break[] {
 	const words = countedWords(verse);
 	if (words.length <= MAX_WORDS) return [];
 
@@ -144,18 +150,8 @@ export function splitUnits(
 	verse: Verse,
 	saved?: Break[]
 ): { units: Unit[]; stale: boolean; breaks: Break[] } {
-	if (verse.omitted || verse.lines.length === 0) return { units: [], stale: false, breaks: [] };
-
-	const words = countedWords(verse);
-	const fits = (b: Break) =>
-		Number.isInteger(b.after) &&
-		b.after >= 0 &&
-		b.after < words.length - 1 &&
-		words[b.after].text === b.word;
-	const stale = saved !== undefined && !saved.every(fits);
-	const breaks = saved === undefined || stale ? autoBreaks(verse) : saved;
-
-	const parts = cut(verse.lines, new Set(breaks.map((b) => b.after)));
+	if (verse.omitted) return { units: [], stale: false, breaks: [] };
+	const { parts, stale, breaks } = splitText(verse, saved);
 	const units = parts.map((lines, index) => ({
 		verse: verse.ref,
 		index,
@@ -163,6 +159,24 @@ export function splitUnits(
 		lines
 	}));
 	return { units, stale, breaks };
+}
+
+/** splitUnits for any lines: the parts' lines, in order. No lines give no parts. */
+export function splitText(
+	text: Text,
+	saved?: Break[]
+): { parts: Line[][]; stale: boolean; breaks: Break[] } {
+	if (text.lines.length === 0) return { parts: [], stale: false, breaks: [] };
+
+	const words = countedWords(text);
+	const fits = (b: Break) =>
+		Number.isInteger(b.after) &&
+		b.after >= 0 &&
+		b.after < words.length - 1 &&
+		words[b.after].text === b.word;
+	const stale = saved !== undefined && !saved.every(fits);
+	const breaks = saved === undefined || stale ? autoBreaks(text) : saved;
+	return { parts: cut(text.lines, new Set(breaks.map((b) => b.after))), stale, breaks };
 }
 
 /** Groups the lines into parts, splitting a line in two where a break falls inside it. */
