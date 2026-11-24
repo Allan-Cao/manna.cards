@@ -1,6 +1,10 @@
 export const changelog: { date: string; note: string }[] = [
 	{
 		date: '2026-11-23',
+		note: "Added the Compendium of the Heidelberg Catechism (74 questions), in Laidlie's public-domain translation as printed in 1860. New decks list its questions under its three parts."
+	},
+	{
+		date: '2026-11-23',
 		note: 'Added the Baptist Catechism for Children, by permission of Fairview Baptist Church. New decks list its questions under its six sections.'
 	},
 	{
