@@ -2,7 +2,7 @@
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.svg';
 	import { resolve } from '$app/paths';
-	import { focus, link } from '#lib/ui/styles.ts';
+	import { focus, link, muted } from '#lib/ui/styles.ts';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -26,12 +26,19 @@
 				manna.cards
 			</a>
 			<div class="flex gap-4">
-				<a href={resolve('/changelog')} class="text-sm {link}">Changelog</a>
 				<a href={resolve('/about')} class="text-sm {link}">About</a>
+				<a href={resolve('/changelog')} class="text-sm {link}">Changelog</a>
 			</div>
 		</nav>
 	</header>
 	<div class="flex-1">
 		{@render children()}
 	</div>
+	<footer class="border-t border-stone-200 dark:border-stone-800">
+		<p class="mx-auto max-w-6xl px-4 py-6 text-sm {muted}">
+			<a href="{resolve('/about')}#texts" class={link}>Bible and catechism texts</a> are public
+			domain or used by permission. Code released under the
+			<a href="https://github.com/Allan-Cao/Bible-Memorization" class={link}>MIT License</a>.
+		</p>
+	</footer>
 </div>

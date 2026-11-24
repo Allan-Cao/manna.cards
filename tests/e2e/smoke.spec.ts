@@ -65,7 +65,7 @@ test('make, fix, export, update and share a deck', async ({ page, browser, brows
 
 	// Share link: the same browser is offered an update, a fresh one adds the deck.
 	await page.getByRole('button', { name: 'Share' }).click();
-	const link = page.getByLabel('Link to this deck');
+	const link = page.getByLabel('Share link');
 	await expect(link).toHaveText(/\/open#[A-Za-z0-9_-]+$/);
 	const url = (await link.textContent())!.trim();
 	if (browserName === 'chromium') {

@@ -52,20 +52,22 @@
 		<p role="alert" class="mt-4 text-red-700 dark:text-red-400">{error}</p>
 		<p class="mt-3 {muted}">
 			{#if retired}
-				Its questions can no longer be built here. Cards already in Anki stay there.
+				Its cards stay in Anki.
 			{:else}
-				Ask the person who sent it for a new link, or copy the whole link again.
+				Copy the whole link again, or ask for a new link.
 			{/if}
 		</p>
 		<p class="mt-3"><a class={link} href={resolve('/')}>Go to your decks</a></p>
 	{:else if incoming && mine}
-		<p class="mt-4 leading-relaxed">
-			You already have this deck as <strong>“{mine.name}”</strong>
-			({describe(mine)}). The link has <strong>“{incoming.name}”</strong> ({describe(incoming)}).
-		</p>
-		<p class="mt-2 {muted}">
-			Updating replaces your list and breaks with the ones in the link. After that, export it again
-			to update your cards in Anki.
+		<dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+			<dt class={muted}>Yours:</dt>
+			<dd>“{mine.name}” ({describe(mine)})</dd>
+			<dt class={muted}>In the link:</dt>
+			<dd>“{incoming.name}” ({describe(incoming)})</dd>
+		</dl>
+		<p class="mt-3 {muted}">
+			Updating replaces your name, translation, list and breaks with the link's. Export again to
+			update Anki.
 		</p>
 		<div class="mt-5 flex flex-wrap gap-2">
 			<button type="button" class={primary} onclick={() => incoming && add(incoming)}>
@@ -74,9 +76,7 @@
 			<button type="button" class={button} onclick={() => mine && open(mine)}>Keep mine</button>
 		</div>
 	{:else if incoming}
-		<p class="mt-4 leading-relaxed">
-			Someone shared <strong>“{incoming.name}”</strong> ({describe(incoming)}) with you.
-		</p>
+		<p class="mt-4"><strong>“{incoming.name}”</strong> ({describe(incoming)})</p>
 		<div class="mt-5">
 			<button type="button" class={primary} onclick={() => incoming && add(incoming)}>
 				Add this deck

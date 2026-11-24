@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { DropdownMenu, RadioGroup } from 'bits-ui';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
@@ -13,7 +14,9 @@
 	import type { DeckDefinition, TranslationId } from '#lib/core/model.ts';
 	import { TRANSLATIONS } from '#lib/core/translations.ts';
 	import ConfirmDialog from '#lib/ui/ConfirmDialog.svelte';
-	import ContentSelect from '#lib/ui/ContentSelect.svelte';
+	import CatechismSelect from '#lib/ui/CatechismSelect.svelte';
+	import { downloadDeckFile } from '#lib/ui/browser.ts';
+	import ShareDialog from '#lib/ui/ShareDialog.svelte';
 	import {
 		deleteDeck,
 		listDecks,
@@ -22,7 +25,7 @@
 		saveDeck,
 		type RetiredDeck
 	} from '#lib/ui/storage.ts';
-	import { button, field, label, link, muted, primary, quiet } from '#lib/ui/styles.ts';
+	import { button, field, focus, label, link, muted, primary } from '#lib/ui/styles.ts';
 	import TranslationSelect from '#lib/ui/TranslationSelect.svelte';
 	import ot from '../../presets/ot.txt?raw';
 	import nt from '../../presets/nt.txt?raw';
@@ -39,14 +42,19 @@
 	});
 
 	let name = $state('');
-	let content = $state<'scripture' | CatechismId>('scripture');
+	let kind = $state<'bible' | 'catechism'>('bible');
+	let catechism = $state<CatechismId>('wsc');
 	let translation = $state<TranslationId>('bsb');
 	let deleting = $state<{ id: string; name: string } | null>(null);
+	let sharing = $state<DeckDefinition | null>(null);
+	/** Until the page runs here it cannot know, so the prerendered page greets a first visit. */
+	const hasDecks = $derived(decks.length > 0 || retired.length > 0);
+	const menuItem = `flex min-h-11 cursor-default items-center rounded px-3 text-sm data-highlighted:bg-stone-100 dark:data-highlighted:bg-stone-800 ${focus}`;
 	let fileError = $state('');
 
 	function exported(def: DeckDefinition): string {
 		const at = loadExport(def.id)?.at;
-		return at ? `exported ${new Date(at).toLocaleDateString()}` : 'not exported yet';
+		return at ? `exported ${new Date(at).toLocaleDateString()}` : 'not exported';
 	}
 
 	function summary(def: DeckDefinition): string {
@@ -65,8 +73,8 @@
 
 	/** A catechism deck starts with every question, under its section headings if it has them. */
 	function createFromForm() {
-		if (content === 'scripture') return create(name);
-		create(name || CATECHISMS[content].name, defaultQuestionList(content), content);
+		if (kind === 'bible') return create(name || 'Memory verses');
+		create(name || CATECHISMS[catechism].name, defaultQuestionList(catechism), catechism);
 	}
 
 	/** A deck file goes through /open, so a deck that is already here is handled the same way. */
@@ -88,146 +96,197 @@
 	}
 </script>
 
-<main class="mx-auto max-w-2xl space-y-12 px-4 py-10">
-	<section>
-		<h1 class="font-serif text-3xl font-semibold tracking-tight">Memorize Scripture with Anki</h1>
-		<p class="mt-4 text-lg leading-relaxed {muted}">
-			Type the passages you want to learn and this page makes flash cards for
-			<a class={link} href="https://apps.ankiweb.net/">Anki</a>, one card per verse. Change the list
-			whenever you like and download it again: Anki updates your cards and keeps your progress.
-			Everything stays in this browser.
-		</p>
-	</section>
-
-	<section aria-labelledby="decks-heading">
-		<h2 id="decks-heading" class="text-xl font-semibold">Your decks</h2>
-		{#if decks.length === 0 && retired.length === 0}
-			<p class="mt-3 {muted}">You have no decks yet. Make one below or start from an example.</p>
-		{:else}
-			<ul
-				class="mt-3 divide-y divide-stone-200 rounded-lg border border-stone-200 bg-white dark:divide-stone-800 dark:border-stone-800 dark:bg-stone-900"
-			>
-				{#each decks as def (def.id)}
-					<li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
-						<div class="min-w-0">
-							<a href={resolve('/deck/[id]', { id: def.id })} class="font-medium break-words {link}"
-								>{def.name}</a
-							>
-							<p class="text-sm {muted}">{summary(def)} · {exported(def)}</p>
-						</div>
-						<button type="button" class={quiet} onclick={() => (deleting = def)}>
-							Delete<span class="sr-only"> {def.name}</span>
-						</button>
-					</li>
-				{/each}
-				{#each retired as deck (deck.id)}
-					<li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
-						<div class="min-w-0">
-							<p class="font-medium break-words">{deck.name}</p>
-							<p class="text-sm {muted}">
-								The {deck.catechism} is no longer available, so this deck cannot be built.
-							</p>
-						</div>
-						<button type="button" class={quiet} onclick={() => (deleting = deck)}>
-							Delete<span class="sr-only"> {deck.name}</span>
-						</button>
-					</li>
-				{/each}
-			</ul>
-		{/if}
-	</section>
-
-	<section aria-labelledby="new-heading">
-		<h2 id="new-heading" class="text-xl font-semibold">New deck</h2>
-		<form
-			class="mt-3 grid gap-4 sm:grid-cols-2 sm:items-end"
-			onsubmit={(e) => {
-				e.preventDefault();
-				createFromForm();
-			}}
+{#snippet menu(deck: { id: string; name: string }, def?: DeckDefinition)}
+	<DropdownMenu.Root>
+		<DropdownMenu.Trigger
+			class="flex size-11 shrink-0 items-center justify-center rounded-md hover:bg-stone-100 dark:hover:bg-stone-800 {focus}"
+			aria-label="Options for {deck.name}"
 		>
-			<div>
-				<label for="new-name" class={label}>Name</label>
-				<input
-					id="new-name"
-					class="{field} mt-1"
-					bind:value={name}
-					placeholder="Memory verses"
-					autocomplete="off"
-				/>
-			</div>
-			<div>
-				<label for="new-content" class={label}>Content</label>
-				<div class="mt-1"><ContentSelect id="new-content" bind:value={content} /></div>
-			</div>
-			{#if content === 'scripture'}
-				<div>
-					<label for="new-translation" class={label}>Translation</label>
-					<div class="mt-1">
-						<TranslationSelect id="new-translation" bind:value={translation} />
+			<span aria-hidden="true">⋯</span>
+		</DropdownMenu.Trigger>
+		<DropdownMenu.Portal>
+			<DropdownMenu.Content
+				align="end"
+				sideOffset={4}
+				class="z-50 min-w-48 rounded-md border border-stone-200 bg-white p-1 shadow-lg dark:border-stone-700 dark:bg-stone-900"
+			>
+				{#if def}
+					<DropdownMenu.Item class={menuItem} onSelect={() => (sharing = def)}>
+						Share link
+					</DropdownMenu.Item>
+					<DropdownMenu.Item class={menuItem} onSelect={() => downloadDeckFile(def)}>
+						Download deck file
+					</DropdownMenu.Item>
+					<DropdownMenu.Separator class="my-1 h-px bg-stone-200 dark:bg-stone-700" />
+				{/if}
+				<DropdownMenu.Item class={menuItem} onSelect={() => (deleting = deck)}>
+					Delete
+				</DropdownMenu.Item>
+			</DropdownMenu.Content>
+		</DropdownMenu.Portal>
+	</DropdownMenu.Root>
+{/snippet}
+
+<main class="mx-auto max-w-6xl px-4 py-8 lg:py-10">
+	<div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-12">
+		{#if hasDecks}
+			<section aria-labelledby="decks-heading" class="min-w-0 lg:flex-1">
+				<h1 id="decks-heading" class="font-serif text-2xl font-semibold tracking-tight">
+					Your decks
+				</h1>
+				<ul
+					class="mt-3 divide-y divide-stone-200 rounded-lg border border-stone-200 bg-white dark:divide-stone-800 dark:border-stone-800 dark:bg-stone-900"
+				>
+					{#each decks as def (def.id)}
+						<li class="flex items-center gap-2 pr-1">
+							<a
+								href={resolve('/deck/[id]', { id: def.id })}
+								class="min-w-0 flex-1 rounded-lg px-4 py-3 {focus}"
+							>
+								<span class="block font-medium break-words">{def.name}</span>
+								<span class="block text-sm {muted}">{summary(def)} · {exported(def)}</span>
+							</a>
+							{@render menu(def, def)}
+						</li>
+					{/each}
+					{#each retired as deck (deck.id)}
+						<li class="flex items-center gap-2 pr-1">
+							<a
+								href={resolve('/deck/[id]', { id: deck.id })}
+								class="min-w-0 flex-1 rounded-lg px-4 py-3 {focus}"
+							>
+								<span class="block font-medium break-words">{deck.name}</span>
+								<span class="block text-sm {muted}"
+									>The {deck.catechism} is no longer available.</span
+								>
+							</a>
+							{@render menu(deck)}
+						</li>
+					{/each}
+				</ul>
+			</section>
+		{:else}
+			<section class="lg:flex-1">
+				<h1 class="font-serif text-3xl font-semibold tracking-tight">
+					Memorize Scripture with Anki
+				</h1>
+				<p class="mt-3 text-lg {muted}">
+					Build a deck from Bible passages or a catechism, then import it into
+					<a class={link} href="https://apps.ankiweb.net/">Anki</a>.
+				</p>
+			</section>
+		{/if}
+
+		<section aria-labelledby="new-heading" class="lg:w-96 lg:shrink-0">
+			<h2 id="new-heading" class="text-xl font-semibold">New deck</h2>
+			<form
+				class="mt-3 space-y-4"
+				onsubmit={(e) => {
+					e.preventDefault();
+					createFromForm();
+				}}
+			>
+				<RadioGroup.Root
+					bind:value={() => kind, (v) => (kind = v as 'bible' | 'catechism')}
+					aria-label="Content"
+					class="grid grid-cols-2 gap-2"
+				>
+					{#each [{ value: 'bible', label: 'Bible passages' }, { value: 'catechism', label: 'Catechism' }] as option (option.value)}
+						<RadioGroup.Item
+							value={option.value}
+							class="flex min-h-11 items-center gap-2 rounded-md border border-stone-300 px-3 text-left text-sm font-medium data-[state=checked]:border-stone-900 dark:border-stone-700 dark:data-[state=checked]:border-stone-100 {focus}"
+						>
+							{#snippet children({ checked })}
+								<span
+									aria-hidden="true"
+									class="flex size-4 shrink-0 items-center justify-center rounded-full border border-current"
+								>
+									{#if checked}<span class="size-2 rounded-full bg-current"></span>{/if}
+								</span>
+								{option.label}
+							{/snippet}
+						</RadioGroup.Item>
+					{/each}
+				</RadioGroup.Root>
+				{#if kind === 'bible'}
+					<div>
+						<label for="new-translation" class={label}>Translation</label>
+						<div class="mt-1">
+							<TranslationSelect id="new-translation" bind:value={translation} />
+						</div>
 					</div>
+				{:else}
+					<div>
+						<label for="new-catechism" class={label}>Catechism</label>
+						<div class="mt-1"><CatechismSelect id="new-catechism" bind:value={catechism} /></div>
+					</div>
+				{/if}
+				<div>
+					<label for="new-name" class={label}>Name (optional)</label>
+					<input
+						id="new-name"
+						class="{field} mt-1"
+						bind:value={name}
+						placeholder={kind === 'bible' ? 'Memory verses' : CATECHISMS[catechism].name}
+						autocomplete="off"
+					/>
+				</div>
+				<button type="submit" class="{primary} min-h-11 w-full" disabled={!ready}>
+					Create deck
+				</button>
+			</form>
+
+			{#if kind === 'bible'}
+				<p class="mt-6 text-sm {muted}">
+					Or start from the verses on <a
+						class={link}
+						href="https://billygrahamlibrary.org/decision-card/"
+						target="_blank">Billy Graham's decision card</a
+					>:
+				</p>
+				<div class="mt-2 grid grid-cols-2 gap-2">
+					<button
+						type="button"
+						class="{button} min-h-11"
+						disabled={!ready}
+						onclick={() => create('Old Testament Memory Verses', ot)}
+					>
+						Old Testament verses
+					</button>
+					<button
+						type="button"
+						class="{button} min-h-11"
+						disabled={!ready}
+						onclick={() => create('New Testament Memory Verses', nt)}
+					>
+						New Testament verses
+					</button>
 				</div>
 			{/if}
-			<button type="submit" class="{primary} h-10.5 sm:justify-self-start" disabled={!ready}>
-				Create deck
-			</button>
-		</form>
-	</section>
 
-	<section aria-labelledby="examples-heading">
-		<h2 id="examples-heading" class="text-xl font-semibold">Start from an example</h2>
-		<p class="mt-2 {muted}">
-			These are the Old and New Testament verses on the <a
-				class={link}
-				href="https://billygrahamlibrary.org/decision-card/"
-				target="_blank">decision card Billy Graham was given when he came to faith.</a
-			> The translation chosen above is used.
-		</p>
-		<div class="mt-3 flex flex-wrap gap-2">
-			<button
-				type="button"
-				class={button}
-				disabled={!ready}
-				onclick={() => create('Old Testament Memory Verses', ot)}
+			<label
+				class="{button} mt-8 cursor-pointer focus-within:outline-2 focus-within:outline-amber-600"
 			>
-				Old Testament verses
-			</button>
-			<button
-				type="button"
-				class={button}
-				disabled={!ready}
-				onclick={() => create('New Testament Memory Verses', nt)}
-			>
-				New Testament verses
-			</button>
-		</div>
-	</section>
-
-	<section aria-labelledby="file-heading">
-		<h2 id="file-heading" class="text-xl font-semibold">Open a deck file</h2>
-		<p class="mt-2 {muted}">A deck file (.json) is what “Download deck file” saves when sharing.</p>
-		<label
-			class="{button} mt-3 cursor-pointer focus-within:outline-2 focus-within:outline-amber-600"
-		>
-			Choose a file…
-			<input
-				type="file"
-				accept=".json,application/json"
-				class="sr-only"
-				disabled={!ready}
-				onchange={openFile}
-			/>
-		</label>
-		{#if fileError}<p role="alert" class="mt-2 text-sm text-red-700 dark:text-red-400">
-				{fileError}
-			</p>{/if}
-	</section>
+				Open a deck file…
+				<input
+					type="file"
+					accept=".json,application/json"
+					class="sr-only"
+					disabled={!ready}
+					onchange={openFile}
+				/>
+			</label>
+			{#if fileError}<p role="alert" class="mt-2 text-sm text-red-700 dark:text-red-400">
+					{fileError}
+				</p>{/if}
+		</section>
+	</div>
 </main>
 
 <ConfirmDialog
 	bind:open={() => deleting !== null, (open) => !open && (deleting = null)}
 	title="Delete “{deleting?.name}”?"
-	description="This removes the deck from this browser. Cards you already have in Anki stay there."
+	description="It is removed from this browser. Its cards stay in Anki."
 	confirm="Delete"
 	destructive
 	onconfirm={() => {
@@ -236,3 +295,9 @@
 		retired = listRetiredDecks();
 	}}
 />
+{#if sharing}
+	<ShareDialog
+		bind:open={() => sharing !== null, (open) => !open && (sharing = null)}
+		def={sharing}
+	/>
+{/if}

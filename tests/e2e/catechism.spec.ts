@@ -6,7 +6,8 @@ import { deflateRawSync } from 'node:zlib';
 test('make a catechism deck, narrow its list and export it', async ({ page }) => {
 	await page.goto('/');
 	await page.getByLabel('Name').fill('Shorter Catechism');
-	await page.getByLabel('Content').click();
+	await page.getByRole('radio', { name: 'Catechism' }).click();
+	await page.getByLabel('Catechism', { exact: true }).click();
 	await page.getByRole('option', { name: 'Westminster Shorter Catechism' }).click();
 	await expect(page.getByLabel('Translation')).toHaveCount(0);
 	await page.getByRole('button', { name: 'Create deck' }).click();
@@ -43,7 +44,8 @@ test('a Baptist Catechism for Children deck starts with its sections and credits
 	page
 }) => {
 	await page.goto('/');
-	await page.getByLabel('Content').click();
+	await page.getByRole('radio', { name: 'Catechism' }).click();
+	await page.getByLabel('Catechism', { exact: true }).click();
 	await page.getByRole('option', { name: 'The Baptist Catechism for Children' }).click();
 	await page.getByRole('button', { name: 'Create deck' }).click();
 	await expect(page).toHaveURL(/\/deck\/[a-z0-9]+$/);
@@ -84,7 +86,8 @@ test('a Compendium deck starts with its parts, keeps the Creed a line per articl
 	const credit =
 		"Compendium of the Heidelberg Catechism (Faukelius, 1608), tr. Archibald Laidlie (1767), as printed in the Reformed Protestant Dutch Church's Psalms and Hymns (1860). Public domain.";
 	await page.goto('/');
-	await page.getByLabel('Content').click();
+	await page.getByRole('radio', { name: 'Catechism' }).click();
+	await page.getByLabel('Catechism', { exact: true }).click();
 	await page.getByRole('option', { name: 'Compendium of the Heidelberg Catechism' }).click();
 	await page.getByRole('button', { name: 'Create deck' }).click();
 	await expect(page).toHaveURL(/\/deck\/[a-z0-9]+$/);
@@ -137,15 +140,16 @@ test('a saved deck for a retired catechism is listed, explained and can be delet
 		retiredDeck
 	);
 	await page.reload();
-	await expect(page.getByRole('paragraph').filter({ hasText: /^Heidelberg$/ })).toBeVisible();
+	await expect(page.getByRole('link', { name: /^Heidelberg/ })).toBeVisible();
 	await expect(page.getByText(/Heidelberg Catechism is no longer available/)).toBeVisible();
 
 	await page.goto(`/deck/${retiredDeck.id}`);
 	await expect(page.getByRole('alert')).toContainText('Heidelberg Catechism');
-	await expect(page.getByRole('alert')).toContainText('no longer offers');
+	await expect(page.getByRole('alert')).toContainText('no longer available');
 
 	await page.goto('/');
-	await page.getByRole('button', { name: 'Delete Heidelberg' }).click();
+	await page.getByRole('button', { name: 'Options for Heidelberg' }).click();
+	await page.getByRole('menuitem', { name: 'Delete' }).click();
 	await page.getByRole('button', { name: 'Delete', exact: true }).click();
 	await expect(page.getByText(/no longer available/)).toHaveCount(0);
 	expect(await page.evaluate((id) => localStorage.getItem(`bm.deck.${id}`), retiredDeck.id)).toBe(
@@ -161,6 +165,6 @@ test('a share link for a retired catechism names it', async ({ page }) => {
 	await expect(page.getByRole('alert')).toContainText(
 		'This deck uses the Westminster Larger Catechism, which manna.cards no longer offers.'
 	);
-	await expect(page.getByText(/can no longer be built here/)).toBeVisible();
+	await expect(page.getByText('Its cards stay in Anki.')).toBeVisible();
 	await expect(page.getByText(/new link/)).toHaveCount(0);
 });

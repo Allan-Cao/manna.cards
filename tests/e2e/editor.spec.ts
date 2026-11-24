@@ -137,10 +137,11 @@ test('a deck open in two tabs follows the changes made in the other', async ({ p
 
 	// A deck deleted in one tab is not saved again by the other, which goes back to the list.
 	await other.goto('/');
-	await other.getByRole('button', { name: 'Delete Renamed elsewhere' }).click();
+	await other.getByRole('button', { name: 'Options for Renamed elsewhere' }).click();
+	await other.getByRole('menuitem', { name: 'Delete' }).click();
 	await other.getByRole('alertdialog').getByRole('button', { name: 'Delete' }).click();
 	await expect(page).toHaveURL(/\/$/);
-	await expect(page.getByText('You have no decks yet.')).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Memorize Scripture with Anki' })).toBeVisible();
 });
 
 test('a deck the browser will not store comes with a warning', async ({ page }) => {

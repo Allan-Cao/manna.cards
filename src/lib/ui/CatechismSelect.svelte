@@ -3,19 +3,15 @@
 	import { CATECHISMS, type CatechismId } from '#lib/core/catechisms.ts';
 	import { field, focus } from './styles.ts';
 
-	/** What a new deck asks: Bible verses, or the questions of a catechism. */
-	let { value = $bindable(), id }: { value: 'scripture' | CatechismId; id: string } = $props();
+	let { value = $bindable(), id }: { value: CatechismId; id: string } = $props();
 
-	const items = [
-		{ value: 'scripture', label: 'Scripture' },
-		...Object.values(CATECHISMS).map((c) => ({ value: c.id, label: c.name }))
-	];
+	const items = Object.values(CATECHISMS).map((c) => ({ value: c.id, label: c.name }));
 </script>
 
 <Select.Root
 	type="single"
 	{items}
-	bind:value={() => value, (v) => (value = v as 'scripture' | CatechismId)}
+	bind:value={() => value, (v) => (value = v as CatechismId)}
 	allowDeselect={false}
 >
 	<Select.Trigger {id} class="{field} flex items-center justify-between gap-2 text-left">

@@ -11,7 +11,8 @@
 
 <!-- The editor sets the title from the deck name as it is edited. -->
 <svelte:head>
-	{#if !def}<title>manna.cards</title>{/if}
+	{#if retired}<title>{retired.name} · manna.cards</title>
+	{:else if !def}<title>Deck not found · manna.cards</title>{/if}
 </svelte:head>
 
 {#if def}
@@ -22,8 +23,8 @@
 	<main class="mx-auto max-w-2xl px-4 py-10">
 		<h1 class="font-serif text-2xl font-semibold break-words">{retired.name}</h1>
 		<p role="alert" class="mt-3">
-			This deck uses the {retired.catechism}, which manna.cards no longer offers, so it cannot be
-			built. Cards you already have in Anki stay there. You can delete the deck from your decks.
+			The {retired.catechism} is no longer available, so this deck cannot be built. Its cards stay in
+			Anki.
 		</p>
 		<p class="mt-3"><a class={link} href={resolve('/')}>Back to your decks</a></p>
 	</main>
@@ -31,8 +32,8 @@
 	<main class="mx-auto max-w-2xl px-4 py-10">
 		<h1 class="font-serif text-2xl font-semibold">Deck not found</h1>
 		<p class="mt-3 {muted}">
-			This deck is not saved in this browser. Decks are kept only on the device where they were
-			made; to move one, share it from there.
+			Decks are saved only in the browser that made them. To move one, open it there and choose
+			Share.
 		</p>
 		<p class="mt-3"><a class={link} href={resolve('/')}>Back to your decks</a></p>
 	</main>

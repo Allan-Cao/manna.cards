@@ -90,6 +90,11 @@ export function downloadFile(name: string, data: BlobPart, type: string): void {
 	setTimeout(() => URL.revokeObjectURL(url), 10_000);
 }
 
+/** Saves the deck definition as a .json file that the home page can open again. */
+export function downloadDeckFile(def: DeckDefinition): void {
+	downloadFile(fileName(def.name, 'json'), JSON.stringify(def, null, '\t'), 'application/json');
+}
+
 export interface ExportReport {
 	fileName: string;
 	changes: ReturnType<typeof diffExport>;
