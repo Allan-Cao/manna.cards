@@ -152,7 +152,9 @@ test('a deck the browser will not store comes with a warning', async ({ page }) 
 	});
 	await newDeck(page, 'John 3:16');
 	await expect(page.getByText('1 passage · 1 verse · 1 card')).toBeVisible();
-	await expect(page.getByText('This browser did not let the page save this deck')).toBeVisible();
+	await expect(
+		page.getByText('This browser is not saving this deck.', { exact: false })
+	).toBeVisible();
 });
 
 test('a deck page loads directly, and an unknown address says so', async ({ page }) => {
@@ -168,4 +170,25 @@ test('a deck page loads directly, and an unknown address says so', async ({ page
 	const response = await page.goto('/no-such-page');
 	expect(response?.status()).toBe(404);
 	await expect(page.getByText('Not Found')).toBeVisible();
+});
+
+test.describe('on a phone', () => {
+	test.use({ viewport: { width: 390, height: 844 } });
+
+	test('the list and the cards are tabs, with export always at hand', async ({ page }) => {
+		await page.goto('/');
+		await page.getByRole('button', { name: 'Create deck' }).click();
+		await expect(page.getByRole('tab', { name: 'Passages' })).toHaveAttribute(
+			'aria-selected',
+			'true'
+		);
+		await expect(page.getByText('Add a passage to export.')).toBeVisible();
+		await page.getByRole('textbox', { name: 'Passages' }).fill('John 3:16');
+
+		await page.getByRole('tab', { name: 'Cards' }).click();
+		await expect(page.getByText('1 passage · 1 verse · 1 card')).toBeVisible();
+		await expect(page.getByRole('textbox', { name: 'Passages' })).toBeHidden();
+		await expect(page.getByRole('button', { name: 'Export for Anki' })).toBeInViewport();
+		await expect(page.getByRole('button', { name: 'Export for Anki' })).toBeEnabled();
+	});
 });

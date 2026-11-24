@@ -32,5 +32,5 @@
 	</button>
 </div>
 {#if failed}
-	<p class="mt-1 text-sm">Copying did not work here. Select the text above and copy it by hand.</p>
+	<p class="mt-1 text-sm">Could not copy. Select the text and copy it.</p>
 {/if}

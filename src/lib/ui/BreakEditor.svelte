@@ -35,8 +35,7 @@
 	class="rounded-lg border border-amber-300 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30"
 >
 	<p class="text-sm text-amber-950 dark:text-amber-100">
-		Click between two words to split {label} there. Click a break to remove it. With the keyboard, the
-		arrow keys move between words.
+		Tap between two words to split {label} there. Tap a break to remove it. Arrow keys move between gaps.
 	</p>
 	<!-- One tab stop for the whole verse: the group moves focus between gaps with the arrow keys. -->
 	<ToggleGroup.Root

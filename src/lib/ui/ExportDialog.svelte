@@ -14,20 +14,20 @@
 	const changes = $derived(report?.changes);
 </script>
 
-<Modal bind:open title={error ? 'The export did not work' : 'Your deck is downloading'}>
+<Modal bind:open title={error ? 'Export failed' : 'Your deck is downloading'}>
 	{#if error}
 		<p role="alert" class="text-red-700 dark:text-red-400">{error}</p>
-		<p>Nothing was downloaded. Try again, and if it keeps failing, reload the page.</p>
+		<p>Nothing was downloaded. Try again, or reload the page.</p>
 	{:else if report && changes}
 		{#if report.renamedFrom}
 			<p class={notice}>
-				This deck was exported before as “{report.renamedFrom}”. Rename that deck in Anki first,
-				otherwise the new cards land in a second deck.
+				In Anki this deck is still “{report.renamedFrom}”. Rename it there before you import, or the
+				new cards go into a second deck.
 			</p>
 		{/if}
 		<p>
-			Open <strong class="break-all">{report.fileName}</strong> with Anki, or in Anki choose
-			<strong>File › Import</strong> and pick the file. The import options Anki suggests are right.
+			Open <strong class="break-all">{report.fileName}</strong> with Anki, or choose
+			<strong>File › Import</strong> in Anki. Leave the import options as they are.
 		</p>
 
 		{#if !changes.firstExport}
@@ -43,8 +43,8 @@
 						<li>Removed: {changes.removedPassages.join(', ')}</li>
 					{/if}
 					<li>
-						{cards(changes.addedNotes)} added, {cards(changes.removedNotes)} removed. Cards you already
-						have are updated and keep their progress.
+						{cards(changes.addedNotes)} added, {cards(changes.removedNotes)} removed. Existing cards keep
+						their progress.
 					</li>
 				</ul>
 			</section>
@@ -52,18 +52,17 @@
 
 		{#if report.inserted.length}
 			<p>
-				Anki keeps the old order for cards it already has, so new cards from {report.inserted.join(
-					', '
-				)} can come up out of place.
+				New cards from {report.inserted.join(', ')} may come up out of list order: Anki keeps the order
+				of cards it already has.
 			</p>
 		{/if}
 
 		{#if changes.removedNotes > 0}
 			<section aria-labelledby="cleanup-heading">
 				<h3 id="cleanup-heading" class="font-semibold text-stone-900 dark:text-stone-100">
-					Remove the old cards
+					Delete the old cards
 				</h3>
-				<p class="mt-1">Anki never deletes cards when importing, so after importing:</p>
+				<p class="mt-1">Anki does not delete cards on import. After importing:</p>
 				<ol class="mt-1 list-decimal space-y-1 pl-5">
 					<li>In Anki, open <strong>Browse</strong>.</li>
 					<li>Paste this into the search box and press Enter:</li>
