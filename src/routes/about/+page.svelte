@@ -128,6 +128,13 @@
 								<a class={link} href="https://github.com/NonlinearFruit/Creeds.json">Creeds.json</a
 								>.
 							{/if}
+							{#if catechism.id === 'wsc'}
+								The proofs are the Westminster Assembly's, from the London printing of 1649, as
+								transcribed by the
+								<a class={link} href="https://github.com/textcreationpartnership/A80320"
+									>Text Creation Partnership</a
+								>.
+							{/if}
 						</dd>
 					</div>
 				{/each}
