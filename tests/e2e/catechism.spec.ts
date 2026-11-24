@@ -78,6 +78,45 @@ test('a Baptist Catechism for Children deck starts with its sections and credits
 	).toBeVisible();
 });
 
+test('a Compendium deck starts with its parts, keeps the Creed a line per article and credits its printing', async ({
+	page
+}) => {
+	const credit =
+		"Compendium of the Heidelberg Catechism (Faukelius, 1608), tr. Archibald Laidlie (1767), as printed in the Reformed Protestant Dutch Church's Psalms and Hymns (1860). Public domain.";
+	await page.goto('/');
+	await page.getByLabel('Content').click();
+	await page.getByRole('option', { name: 'Compendium of the Heidelberg Catechism' }).click();
+	await page.getByRole('button', { name: 'Create deck' }).click();
+	await expect(page).toHaveURL(/\/deck\/[a-z0-9]+$/);
+
+	const list = page.getByLabel('Questions');
+	await expect(list).toHaveValue(
+		"# Introduction\n1\n# The Misery of Man\n2-13\n# Man's Deliverance\n14-63\n# Gratitude to God\n64-74"
+	);
+	await expect(page.getByText('74 questions')).toBeVisible();
+
+	await list.fill("# Man's Deliverance\n19-20");
+	await expect(page.getByText('2 questions')).toBeVisible();
+	const q19 = page.locator('article').filter({ hasText: 'HSC 19' });
+	await expect(q19).toContainText('What is true faith?');
+	await expect(q19).toContainText('an hearty confidence that all my sins are forgiven me');
+	const q20 = page.locator('article').filter({ hasText: 'HSC 20' });
+	await expect(q20).toContainText(
+		'I. I believe in God, the Father Almighty, maker of heaven and earth.'
+	);
+	await expect(q20).toContainText('XII. And the life everlasting.');
+
+	const download: Promise<Download> = page.waitForEvent('download');
+	await page.getByRole('button', { name: 'Export for Anki' }).click();
+	const files = unzipSync(new Uint8Array(await readFile((await (await download).path())!)));
+	const collection = new TextDecoder().decode(files['collection.anki2']);
+	expect(collection).toContain(credit);
+	expect(collection).toContain('XII. And the life everlasting.');
+
+	await page.goto('/about');
+	await expect(page.getByText(credit)).toBeVisible();
+});
+
 const retiredDeck = {
 	v: 1,
 	id: 'oldhc123',
