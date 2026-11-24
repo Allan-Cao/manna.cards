@@ -90,7 +90,7 @@ export interface StoredVerse {
 }
 
 /**
- * A manual break inside a verse. Words are counted across the whole verse,
+ * A manual break inside a verse or catechism answer. Words are counted across the whole verse,
  * splitting on whitespace, starting at 0. The break sits after word `after`.
  * `word` is that word, kept so a break can be detected as stale if the text changes.
  */
@@ -108,12 +108,15 @@ export interface DeckDefinition {
 	translation: TranslationId;
 	/**
 	 * Set for a catechism deck, whose list holds question numbers (`5`, `1-10`) instead of
-	 * references. Absent for a scripture deck. The translation is kept but unused, breaks stay empty.
+	 * references. Absent for a scripture deck. The translation is kept but unused.
 	 */
 	catechism?: CatechismId;
 	/** One reference per line, `#` lines are headings. */
 	list: string;
-	/** Key is "BOOK.chapter.verse", e.g. "JHN.3.16". Missing key: automatic. Empty array: never split. */
+	/**
+	 * Key is "BOOK.chapter.verse", e.g. "JHN.3.16", or in a catechism deck "catechism:question",
+	 * e.g. "wsc:12", for its answer. Missing key: automatic. Empty array: never split.
+	 */
 	breaks: Record<string, Break[]>;
 	/** Incremented on every export. */
 	revision: number;

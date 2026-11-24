@@ -71,7 +71,10 @@ export function parseDeckDefinition(value: unknown): DeckDefinition {
 
 	const breaks: Record<string, Break[]> = {};
 	for (const [key, list] of Object.entries(asObject(o.breaks, 'breaks'))) {
-		if (!/^[A-Z0-9]{3}\.\d+\.\d+$/.test(key)) throw new Error(`Invalid breaks key: "${key}"`);
+		// A verse ("JHN.3.16") or a catechism question ("wsc:12").
+		if (!/^(?:[A-Z0-9]{3}\.\d+\.\d+|[a-z]+:\d+)$/.test(key)) {
+			throw new Error(`Invalid breaks key: "${key}"`);
+		}
 		if (!Array.isArray(list)) throw new Error(`Invalid breaks for ${key}: expected a list`);
 		breaks[key] = list.map((item) => {
 			const b = asObject(item, `break in ${key}`);

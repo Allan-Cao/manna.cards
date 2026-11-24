@@ -9,6 +9,7 @@ import { buildDeck, type LoadBooks, type LoadCatechism } from './build.ts';
 import { CATECHISMS, type CatechismId } from './catechisms.ts';
 import type { BookId, BookText, DeckDefinition, NoteSpec, TranslationId } from './model.ts';
 import { FIXTURE } from './questions.fixture.ts';
+import { questionGuid } from './questions.ts';
 import { escapeHtml } from './render.ts';
 import { esvBooks, esvQuery, esvVersesNeeded, parseEsvResponse } from './sources/esv.ts';
 import { versificationFor } from './versification.ts';
@@ -170,6 +171,35 @@ describe('buildDeck: catechism decks', () => {
 		expect(result.build.notes[0].tags).toEqual(['bm::k3x9::r4']);
 	});
 
+	it('splits a long answer into parts, and still labels the export by question', async () => {
+		const result = await buildDeck(catechismDeck('1\n4'), noBooks, 0, loadCatechism);
+		expect(result.build.notes.map((n) => [n.fields.Reference, n.guid])).toEqual([
+			['WSC 1', 'bm1:k3x9:cat:wsc:1'],
+			['WSC 4 (1/2)', 'bm1:k3x9:cat:wsc:4'],
+			['WSC 4 (2/2)', 'bm1:k3x9:cat:wsc:4:1']
+		]);
+		expect(result.labels).toEqual(['WSC 1', 'WSC 4']);
+		expect(result.staleBreaks).toEqual([]);
+	});
+
+	it('uses the breaks saved for a question and reports stale ones by question key', async () => {
+		const one = await buildDeck(
+			deck({ catechism: 'wsc', list: '4', breaks: { 'wsc:4': [] } }),
+			noBooks,
+			0,
+			loadCatechism
+		);
+		expect(one.build.notes.map((n) => n.fields.Reference)).toEqual(['WSC 4']);
+		const stale = await buildDeck(
+			deck({ catechism: 'wsc', list: '4', breaks: { 'wsc:4': [{ after: 2, word: 'nope' }] } }),
+			noBooks,
+			0,
+			loadCatechism
+		);
+		expect(stale.staleBreaks).toEqual(['wsc:4']);
+		expect(stale.build.notes).toHaveLength(2);
+	});
+
 	it('describes the deck with the catechism credit, when it has one', async () => {
 		const plain = await buildDeck(catechismDeck('1'), noBooks, 0, loadCatechism);
 		expect(plain.build.description).toBeUndefined();
@@ -227,10 +257,20 @@ describe('bundled catechisms end to end', () => {
 
 	it.each(Object.values(CATECHISMS))('$short builds every question', async ({ id, count }) => {
 		const def = deck({ catechism: id, list: `1-${count}` });
-		const { build, errors } = await buildDeck(def, fromDisk, 1_800_000_000, fromStatic);
+		const { build, errors, labels, questions } = await buildDeck(
+			def,
+			fromDisk,
+			1_800_000_000,
+			fromStatic
+		);
 		expect(errors).toEqual([]);
-		expect(build.notes).toHaveLength(count);
-		expect(new Set(build.notes.map((n) => n.guid)).size).toBe(count);
+		expect(labels).toHaveLength(count);
+		const planned = questions.flatMap((g) => g.questions);
+		expect(build.notes).toHaveLength(planned.reduce((n, q) => n + q.cards.length, 0));
+		expect(new Set(build.notes.map((n) => n.guid)).size).toBe(build.notes.length);
+		// Every question keeps the GUID it had before answers were split, on its first part.
+		const guids = new Set(build.notes.map((n) => n.guid));
+		for (let n = 1; n <= count; n++) expect(guids.has(questionGuid(def.id, id, n))).toBe(true);
 		for (const note of build.notes) {
 			expect(note.fields.Context).toMatch(/^<div class="line">.+<\/div>$/);
 			expect(note.fields.Answer).toMatch(/^<div class="line">.+<\/div>$/);

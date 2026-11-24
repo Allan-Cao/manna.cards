@@ -3,8 +3,10 @@
  *
  * The list holds one question number or range per line (`5`, `1-10`, `Q5`, `Q1-10`), `#` lines
  * start a group: the same shape as parseList, so errors show the same. A question listed again
- * by a later line is asked only the first time. Each question makes one note on the same note
- * type as verses: the question is the lead-in, the answer the part to recite.
+ * by a later line is asked only the first time. Each question makes a note on the same note
+ * type as verses: the question is the lead-in, the answer the part to recite. A long answer is
+ * split into parts exactly like a long verse (units.ts), with breaks saved under the question's
+ * key ("wsc:12"); each part is a note whose lead-in is the question and the part before it.
  */
 
 import {
@@ -14,8 +16,9 @@ import {
 	type CatechismText
 } from './catechisms.ts';
 import { revisionTag } from './diff.ts';
-import type { DeckDefinition, Line, ListError, NoteSpec } from './model.ts';
+import type { Break, DeckDefinition, Line, ListError, NoteSpec } from './model.ts';
 import { escapeHtml, firstLetters, renderLines } from './render.ts';
+import { splitText } from './units.ts';
 
 /** Question numbers under one `#` heading. `heading` is null before the first heading. */
 export interface QuestionGroup {
@@ -86,17 +89,41 @@ function parseLine(input: string, count: number): [number, number] {
 	return [first, last];
 }
 
-export function questionGuid(deckId: string, catechism: CatechismId, n: number): string {
-	return `bm1:${deckId}:cat:${catechism}:${n}`;
+/**
+ * The first part keeps the GUID a question had before answers were split, so an existing card
+ * for a whole answer is updated in place to ask its first part. Later parts add `:1`, `:2`.
+ */
+export function questionGuid(deckId: string, catechism: CatechismId, n: number, part = 0): string {
+	return `bm1:${deckId}:cat:${catechism}:${n}${part ? `:${part}` : ''}`;
+}
+
+/** One card of a question: the whole answer, or one part of a long one. */
+export interface PlannedAnswer {
+	/** As on the card, e.g. "WSC 12" or "WSC 12 (1/2)". */
+	reference: string;
+	/** 0-based position within the answer. */
+	index: number;
+	/** Number of parts the answer was split into. */
+	count: number;
+	lines: Line[];
+	/** The part before, shown under the question. Null for the first part. */
+	lead: Line[] | null;
 }
 
 export interface PlannedQuestion {
-	/** Unique within the deck, e.g. "wsc:1". */
+	/** Unique within the deck, e.g. "wsc:1". Also the key of its saved breaks. */
 	key: string;
-	/** As on the card, e.g. "WSC 1". */
+	/** The question's own label, e.g. "WSC 1", without a part number. */
 	reference: string;
 	question: CatechismQuestion;
+	/** The whole answer. */
 	answer: Line[];
+	/** The saved breaks no longer match the text, so the automatic ones are in use. */
+	stale: boolean;
+	/** The breaks in use, saved or automatic. */
+	breaks: Break[];
+	/** One per part, in order. */
+	cards: PlannedAnswer[];
 }
 
 export interface PlannedQuestionGroup {
@@ -104,11 +131,15 @@ export interface PlannedQuestionGroup {
 	questions: PlannedQuestion[];
 }
 
-/** Looks up the listed questions in the text. Both the notes and the editor's preview use this. */
+/**
+ * Looks up the listed questions in the text and splits long answers. Both the notes and the
+ * editor's preview use this.
+ */
 export function planQuestions(
 	catechism: CatechismId,
 	text: CatechismText,
-	groups: QuestionGroup[]
+	groups: QuestionGroup[],
+	breaks: DeckDefinition['breaks'] = {}
 ): PlannedQuestionGroup[] {
 	const byNumber = new Map(text.questions.map((q) => [q.n, q]));
 	return groups.map((group) => ({
@@ -118,12 +149,19 @@ export function planQuestions(
 			if (!question) {
 				throw new Error(`Question ${n} is missing from the ${CATECHISMS[catechism].name} text`);
 			}
-			return {
-				key: `${catechism}:${n}`,
-				reference: questionLabel(catechism, n),
-				question,
-				answer: answerLines(question.a)
-			};
+			const key = `${catechism}:${n}`;
+			const reference = questionLabel(catechism, n);
+			const answer = answerLines(question.a);
+			const split = splitText({ lines: answer }, breaks[key]);
+			const count = split.parts.length;
+			const cards = split.parts.map((lines, index): PlannedAnswer => ({
+				reference: count > 1 ? `${reference} (${index + 1}/${count})` : reference,
+				index,
+				count,
+				lines,
+				lead: index > 0 ? split.parts[index - 1] : null
+			}));
+			return { key, reference, question, answer, stale: split.stale, breaks: split.breaks, cards };
 		})
 	}));
 }
@@ -149,16 +187,26 @@ export function makeQuestionNotes(def: DeckDefinition, plan: PlannedQuestionGrou
 	const tags = [revisionTag(def)];
 	return plan
 		.flatMap((g) => g.questions)
-		.map(({ reference, question, answer }, order) => ({
-			guid: questionGuid(def.id, catechism, question.n),
+		.flatMap(({ question, cards }) => cards.map((card) => ({ question, card })))
+		.map(({ question, card }, order) => ({
+			guid: questionGuid(def.id, catechism, question.n, card.index),
 			order,
 			tags,
 			fields: {
-				Reference: reference,
-				Context: renderLines([{ text: question.q, indent: 0 }]),
-				Answer: renderLines(answer),
-				Hint: firstLetters(answer),
+				Reference: card.reference,
+				Context: renderLines(questionLead(question.q, card.lead)),
+				Answer: renderLines(card.lines),
+				Hint: firstLetters(card.lines),
 				Info: escapeHtml(questionInfo(catechism, question.proofs))
 			}
 		}));
+}
+
+/** The question, then the part before (from a new paragraph), as the lines of the lead-in. */
+export function questionLead(question: string, lead: Line[] | null): Line[] {
+	const [first, ...rest] = lead ?? [];
+	return [
+		{ text: question, indent: 0 },
+		...(first ? [{ ...first, paragraph: true as const }, ...rest] : [])
+	];
 }

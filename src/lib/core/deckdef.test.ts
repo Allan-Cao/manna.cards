@@ -74,6 +74,11 @@ describe('parseDeckDefinition', () => {
 		expect(parseDeckDefinition({ ...valid, catechism: undefined })).not.toHaveProperty('catechism');
 	});
 
+	it('keeps breaks saved for catechism questions, keyed like "wsc:12"', () => {
+		const breaks = { 'wsc:12': [{ after: 9, word: 'Spirit,' }], 'bcc:1': [] };
+		expect(parseDeckDefinition({ ...valid, catechism: 'wsc', breaks }).breaks).toEqual(breaks);
+	});
+
 	it('cleans the name', () => {
 		expect(parseDeckDefinition({ ...valid, name: ' A::B ' }).name).toBe('A:B');
 	});
@@ -90,6 +95,8 @@ describe('parseDeckDefinition', () => {
 		['non-string list', { ...valid, list: ['John 3:16'] }, /list/],
 		['breaks not an object', { ...valid, breaks: [] }, /breaks/],
 		['bad break key', { ...valid, breaks: { 'john 3:16': [] } }, /breaks.*john 3:16/],
+		['bad question key', { ...valid, breaks: { 'WSC:12': [] } }, /breaks.*WSC:12/],
+		['question key without a number', { ...valid, breaks: { 'wsc:': [] } }, /breaks/],
 		['break value not an array', { ...valid, breaks: { 'JHN.3.16': {} } }, /breaks/],
 		['negative after', { ...valid, breaks: { 'JHN.3.16': [{ after: -1, word: 'a' }] } }, /after/],
 		[
@@ -155,7 +162,12 @@ describe('share links', () => {
 	});
 
 	it('round-trips a catechism deck', async () => {
-		const def: DeckDefinition = { ...valid, catechism: 'wsc', list: '# God\n1-3\nQ5', breaks: {} };
+		const def: DeckDefinition = {
+			...valid,
+			catechism: 'wsc',
+			list: '# God\n1-3\nQ5',
+			breaks: { 'wsc:5': [{ after: 9, word: 'Spirit,' }], 'wsc:2': [] }
+		};
 		expect(await decodeShare(await encodeShare(def))).toEqual(def);
 	});
 

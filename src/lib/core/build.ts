@@ -55,11 +55,17 @@ export interface BuildResult {
 	passages: Passage[];
 	/** Catechism decks only (empty for a scripture deck): the questions, by heading. */
 	questions: PlannedQuestionGroup[];
-	/** What the export snapshot records: passage labels, or question references ("WSC 1"). */
+	/**
+	 * What the export snapshot records: passage labels, or question references ("WSC 1", one per
+	 * question however many parts its answer has).
+	 */
 	labels: string[];
 	/** Invalid list lines. The valid lines are still built. */
 	errors: ListError[];
-	/** Verse keys whose saved breaks no longer match the text, so automatic breaks were used. */
+	/**
+	 * Verse keys ("JHN.3.16"), or question keys ("wsc:12"), whose saved breaks no longer match the
+	 * text, so automatic breaks were used.
+	 */
 	staleBreaks: string[];
 	/**
 	 * Errors about the whole deck rather than a line: Crossway's ESV limits (500 verses, half a
@@ -78,8 +84,11 @@ export async function buildDeck(
 	if (def.catechism) {
 		const id = def.catechism;
 		const { groups, errors } = parseQuestionList(def.list, CATECHISMS[id].count);
-		const questions = groups.length ? planQuestions(id, await loadCatechism(id), groups) : [];
+		const questions = groups.length
+			? planQuestions(id, await loadCatechism(id), groups, def.breaks)
+			: [];
 		const notes = makeQuestionNotes(def, questions);
+		const planned = questions.flatMap((g) => g.questions);
 		const { credit } = CATECHISMS[id];
 		return {
 			build: {
@@ -92,9 +101,9 @@ export async function buildDeck(
 			groups: [],
 			passages: [],
 			questions,
-			labels: notes.map((n) => n.fields.Reference),
+			labels: planned.map((q) => q.reference),
 			errors,
-			staleBreaks: [],
+			staleBreaks: planned.filter((q) => q.stale).map((q) => q.key),
 			limitErrors: []
 		};
 	}

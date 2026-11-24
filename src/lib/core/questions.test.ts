@@ -10,6 +10,7 @@ import {
 	questionLabel
 } from './questions.ts';
 import { CATECHISMS } from './catechisms.ts';
+import { MAX_WORDS, autoBreaks, breakAfter, verseWords } from './units.ts';
 import { FIXTURE } from './questions.fixture.ts';
 
 const groups = (text: string, count = 107) =>
@@ -122,9 +123,63 @@ describe('planQuestions', () => {
 	});
 
 	it('throws when the text lacks a listed question', () => {
-		expect(() => planQuestions('wsc', FIXTURE, [{ heading: null, questions: [4] }])).toThrow(
-			/question 4/i
+		expect(() => planQuestions('wsc', FIXTURE, [{ heading: null, questions: [5] }])).toThrow(
+			/question 5/i
 		);
+	});
+});
+
+describe('planQuestions: long answers', () => {
+	const plan = (breaks: DeckDefinition['breaks'] = {}, list = '4') =>
+		planQuestions('wsc', FIXTURE, parseQuestionList(list, 4).groups, breaks)[0].questions[0];
+	const parts = (q: ReturnType<typeof plan>) =>
+		q.cards.map((c) => c.lines.map((l) => l.text).join(' '));
+	const whole = FIXTURE.questions[3].a;
+
+	it('asks a short answer whole, on one card', () => {
+		const q = plan({}, '1');
+		expect(q.breaks).toEqual([]);
+		expect(q.cards).toEqual([
+			{ reference: 'WSC 1', index: 0, count: 1, lines: q.answer, lead: null }
+		]);
+	});
+
+	it('splits an answer of more than MAX_WORDS words like a verse, at its strongest punctuation', () => {
+		const q = plan();
+		const answer = { lines: answerLines(whole) };
+		expect(verseWords(answer).length).toBeGreaterThan(MAX_WORDS);
+		expect(q.breaks).toEqual(autoBreaks(answer));
+		expect(q.stale).toBe(false);
+		expect(parts(q)).toEqual([
+			'Effectual calling is the work of God’s Spirit, whereby, convincing us of our sin and misery, enlightening our minds in the knowledge of Christ,',
+			'and renewing our wills, he doth persuade and enable us to embrace Jesus Christ, freely offered to us in the gospel.'
+		]);
+		expect(q.cards.map((c) => [c.reference, c.index, c.count])).toEqual([
+			['WSC 4 (1/2)', 0, 2],
+			['WSC 4 (2/2)', 1, 2]
+		]);
+		// The whole answer is still there for the break editor.
+		expect(q.answer).toEqual(answer.lines);
+	});
+
+	it('leads in to each later part with the part before it', () => {
+		const [first, second] = plan().cards;
+		expect(first.lead).toBeNull();
+		expect(second.lead).toEqual(first.lines);
+	});
+
+	it('uses the breaks saved under the question key, or none for an empty list', () => {
+		const saved = [breakAfter({ lines: answerLines(whole) }, 8)];
+		const q = plan({ 'wsc:4': saved });
+		expect(q.breaks).toEqual(saved);
+		expect(parts(q)[0]).toBe('Effectual calling is the work of God’s Spirit, whereby,');
+		expect(plan({ 'wsc:4': [] }).cards.map((c) => c.reference)).toEqual(['WSC 4']);
+	});
+
+	it('falls back to the automatic breaks when the saved ones no longer match the text', () => {
+		const q = plan({ 'wsc:4': [{ after: 8, word: 'nope' }] });
+		expect(q.stale).toBe(true);
+		expect(q.breaks).toEqual(plan().breaks);
 	});
 });
 
@@ -156,7 +211,7 @@ describe('questionInfo', () => {
 
 describe('makeQuestionNotes', () => {
 	const notes = (list: string) => {
-		const plan = planQuestions('wsc', FIXTURE, parseQuestionList(list, 3).groups);
+		const plan = planQuestions('wsc', FIXTURE, parseQuestionList(list, 4).groups);
 		return makeQuestionNotes(def, plan);
 	};
 
@@ -191,6 +246,35 @@ describe('makeQuestionNotes', () => {
 
 	it('shows just the catechism name when a question has no proofs', () => {
 		expect(notes('3')[0].fields.Info).toBe('Westminster Shorter Catechism');
+	});
+
+	it('makes a note per part of a long answer, under the question with the part before', () => {
+		const [first, second] = notes('4');
+		const question = '<div class="line">What is effectual calling?</div>';
+		expect(first.fields).toMatchObject({
+			Reference: 'WSC 4 (1/2)',
+			Context: question,
+			Answer:
+				'<div class="line">Effectual calling is the work of God’s Spirit, whereby, convincing us of our sin and misery, enlightening our minds in the knowledge of Christ,</div>',
+			Info: '2 Timothy 1:9 · Westminster Shorter Catechism'
+		});
+		expect(second.fields).toMatchObject({
+			Reference: 'WSC 4 (2/2)',
+			Context:
+				question +
+				'<div class="line para">Effectual calling is the work of God’s Spirit, whereby, convincing us of our sin and misery, enlightening our minds in the knowledge of Christ,</div>',
+			Answer:
+				'<div class="line">and renewing our wills, he doth persuade and enable us to embrace Jesus Christ, freely offered to us in the gospel.</div>',
+			Hint: '<div class="line">a r o w, h d p a e u t e J C, f o t u i t g.</div>',
+			Info: '2 Timothy 1:9 · Westminster Shorter Catechism'
+		});
+		expect([first.order, second.order]).toEqual([0, 1]);
+	});
+
+	it('keeps the GUID of an unsplit question for the first part, so an existing card is updated', () => {
+		expect(notes('4').map((n) => n.guid)).toEqual(['bm1:k3x9:cat:wsc:4', 'bm1:k3x9:cat:wsc:4:1']);
+		expect(questionGuid('k3x9', 'wsc', 4, 0)).toBe(questionGuid('k3x9', 'wsc', 4));
+		expect(questionGuid('k3x9', 'wsc', 4, 2)).toBe('bm1:k3x9:cat:wsc:4:2');
 	});
 
 	it('gives stable GUIDs from deck, catechism and number, whatever the order', () => {

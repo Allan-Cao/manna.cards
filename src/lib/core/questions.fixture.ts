@@ -19,6 +19,13 @@ export const FIXTURE: CatechismText = {
 			a: 'The word of God, which is contained in the scriptures of the Old and New Testaments, is the only rule to direct us how we may glorify and enjoy him.',
 			proofs: ['Ephesians 2:20']
 		},
-		{ n: 3, q: 'Is 1 < 2 & "so"?', a: 'Yes: 1 < 2 & "so" — well-being.', proofs: [] }
+		{ n: 3, q: 'Is 1 < 2 & "so"?', a: 'Yes: 1 < 2 & "so" — well-being.', proofs: [] },
+		// WSC 31: long enough (45 words) to be split into two parts.
+		{
+			n: 4,
+			q: 'What is effectual calling?',
+			a: 'Effectual calling is the work of God’s Spirit, whereby, convincing us of our sin and misery, enlightening our minds in the knowledge of Christ, and renewing our wills, he doth persuade and enable us to embrace Jesus Christ, freely offered to us in the gospel.',
+			proofs: ['2 Timothy 1:9']
+		}
 	]
 };
