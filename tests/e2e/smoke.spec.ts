@@ -92,14 +92,18 @@ test('make, fix, export, update and share a deck', async ({ page, browser, brows
 	await expect(friend.getByRole('alert')).toContainText('damaged or incomplete');
 });
 
-test('the changelog shows the latest changes and the rest on request', async ({ page }) => {
+test('the changelog shows the latest changes and loads earlier ones on scroll', async ({
+	page
+}) => {
+	// A short viewport keeps the end of the first batch out of view until we scroll.
+	await page.setViewportSize({ width: 400, height: 300 });
 	await page.goto('/changelog');
 	const changes = page.getByRole('region', { name: 'Changes' });
 	await expect(changes.getByRole('listitem')).toHaveCount(10);
-	await expect(changes.getByText('Added the about page and share links.')).toBeHidden();
-	await page.getByRole('button', { name: 'Show earlier changes' }).click();
+	await expect(changes.getByText('Added the about page and share links.')).toHaveCount(0);
+	await changes.getByRole('listitem').last().scrollIntoViewIfNeeded();
+	await page.mouse.wheel(0, 2000);
 	await expect(changes.getByText('Added the about page and share links.')).toBeVisible();
-	await expect(page.getByRole('button', { name: 'Hide earlier changes' })).toBeVisible();
 });
 
 test('every page has the footer', async ({ page }) => {
