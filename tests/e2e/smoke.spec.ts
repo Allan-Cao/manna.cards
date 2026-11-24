@@ -91,3 +91,28 @@ test('make, fix, export, update and share a deck', async ({ page, browser, brows
 	await friend.goto('/open#not-a-deck');
 	await expect(friend.getByRole('alert')).toContainText('damaged or incomplete');
 });
+
+test('the changelog shows the latest changes and the rest on request', async ({ page }) => {
+	await page.goto('/changelog');
+	const changes = page.getByRole('region', { name: 'Changes' });
+	await expect(changes.getByRole('listitem')).toHaveCount(10);
+	await expect(changes.getByText('Added the about page and share links.')).toBeHidden();
+	await page.getByRole('button', { name: 'Show earlier changes' }).click();
+	await expect(changes.getByText('Added the about page and share links.')).toBeVisible();
+	await expect(page.getByRole('button', { name: 'Hide earlier changes' })).toBeVisible();
+});
+
+test('every page has the footer', async ({ page }) => {
+	for (const path of ['/', '/about', '/changelog']) {
+		await page.goto(path);
+		const footer = page.getByRole('contentinfo');
+		await expect(footer.getByRole('link', { name: 'MIT License' })).toHaveAttribute(
+			'href',
+			'https://github.com/Allan-Cao/Bible-Memorization'
+		);
+		await expect(footer.getByRole('link', { name: 'Bible and catechism texts' })).toHaveAttribute(
+			'href',
+			'/about#texts'
+		);
+	}
+});

@@ -1,11 +1,15 @@
 export const changelog: { date: string; note: string }[] = [
 	{
 		date: '2026-11-23',
-		note: "Added the Compendium of the Heidelberg Catechism (74 questions), in Laidlie's public-domain translation as printed in 1860. New decks list its questions under its three parts."
+		note: 'Redesigned the site for phones: the deck editor has tabs, each deck on the home page has a menu, and every page has a footer. The about page is now questions and answers.'
 	},
 	{
 		date: '2026-11-23',
-		note: 'Added the Baptist Catechism for Children, by permission of Fairview Baptist Church. New decks list its questions under its six sections.'
+		note: "Added the Compendium of the Heidelberg Catechism (74 questions), in Archibald Laidlie's public-domain translation as printed in 1860."
+	},
+	{
+		date: '2026-11-23',
+		note: 'Added the Baptist Catechism for Children (145 questions), by permission of Fairview Baptist Church.'
 	},
 	{
 		date: '2026-11-23',
@@ -18,13 +22,13 @@ export const changelog: { date: string; note: string }[] = [
 	{ date: '2026-11-20', note: 'Added this changelog.' },
 	{ date: '2026-11-20', note: 'Renamed the site to manna.cards.' },
 	{ date: '2026-11-20', note: 'Added a link to the Billy Graham decision card.' },
-	{ date: '2026-11-16', note: 'The tab title now follows the deck name when you rename it.' },
+	{ date: '2026-11-16', note: 'The tab title follows the deck name when you rename it.' },
 	{
 		date: '2026-11-15',
-		note: 'Decks now follow changes made in another tab, and warn when they cannot be saved.'
+		note: 'Decks follow changes made in another tab, and warn when they cannot be saved.'
 	},
-	{ date: '2026-11-14', note: 'Rewrote the app in TypeScript. Everything runs in your browser.' },
-	{ date: '2026-11-14', note: 'Added the about page and shared deck links.' }
+	{ date: '2026-11-14', note: 'Rewrote the app in TypeScript, running entirely in the browser.' },
+	{ date: '2026-11-14', note: 'Added the about page and share links.' }
 ];
 
 export const planned: string[] = [
