@@ -36,10 +36,6 @@
 		{
 			q: 'How do I move or share a deck?',
 			a: 'Choose Share. The link, or the deck file, holds the deck. Whoever opens it gets their own copy, and a newer link updates it.'
-		},
-		{
-			q: 'Where did the Heidelberg and Westminster Larger catechisms go?',
-			a: 'They were removed on 2026-11-23: their long answers do not work as one card per question. Decks made from them can no longer be built. Their cards stay in Anki.'
 		}
 	];
 </script>
