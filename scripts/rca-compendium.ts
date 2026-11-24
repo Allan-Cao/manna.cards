@@ -185,6 +185,37 @@ export const COMPENDIUM_CITATIONS: Readonly<Record<number, readonly Citation[]>>
 	71: [{ from: 'of Christ, (John 16:23), and', to: 'of Christ, and', ref: 'John 16:23' }]
 };
 
+/**
+ * Proofs added by manna.cards. They are not in the 1860 printing, which cites nothing in these
+ * answers: each answer quotes or closely paraphrases the passage listed, in the KJV's words. Q5
+ * joins Matthew's "first and great commandment" to Mark's "with all thy strength". Q13 quotes
+ * Gal. 3:10 word for word, not Deut. 27:26 ("Cursed be he that confirmeth not"). Q38's Matt. 28:20
+ * is printed in its question and stays there: proofs are shown under the answer, which qualifies
+ * that promise rather than proves it. Read as `proofLabels` reads a proof list.
+ */
+export const COMPENDIUM_ADDED_PROOFS: Readonly<Record<number, string>> = {
+	5: 'Matt 22:37-38; Mark 12:30',
+	6: 'Matt 22:39-40',
+	13: 'Gal 3:10',
+	55: 'Mark 16:15-16',
+	73: 'Matt 6:9-13'
+};
+
+/**
+ * Question `n`'s printed references, then its added proof. An added proof is only for answers that
+ * the printing leaves without a citation, so a question with both fails.
+ */
+export function addProofs(
+	n: number,
+	printed: readonly string[],
+	added: Readonly<Record<number, string>>
+): string[] {
+	const extra = added[n];
+	if (extra === undefined) return [...printed];
+	if (printed.length) throw new Error(`Compendium: question ${n} is printed with a citation`);
+	return [extra];
+}
+
 /** A chapter-and-verse or the Exodus heading of Q3, left in an answer. */
 const CITES = /\d+:\d+|Exodus xx/;
 

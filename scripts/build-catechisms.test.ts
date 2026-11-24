@@ -250,6 +250,13 @@ CONFESSION`;
 			]
 		});
 	});
+	it('adds the editorial proofs it is given after the printed ones', () => {
+		const text = convertCompendium(book(), small, [], cites, { 3: 'Gal 3:10' });
+		expect(text.questions.map((q) => q.proofs)).toEqual([[], ['Hebrews 2:17'], ['Galatians 3:10']]);
+		expect(() => convertCompendium(book(), small, [], cites, { 2: 'Gal 3:10' })).toThrow(
+			/question 2/
+		);
+	});
 	it('applies the fixes it is given', () => {
 		const fixed = convertCompendium(
 			book('Q.  S.  How  then ?'),

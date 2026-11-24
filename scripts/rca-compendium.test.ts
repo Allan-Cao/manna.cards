@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+	COMPENDIUM_ADDED_PROOFS,
 	COMPENDIUM_CITATIONS,
 	COMPENDIUM_FIXES,
+	addProofs,
 	applyFixes,
 	moveCitations,
 	normaliseLines,
@@ -178,5 +180,36 @@ describe('moveCitations', () => {
 			expect(n).toBeGreaterThanOrEqual(1);
 			expect(n).toBeLessThanOrEqual(74);
 		}
+	});
+});
+
+describe('addProofs', () => {
+	const added = { 5: 'Matt 22:37-38; Mark 12:30', 13: 'Gal 3:10' };
+	it('adds the editorial proof of a question to its printed references', () => {
+		expect(addProofs(5, [], added)).toEqual(['Matt 22:37-38; Mark 12:30']);
+		expect(addProofs(30, ['Acts 4:12'], added)).toEqual(['Acts 4:12']);
+		expect(addProofs(2, [], added)).toEqual([]);
+	});
+	it('fails when a question has both printed references and an added proof', () => {
+		expect(() => addProofs(13, ['Gal 3:10'], added)).toThrow(/question 13/);
+	});
+});
+
+describe('COMPENDIUM_ADDED_PROOFS', () => {
+	it('adds proofs only to questions whose printed answer cites nothing', () => {
+		for (const n of Object.keys(COMPENDIUM_ADDED_PROOFS).map(Number)) {
+			expect(n).toBeGreaterThanOrEqual(1);
+			expect(n).toBeLessThanOrEqual(74);
+			expect(COMPENDIUM_CITATIONS[n]).toBeUndefined();
+		}
+	});
+	it('cites the passages that answers quote without a citation', () => {
+		expect(COMPENDIUM_ADDED_PROOFS).toEqual({
+			5: 'Matt 22:37-38; Mark 12:30',
+			6: 'Matt 22:39-40',
+			13: 'Gal 3:10',
+			55: 'Mark 16:15-16',
+			73: 'Matt 6:9-13'
+		});
 	});
 });

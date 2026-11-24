@@ -33,8 +33,10 @@ import {
 	straightenQuotes
 } from './fairview-catechism.ts';
 import {
+	COMPENDIUM_ADDED_PROOFS,
 	COMPENDIUM_CITATIONS,
 	COMPENDIUM_FIXES,
+	addProofs,
 	applyFixes,
 	moveCitations,
 	normaliseLines,
@@ -385,7 +387,8 @@ export function convertFairview(
 
 /**
  * The Compendium from the OCR text of its printing (see rca-compendium.ts), corrected by `fixes`,
- * with the Scripture citations printed in answers moved into proofs by `citations`.
+ * with the Scripture citations printed in answers moved into proofs by `citations`, and the proofs
+ * manna.cards adds (`added`) after them.
  * Besides the usual checks, the printed parts start where the registry's sections do; the registry
  * may add a first section for the questions before the first part.
  */
@@ -393,7 +396,8 @@ export function convertCompendium(
 	djvu: string,
 	catechism: Catechism = CATECHISMS.hsc,
 	fixes: readonly Fix[] = COMPENDIUM_FIXES,
-	citations: Readonly<Record<number, readonly Citation[]>> = COMPENDIUM_CITATIONS
+	citations: Readonly<Record<number, readonly Citation[]>> = COMPENDIUM_CITATIONS,
+	added: Readonly<Record<number, string>> = COMPENDIUM_ADDED_PROOFS
 ): CatechismText {
 	const { id, credit, count, sections } = catechism;
 	if (!credit) throw new Error(`${id}: the registry has no credit for this source`);
@@ -401,7 +405,7 @@ export function convertCompendium(
 	const questions = parsed.entries.map(({ n, q, a }): CatechismQuestion => {
 		const moved = moveCitations(n, tidyReferences(cleanAnswerLines(a)), citations);
 		const proofs: string[] = [];
-		for (const label of moved.refs.flatMap(proofLabels)) {
+		for (const label of addProofs(n, moved.refs, added).flatMap(proofLabels)) {
 			if (!proofs.includes(label)) proofs.push(label);
 		}
 		return { n, q: cleanQuestion(tidyReferences(q)), a: moved.a, proofs };
