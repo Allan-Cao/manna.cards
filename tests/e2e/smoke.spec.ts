@@ -108,7 +108,7 @@ test('every page has the footer', async ({ page }) => {
 		const footer = page.getByRole('contentinfo');
 		await expect(footer.getByRole('link', { name: 'MIT License' })).toHaveAttribute(
 			'href',
-			'https://github.com/Allan-Cao/Bible-Memorization'
+			'https://github.com/Allan-Cao/manna.cards'
 		);
 		await expect(footer.getByRole('link', { name: 'Bible and catechism texts' })).toHaveAttribute(
 			'href',

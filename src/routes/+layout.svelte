@@ -37,7 +37,7 @@
 		<p class="mx-auto max-w-6xl px-4 py-6 text-sm {muted}">
 			<a href="{resolve('/about')}#texts" class={link}>Bible and catechism texts</a> are public
 			domain or used by permission. Code released under the
-			<a href="https://github.com/Allan-Cao/Bible-Memorization" class={link}>MIT License</a>.
+			<a href="https://github.com/Allan-Cao/manna.cards" class={link}>MIT License</a>.
 		</p>
 	</footer>
 </div>

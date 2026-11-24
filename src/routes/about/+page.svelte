@@ -148,9 +148,8 @@
 	<section aria-labelledby="code-heading">
 		<h2 id="code-heading" class="font-heading text-xl font-bold">Code</h2>
 		<p class="mt-3">
-			The code is on <a class={link} href="https://github.com/Allan-Cao/Bible-Memorization"
-				>GitHub</a
-			> under the MIT License.
+			The code is on <a class={link} href="https://github.com/Allan-Cao/manna.cards">GitHub</a> under
+			the MIT License.
 		</p>
 	</section>
 </main>
