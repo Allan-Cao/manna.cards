@@ -4,7 +4,22 @@
 	import { ESV_COPYRIGHT_PAGE } from '#lib/core/translations.ts';
 	import { focus, link, muted } from '#lib/ui/styles.ts';
 
+	const verses: { ref: string; text: string }[] = [
+		{
+			ref: 'Psalm 119:11',
+			text: 'Thy word have I hid in mine heart, that I might not sin against thee.'
+		},
+		{
+			ref: 'Psalm 1:2',
+			text: 'But his delight is in the law of the LORD; and in his law doth he meditate day and night.'
+		}
+	];
+
 	const questions: { q: string; a: string }[] = [
+		{
+			q: 'Why memorize Scripture with Anki?',
+			a: 'Anki uses spaced repetition: it shows each card again just before you would forget it, and waits longer each time you remember. Verses you know well come up rarely, so a few minutes a day keeps every passage you have learned.'
+		},
 		{
 			q: 'What is on a card?',
 			a: 'The front shows the reference and the verse before it; you recite the verse. Verses over about 30 words are split into two or three cards; choose Adjust breaks to move the split. Hint shows the first letter of each word. A catechism card asks one question, with its proof texts under the answer. Answers over about 30 words are split the same way, and each part is asked after the question and the part before it.'
@@ -49,6 +64,14 @@
 			manna.cards makes <a class={link} href="https://apps.ankiweb.net/">Anki</a> flash cards from Bible
 			passages and catechism questions.
 		</p>
+		<div class="mt-6 space-y-4">
+			{#each verses as verse (verse.ref)}
+				<figure class="border-l-2 border-accent pl-4 dark:border-accent-dark">
+					<blockquote class="font-serif text-lg">{verse.text}</blockquote>
+					<figcaption class="mt-1 text-sm {muted}">{verse.ref} (KJV)</figcaption>
+				</figure>
+			{/each}
+		</div>
 	</section>
 
 	<section aria-labelledby="questions-heading">
