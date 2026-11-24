@@ -1,6 +1,10 @@
 export const changelog: { date: string; note: string }[] = [
 	{
 		date: '2026-11-23',
+		note: 'Added the Baptist Catechism for Children, by permission of Fairview Baptist Church. New decks list its questions under its six sections.'
+	},
+	{
+		date: '2026-11-23',
 		note: 'Removed the Heidelberg and Westminster Larger catechisms: their long answers do not work as one card per question.'
 	},
 	{
@@ -20,7 +24,6 @@ export const changelog: { date: string; note: string }[] = [
 ];
 
 export const planned: string[] = [
-	'More catechisms (Baptist Catechism for Kids), pending permission',
 	'Split long catechism answers into parts',
 	'Proof texts for the Westminster Shorter Catechism'
 ];

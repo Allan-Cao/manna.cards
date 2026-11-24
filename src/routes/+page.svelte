@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { CATECHISMS, type CatechismId } from '#lib/core/catechisms.ts';
+	import { CATECHISMS, defaultQuestionList, type CatechismId } from '#lib/core/catechisms.ts';
 	import {
 		encodeShare,
 		newDeck,
@@ -63,10 +63,10 @@
 		goto(resolve('/deck/[id]', { id: def.id }));
 	}
 
-	/** A catechism deck starts with every question. */
+	/** A catechism deck starts with every question, under its section headings if it has them. */
 	function createFromForm() {
 		if (content === 'scripture') return create(name);
-		create(name || CATECHISMS[content].name, `1-${CATECHISMS[content].count}`, content);
+		create(name || CATECHISMS[content].name, defaultQuestionList(content), content);
 	}
 
 	/** A deck file goes through /open, so a deck that is already here is handled the same way. */

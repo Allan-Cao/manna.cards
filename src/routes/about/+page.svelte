@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { CATECHISMS } from '#lib/core/catechisms.ts';
 	import { ESV_COPYRIGHT_PAGE } from '#lib/core/translations.ts';
 	import { link, muted } from '#lib/ui/styles.ts';
 </script>
@@ -59,6 +60,25 @@
 					</dd>
 				</div>
 			{/if}
+		</dl>
+	</section>
+
+	<section>
+		<h2 class="text-xl font-semibold">Catechisms</h2>
+		<dl class="mt-3 space-y-3">
+			{#each Object.values(CATECHISMS) as catechism (catechism.id)}
+				<div>
+					<dt class="font-medium">{catechism.name} ({catechism.short})</dt>
+					<dd class={muted}>
+						{#if catechism.credit}
+							{catechism.credit}
+						{:else}
+							Public domain, from
+							<a class={link} href="https://github.com/NonlinearFruit/Creeds.json">Creeds.json</a>.
+						{/if}
+					</dd>
+				</div>
+			{/each}
 		</dl>
 	</section>
 </main>
