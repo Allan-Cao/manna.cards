@@ -128,6 +128,10 @@
 								<a class={link} href="https://github.com/NonlinearFruit/Creeds.json">Creeds.json</a
 								>.
 							{/if}
+							{#if catechism.id === 'hsc'}
+								The proofs for questions 5, 6, 13, 55 and 73 were added by manna.cards for answers
+								that quote Scripture; the 1860 printing does not cite them.
+							{/if}
 							{#if catechism.id === 'wsc'}
 								The proofs are the Westminster Assembly's, from the London printing of 1649, as
 								transcribed by the
