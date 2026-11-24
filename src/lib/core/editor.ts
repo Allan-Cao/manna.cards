@@ -1,17 +1,19 @@
 /**
  * What the deck editor shows: every card of a build, grouped by heading, passage and verse, as
- * Unit/Line data rather than note HTML. Plus the small edits the editor makes (breaks) and the
- * export note about passages inserted among cards Anki already has.
+ * Unit/Line data rather than note HTML, and a catechism deck's questions with a card per part of
+ * each answer. Plus the small edits the editor makes (breaks) and the export note about
+ * passages inserted among cards Anki already has.
  */
 
 import type { BuildResult } from './build.ts';
 import { firstVerseNumber, planCards, type PlannedCard } from './cards.ts';
 import type { Break, DeckDefinition, Line, Verse } from './model.ts';
 import { parseList } from './list.ts';
-import { CATECHISMS } from './catechisms.ts';
-import { parseQuestionList, type PlannedQuestionGroup } from './questions.ts';
+import { CATECHISMS, isCatechismId } from './catechisms.ts';
+import { parseQuestionList, questionLabel, type PlannedQuestionGroup } from './questions.ts';
+import { verseLabel } from './refs.ts';
 import { hintLines } from './render.ts';
-import { breakAfter, verseWords } from './units.ts';
+import { breakAfter, verseWords, type Text } from './units.ts';
 import { versificationFor } from './versification.ts';
 
 export interface PreviewCard extends PlannedCard {
@@ -106,8 +108,8 @@ export function previewRows(groups: PreviewGroup[]): PreviewRow[] {
 	]);
 }
 
-/** Adds a break after word `after`, or removes the one there. Kept in word order. */
-export function toggleBreak(verse: Verse, breaks: Break[], after: number): Break[] {
+/** Adds a break after word `after` of a verse or answer, or removes the one there. Kept in word order. */
+export function toggleBreak(verse: Text, breaks: Break[], after: number): Break[] {
 	if (!Number.isInteger(after) || after < 0 || after >= verseWords(verse).length - 1) return breaks;
 	if (breaks.some((b) => b.after === after)) return breaks.filter((b) => b.after !== after);
 	return [...breaks, breakAfter(verse, after)].sort((a, b) => a.after - b.after);
@@ -127,35 +129,78 @@ export function insertedPassages(previous: string[] | null, next: string[]): str
 	return next.filter((label, i) => !old.has(label) && i < lastOld);
 }
 
-/** One catechism question as the editor shows it. */
-export interface PreviewQuestion {
+/** One card of a catechism question as the editor shows it: the whole answer or one part. */
+export interface PreviewAnswer {
+	/** As on the card, e.g. "WSC 12 (1/2)". */
 	reference: string;
-	question: string;
+	index: number;
+	/** The part before, shown under the question. Null for the first part. */
+	lead: Line[] | null;
 	answer: Line[];
 	hint: Line[];
+}
+
+/** One catechism question as the editor shows it, with a card per part of its answer. */
+export interface PreviewQuestion {
+	/** The key of its saved breaks, e.g. "wsc:12". */
+	key: string;
+	/** e.g. "WSC 12". */
+	reference: string;
+	question: string;
+	/** The whole answer, for the break editor. */
+	answer: Line[];
 	proofs: string[];
+	/** The breaks in use, saved or automatic. */
+	breaks: Break[];
+	/** The answer uses breaks the user saved. */
+	saved: boolean;
+	cards: PreviewAnswer[];
 }
 
 export type QuestionRow =
 	| { kind: 'heading'; key: string; heading: string }
-	| { kind: 'question'; key: string; card: PreviewQuestion };
+	| { kind: 'question'; key: string; item: PreviewQuestion };
 
-/** A catechism deck's questions as one flat list of headings and questions, like previewRows. */
-export function previewQuestions(groups: PlannedQuestionGroup[]): QuestionRow[] {
+/**
+ * A catechism deck's questions as one flat list of headings and questions, like previewRows.
+ * `breaks` are the deck's saved breaks, to tell which answers use them.
+ */
+export function previewQuestions(
+	groups: PlannedQuestionGroup[],
+	breaks: DeckDefinition['breaks'] = {}
+): QuestionRow[] {
 	return groups.flatMap((group, g): QuestionRow[] => [
 		...(group.heading ? [{ kind: 'heading' as const, key: `#${g}`, heading: group.heading }] : []),
-		...group.questions.map(({ key, reference, question, answer }) => ({
+		...group.questions.map((q) => ({
 			kind: 'question' as const,
-			key,
-			card: {
-				reference,
-				question: question.q,
-				answer,
-				hint: hintLines(answer),
-				proofs: question.proofs
+			key: q.key,
+			item: {
+				key: q.key,
+				reference: q.reference,
+				question: q.question.q,
+				answer: q.answer,
+				proofs: q.question.proofs,
+				breaks: q.breaks,
+				saved: breaks[q.key] !== undefined && !q.stale,
+				cards: q.cards.map((card) => ({
+					reference: card.reference,
+					index: card.index,
+					lead: card.lead,
+					answer: card.lines,
+					hint: hintLines(card.lines)
+				}))
 			}
 		}))
 	]);
+}
+
+/** What the editor calls the verse or question whose breaks are saved under `key`. */
+export function breaksLabel(key: string): string {
+	const question = /^([a-z]+):(\d+)$/.exec(key);
+	if (question && isCatechismId(question[1]))
+		return questionLabel(question[1], Number(question[2]));
+	const [book, chapter, verse] = key.split('.');
+	return verseLabel({ book, chapter: Number(chapter), verse: Number(verse) });
 }
 
 /**

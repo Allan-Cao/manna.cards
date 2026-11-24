@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { buildDeck, type LoadBooks } from './build.ts';
 import {
+	breaksLabel,
 	insertedPassages,
 	passageCount,
 	previewDeck,
@@ -11,7 +12,7 @@ import {
 	type PreviewPassage
 } from './editor.ts';
 import type { BookId, BookText, DeckDefinition, Verse } from './model.ts';
-import { parseQuestionList, planQuestions } from './questions.ts';
+import { answerLines, parseQuestionList, planQuestions } from './questions.ts';
 import { FIXTURE } from './questions.fixture.ts';
 import { renderLines, renderTitle } from './render.ts';
 import { autoBreaks, verseWords } from './units.ts';
@@ -215,26 +216,78 @@ describe('passageCount: catechism decks', () => {
 });
 
 describe('previewQuestions', () => {
+	const plan = (list: string, breaks: DeckDefinition['breaks'] = {}) =>
+		planQuestions('wsc', FIXTURE, parseQuestionList(list, 4).groups, breaks);
+
 	it('lists headings and questions with the answer, its hint and the proofs', () => {
-		const plan = planQuestions('wsc', FIXTURE, parseQuestionList('3\n# Of God\n1\n#\n2', 3).groups);
-		const rows = previewQuestions(plan);
-		expect(rows.map((r) => (r.kind === 'heading' ? `# ${r.heading}` : r.card.reference))).toEqual([
+		const rows = previewQuestions(plan('3\n# Of God\n1\n#\n2'));
+		expect(rows.map((r) => (r.kind === 'heading' ? `# ${r.heading}` : r.item.reference))).toEqual([
 			'WSC 3',
 			'# Of God',
 			'WSC 1',
 			'WSC 2'
 		]);
-		const row = rows[2];
-		expect(row).toMatchObject({
+		const answer = [{ text: FIXTURE.questions[0].a, indent: 0 }];
+		expect(rows[2]).toEqual({
 			kind: 'question',
 			key: 'wsc:1',
-			card: {
+			item: {
+				key: 'wsc:1',
 				reference: 'WSC 1',
 				question: 'What is the chief end of man?',
-				answer: [{ text: FIXTURE.questions[0].a, indent: 0 }],
-				hint: [{ text: 'M c e i t g G, a t e h f e.', indent: 0 }],
-				proofs: ['1 Corinthians 10:31', 'Psalm 73:25–28']
+				answer,
+				proofs: ['1 Corinthians 10:31', 'Psalm 73:25–28'],
+				breaks: [],
+				saved: false,
+				cards: [
+					{
+						reference: 'WSC 1',
+						index: 0,
+						lead: null,
+						answer,
+						hint: [{ text: 'M c e i t g G, a t e h f e.', indent: 0 }]
+					}
+				]
 			}
 		});
+	});
+
+	it('shows each part of a long answer as its own card, after the part before', () => {
+		const [row] = previewQuestions(plan('4'));
+		if (row.kind !== 'question') throw new Error('expected a question');
+		const { item } = row;
+		expect(item.answer).toEqual(answerLines(FIXTURE.questions[3].a));
+		expect(item.breaks).toEqual(autoBreaks({ lines: item.answer }));
+		expect(item.cards.map((c) => c.reference)).toEqual(['WSC 4 (1/2)', 'WSC 4 (2/2)']);
+		expect(item.cards[0].lead).toBeNull();
+		expect(item.cards[1].lead).toEqual(item.cards[0].answer);
+		expect(item.cards[1].hint[0].text).toMatch(/^a r o w, h d p/);
+	});
+
+	it('marks breaks the user saved, unless they are stale', () => {
+		const saved = { 'wsc:4': [{ after: 8, word: 'whereby,' }] };
+		const row = (breaks: DeckDefinition['breaks']) => {
+			const [r] = previewQuestions(plan('4', breaks), breaks);
+			return r.kind === 'question' ? r.item : null;
+		};
+		expect(row(saved)).toMatchObject({ saved: true, breaks: saved['wsc:4'] });
+		expect(row({ 'wsc:4': [] })).toMatchObject({ saved: true, breaks: [] });
+		expect(row({ 'wsc:4': [{ after: 8, word: 'nope' }] })).toMatchObject({ saved: false });
+		expect(row({})).toMatchObject({ saved: false });
+	});
+});
+
+describe('breaksLabel', () => {
+	it('names a verse or a catechism question by its breaks key', () => {
+		expect(breaksLabel('JHN.3.16')).toBe('John 3:16');
+		expect(breaksLabel('wsc:12')).toBe('WSC 12');
+		expect(breaksLabel('bcc:1')).toBe('BCC 1');
+	});
+});
+
+describe('toggleBreak: catechism answers', () => {
+	it('toggles a break in any lines, not only a verse', () => {
+		const answer = { lines: [{ text: 'Man’s chief end is to glorify God', indent: 0 as const }] };
+		expect(toggleBreak(answer, [], 2)).toEqual([{ after: 2, word: 'end' }]);
 	});
 });
