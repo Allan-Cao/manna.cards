@@ -7,7 +7,7 @@
 	const questions: { q: string; a: string }[] = [
 		{
 			q: 'What is on a card?',
-			a: 'The front shows the reference and the verse before it; you recite the verse. Verses over about 30 words are split into two or three cards; choose Adjust breaks to move the split. Hint shows the first letter of each word. A catechism card asks one question, with its proof texts under the answer.'
+			a: 'The front shows the reference and the verse before it; you recite the verse. Verses over about 30 words are split into two or three cards; choose Adjust breaks to move the split. Hint shows the first letter of each word. A catechism card asks one question, with its proof texts under the answer. Answers over about 30 words are split the same way, and each part is asked after the question and the part before it.'
 		},
 		{
 			q: 'How do I get the deck into Anki?',

@@ -1,0 +1,708 @@
+The Baptist Catechism: 56 of 114 answers split, into 117 cards
+
+── BC 3 (1/2) ──────────────────────────────────────────────────────────
+Lead-in      │ How may we know there is a God?
+Answer       │ The Light of Nature in Man, and the Works of God plainly declare there is a God;
+GUID           bm1:golden:cat:bc:3
+
+── BC 3 (2/2) ──────────────────────────────────────────────────────────
+Lead-in      │ How may we know there is a God?
+             │
+             │ The Light of Nature in Man, and the Works of God plainly declare there is a God;
+Answer       │ but his Word and Spirit only, do it fully and effectually, for the Salvation of Sinners.
+GUID           bm1:golden:cat:bc:3:1
+
+── BC 15 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What special Act of Providence did God exercise towards Man in the Estate wherein he was created?
+Answer       │ When God had created Man, he entered into a Covenant of Life with him, upon Condition of perfect Obedience:
+GUID           bm1:golden:cat:bc:15
+
+── BC 15 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What special Act of Providence did God exercise towards Man in the Estate wherein he was created?
+             │
+             │ When God had created Man, he entered into a Covenant of Life with him, upon Condition of perfect Obedience:
+Answer       │ forbidding him to eat of the Tree of the Knowledge of Good and Evil, upon pain of Death.
+GUID           bm1:golden:cat:bc:15:1
+
+── BC 19 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Did all Mankind fall in Adam's first Transgression?
+Answer       │ The Covenant being made with Adam, not only for himself, but for his Posterity,
+GUID           bm1:golden:cat:bc:19
+
+── BC 19 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Did all Mankind fall in Adam's first Transgression?
+             │
+             │ The Covenant being made with Adam, not only for himself, but for his Posterity,
+Answer       │ all Mankind descending from him by ordinary Generation, sinned in him, and fell with him in his first Transgression.
+GUID           bm1:golden:cat:bc:19:1
+
+── BC 21 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Wherein consists the sinfulness of that Estate whereinto Man fell?
+Answer       │ The sinfulness of that Estate whereinto Man fell, consists in the Guilt of Adam's first Sin, the want of Original Righteousness,
+GUID           bm1:golden:cat:bc:21
+
+── BC 21 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Wherein consists the sinfulness of that Estate whereinto Man fell?
+             │
+             │ The sinfulness of that Estate whereinto Man fell, consists in the Guilt of Adam's first Sin, the want of Original Righteousness,
+Answer       │ and the Corruption of his whole Nature, which is commonly called Original Sin; together with all actual Transgressions which proceed from it.
+GUID           bm1:golden:cat:bc:21:1
+
+── BC 22 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Misery of that Estate whereinto Man fell?
+Answer       │ All Mankind by their Fall lost Communion with God, are under his Wrath and Curse;
+GUID           bm1:golden:cat:bc:22
+
+── BC 22 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Misery of that Estate whereinto Man fell?
+             │
+             │ All Mankind by their Fall lost Communion with God, are under his Wrath and Curse;
+Answer       │ and so make liable to all Miseries in this Life, to Death it self, and to the Pains of Hell for ever.
+GUID           bm1:golden:cat:bc:22:1
+
+── BC 23 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Did God leave all Mankind to perish in the Estate of Sin and Misery?
+Answer       │ God, having out of his meer good pleasure, from all Eternity, elected some to Everlasting Life, did enter into a Covenant of Grace,
+GUID           bm1:golden:cat:bc:23
+
+── BC 23 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Did God leave all Mankind to perish in the Estate of Sin and Misery?
+             │
+             │ God, having out of his meer good pleasure, from all Eternity, elected some to Everlasting Life, did enter into a Covenant of Grace,
+Answer       │ to deliver them out of the Estate of Sin and Misery, and to bring them into an Estate of Salvation by a Redeemer.
+GUID           bm1:golden:cat:bc:23:1
+
+── BC 24 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Who is the Redeemer of God's Elect?
+Answer       │ The only Redeemer of God's Elect, is the Lord Jesus Christ; who being the Eternal Son of God, became Man, and so was;
+GUID           bm1:golden:cat:bc:24
+
+── BC 24 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Who is the Redeemer of God's Elect?
+             │
+             │ The only Redeemer of God's Elect, is the Lord Jesus Christ; who being the Eternal Son of God, became Man, and so was;
+Answer       │ and continueth to be God and Man, in two distinct Natures, and one Person for ever.
+GUID           bm1:golden:cat:bc:24:1
+
+── BC 25 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How did Christ, being the Son of God, become Man?
+Answer       │ Christ the Son of God became Man, by taking to himself a true Body, and a reasonable Soul;
+GUID           bm1:golden:cat:bc:25
+
+── BC 25 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How did Christ, being the Son of God, become Man?
+             │
+             │ Christ the Son of God became Man, by taking to himself a true Body, and a reasonable Soul;
+Answer       │ being conceived by the Power of the Holy Spirit in the Womb of the Virgin Mary, and born of her, yet without Sin.
+GUID           bm1:golden:cat:bc:25:1
+
+── BC 28 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How doth Christ execute the Office of a Priest?
+Answer       │ Christ executeth the Office of a Priest, in his once offering up of himself a Sacrifice to satisfy Divine Justice,
+GUID           bm1:golden:cat:bc:28
+
+── BC 28 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How doth Christ execute the Office of a Priest?
+             │
+             │ Christ executeth the Office of a Priest, in his once offering up of himself a Sacrifice to satisfy Divine Justice,
+Answer       │ and reconcile us to God, and in making continual Intercession for us.
+GUID           bm1:golden:cat:bc:28:1
+
+── BC 30 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Wherein did Christ's Humiliation consist?
+Answer       │ Christ's Humiliation consisted in his being born, and that in a low Condition; made under the Law, undergoing the Miseries of this Life, the Wrath of God, and the cursed Death of the Cross;
+GUID           bm1:golden:cat:bc:30
+
+── BC 30 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Wherein did Christ's Humiliation consist?
+             │
+             │ Christ's Humiliation consisted in his being born, and that in a low Condition; made under the Law, undergoing the Miseries of this Life, the Wrath of God, and the cursed Death of the Cross;
+Answer       │ in being buried, and continuing under the Power of Death for a time. Mat. 12:40.
+GUID           bm1:golden:cat:bc:30:1
+
+── BC 31 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Wherein consisteth Christ's Exaltation?
+Answer       │ Christ's Exaltation consisteth in his rising again from the Dead on the third Day, in ascending up into Heaven,
+GUID           bm1:golden:cat:bc:31
+
+── BC 31 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Wherein consisteth Christ's Exaltation?
+             │
+             │ Christ's Exaltation consisteth in his rising again from the Dead on the third Day, in ascending up into Heaven,
+Answer       │ in sitting at the right Hand of God the Father, and in coming to judg the World at the last Day.
+GUID           bm1:golden:cat:bc:31:1
+
+── BC 34 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is effectual Calling?
+Answer       │ Effectual Calling, is the Work of God's Spirit, whereby, convincing us of our Sin and Misery, enlightening our Minds in the knowledge of Christ,
+GUID           bm1:golden:cat:bc:34
+
+── BC 34 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is effectual Calling?
+             │
+             │ Effectual Calling, is the Work of God's Spirit, whereby, convincing us of our Sin and Misery, enlightening our Minds in the knowledge of Christ,
+Answer       │ and renewing our Wills, he doth persuade and enable us to embrace Jesus Christ freely offered to us in the Gospel.
+GUID           bm1:golden:cat:bc:34:1
+
+── BC 36 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is Justification?
+Answer       │ Justification is an Act of God's free Grace, wherein he pardoneth all our Sins,
+GUID           bm1:golden:cat:bc:36
+
+── BC 36 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is Justification?
+             │
+             │ Justification is an Act of God's free Grace, wherein he pardoneth all our Sins,
+Answer       │ and accepteth us as Righteous in his sight, only for the Righteousness of Christ imputed us, and received by Faith alone.
+GUID           bm1:golden:cat:bc:36:1
+
+── BC 38 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is Sanctification?
+Answer       │ Sanctification is the Work of God's free Grace, whereby we are renewed in the whole Man after the Image of God,
+GUID           bm1:golden:cat:bc:38
+
+── BC 38 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is Sanctification?
+             │
+             │ Sanctification is the Work of God's free Grace, whereby we are renewed in the whole Man after the Image of God,
+Answer       │ and are enabled more and more to die unto Sin, and live unto Righteousness.
+GUID           bm1:golden:cat:bc:38:1
+
+── BC 39 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What are the Benefits which in this Life do accompany or flow from Justification, Adoption, and Sanctification?
+Answer       │ The Benefits which in this Life do accompany or flow from Justification, Adoption, and Sanctification, are Assurance of God's Love,
+GUID           bm1:golden:cat:bc:39
+
+── BC 39 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What are the Benefits which in this Life do accompany or flow from Justification, Adoption, and Sanctification?
+             │
+             │ The Benefits which in this Life do accompany or flow from Justification, Adoption, and Sanctification, are Assurance of God's Love,
+Answer       │ Peace of Conscience, Joy in the Holy Spirit, Increase of Grace, and Perseverance therein to the End.
+GUID           bm1:golden:cat:bc:39:1
+
+── BC 40 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What Benefits do Believers receive from Christ at their Death?
+Answer       │ The Souls of Believers are at their Death made, perfect in Holiness, and do immediately pass into Glory:
+GUID           bm1:golden:cat:bc:40
+
+── BC 40 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What Benefits do Believers receive from Christ at their Death?
+             │
+             │ The Souls of Believers are at their Death made, perfect in Holiness, and do immediately pass into Glory:
+Answer       │ And their Bodies being still united to Christ, do rest in their Graves till the Resurrection.
+GUID           bm1:golden:cat:bc:40:1
+
+── BC 41 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What Benefits do Believers receive from Christ at the Resurrection?
+Answer       │ At the Resurrection Believers being raised up in Glory, shall be openly acknowledged, and acquitted in the Day of Judgement,
+GUID           bm1:golden:cat:bc:41
+
+── BC 41 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What Benefits do Believers receive from Christ at the Resurrection?
+             │
+             │ At the Resurrection Believers being raised up in Glory, shall be openly acknowledged, and acquitted in the Day of Judgement,
+Answer       │ and made perfectly blessed, both in Soul and Body, in the full enjoyment of God, to all Eternity.
+GUID           bm1:golden:cat:bc:41:1
+
+── BC 42 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ But what shall be done to the Wicked at their Death?
+Answer       │ The Souls of the Wicked shall at their death be cast into the Torments of Hell,
+GUID           bm1:golden:cat:bc:42
+
+── BC 42 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ But what shall be done to the Wicked at their Death?
+             │
+             │ The Souls of the Wicked shall at their death be cast into the Torments of Hell,
+Answer       │ and their Bodies lie in their Graves, till the Resurrection and Judgment of the Great Day.
+GUID           bm1:golden:cat:bc:42:1
+
+── BC 43 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What shall be done to the Wicked at the Day of Judgment?
+Answer       │ At the Day of Judgment the Bodies of the Wicked being raised out of their Graves,
+GUID           bm1:golden:cat:bc:43
+
+── BC 43 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What shall be done to the Wicked at the Day of Judgment?
+             │
+             │ At the Day of Judgment the Bodies of the Wicked being raised out of their Graves,
+Answer       │ shall be sentenced together with their Souls, to unspeakable Torments, with the Devil and his Angels for ever.
+GUID           bm1:golden:cat:bc:43:1
+
+── BC 47 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Sum of the Ten Commandments?
+Answer       │ The Sum of the Ten Commandments is, to love the Lord our God, with all our Heart,
+GUID           bm1:golden:cat:bc:47
+
+── BC 47 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Sum of the Ten Commandments?
+             │
+             │ The Sum of the Ten Commandments is, to love the Lord our God, with all our Heart,
+Answer       │ with all our Soul, with all our Strength, and with all our Mind; and our Neighbour as our Selves.
+GUID           bm1:golden:cat:bc:47:1
+
+── BC 48 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Preface to the Ten Commandments?
+Answer       │ The Preface to the Ten Commandments, is in these words, "I am the Lord thy God,
+GUID           bm1:golden:cat:bc:48
+
+── BC 48 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Preface to the Ten Commandments?
+             │
+             │ The Preface to the Ten Commandments, is in these words, "I am the Lord thy God,
+Answer       │ which have brought thee out of the Land of Egypt, out of the House of Bondage".
+GUID           bm1:golden:cat:bc:48:1
+
+── BC 52 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the first Commandment?
+Answer       │ The first Commandment forbiddeth the denying, or not worshipping and glorifying the true God, as God, and our God;
+GUID           bm1:golden:cat:bc:52
+
+── BC 52 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the first Commandment?
+             │
+             │ The first Commandment forbiddeth the denying, or not worshipping and glorifying the true God, as God, and our God;
+Answer       │ and the giving that Worship and Glory to any other, which is due unto him a alone.
+GUID           bm1:golden:cat:bc:52:1
+
+── BC 53 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What are we specially taught by these words "before me" in the first Commandment?
+Answer       │ These words "before me" in the first Commandment, teach us, that God who seeth all things,
+GUID           bm1:golden:cat:bc:53
+
+── BC 53 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What are we specially taught by these words "before me" in the first Commandment?
+             │
+             │ These words "before me" in the first Commandment, teach us, that God who seeth all things,
+Answer       │ taketh notice of, and is much displeased with the Sin of having any other God.
+GUID           bm1:golden:cat:bc:53:1
+
+── BC 54 (1/3) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the second Commandment?
+Answer       │ The second Commandment is, "Thou shalt not make unto thee any graven Image, or any Likeness of any thing that is in Heaven above, or that is in the Earth beneath,
+GUID           bm1:golden:cat:bc:54
+
+── BC 54 (2/3) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the second Commandment?
+             │
+             │ The second Commandment is, "Thou shalt not make unto thee any graven Image, or any Likeness of any thing that is in Heaven above, or that is in the Earth beneath,
+Answer       │ or that is in the Water under the Earth; thou shalt not bow down thy self to them, nor serve them: For I the LORD thy God am a jealous God,
+GUID           bm1:golden:cat:bc:54:1
+
+── BC 54 (3/3) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the second Commandment?
+             │
+             │ or that is in the Water under the Earth; thou shalt not bow down thy self to them, nor serve them: For I the LORD thy God am a jealous God,
+Answer       │ visiting the Iniquity of the Fathers upon the Children, unto the Third and Fourth Generation of them that hate me; and shewing Mercy unto Thousands of them that love me and keep my Commandments.
+GUID           bm1:golden:cat:bc:54:2
+
+── BC 58 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the third Commandment?
+Answer       │ The third Commandment is, "Thou shalt not take the Name of the Lord thy God in vain,
+GUID           bm1:golden:cat:bc:58
+
+── BC 58 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the third Commandment?
+             │
+             │ The third Commandment is, "Thou shalt not take the Name of the Lord thy God in vain,
+Answer       │ For the Lord will not hold him guiltless that taketh his Name in vain".
+GUID           bm1:golden:cat:bc:58:1
+
+── BC 61 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Reason annexed to the third Commandment?
+Answer       │ The Reason annexed to the third Commandment, is, that however the breakers of this Commandment may escape Punishment from Men,
+GUID           bm1:golden:cat:bc:61
+
+── BC 61 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Reason annexed to the third Commandment?
+             │
+             │ The Reason annexed to the third Commandment, is, that however the breakers of this Commandment may escape Punishment from Men,
+Answer       │ yet the Lord our God will not suffer them to escape his Righteous Judgment.
+GUID           bm1:golden:cat:bc:61:1
+
+── BC 62 (1/3) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the fourth Commandment?
+Answer       │ The fourth Commandment is, "Remember the Sabbath Day to keep it holy: Six Days shalt thou labour, and do all thy Work; but the Seventh Day is the Sabbath of the LORD thy God,
+GUID           bm1:golden:cat:bc:62
+
+── BC 62 (2/3) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the fourth Commandment?
+             │
+             │ The fourth Commandment is, "Remember the Sabbath Day to keep it holy: Six Days shalt thou labour, and do all thy Work; but the Seventh Day is the Sabbath of the LORD thy God,
+Answer       │ in it thou shalt not do any Work, thou, nor thy Son, nor thy Daughter, thy Man-servant, nov thy Maid-servant, nor thy Cattel, nor the Stranger that is within thy Gates:
+GUID           bm1:golden:cat:bc:62:1
+
+── BC 62 (3/3) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the fourth Commandment?
+             │
+             │ in it thou shalt not do any Work, thou, nor thy Son, nor thy Daughter, thy Man-servant, nov thy Maid-servant, nor thy Cattel, nor the Stranger that is within thy Gates:
+Answer       │ For in six Days the LORD made Heaven and Earth, the Sea, and all that in them is, and rested the Seventh Day; wherefore the LORD blessed the Sabbath Day, and hallowed it".
+GUID           bm1:golden:cat:bc:62:2
+
+── BC 64 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Which Day of the Seven hath God appointed to be the Weekly Sabbath?
+Answer       │ Before the Resurrection of Christ, God appointed the Seventh Day of the Week to be the Weekly Sabbath,
+GUID           bm1:golden:cat:bc:64
+
+── BC 64 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Which Day of the Seven hath God appointed to be the Weekly Sabbath?
+             │
+             │ Before the Resurrection of Christ, God appointed the Seventh Day of the Week to be the Weekly Sabbath,
+Answer       │ and the First Day of the Week ever since, to continue to the End of the World, which is the Christian Sabbath.
+GUID           bm1:golden:cat:bc:64:1
+
+── BC 65 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How is the Sabbath to be sanctified?
+Answer       │ The Sabbath is to be sanctified by a holy Resting all that Day, even from such worldly Employments and Recreations as are lawful on other Days;
+GUID           bm1:golden:cat:bc:65
+
+── BC 65 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How is the Sabbath to be sanctified?
+             │
+             │ The Sabbath is to be sanctified by a holy Resting all that Day, even from such worldly Employments and Recreations as are lawful on other Days;
+Answer       │ and spending the whole Time in the Public and Private Exercises of God's Worship, except so much as is to be taken up in the Works of Necessity and Mercy.
+GUID           bm1:golden:cat:bc:65:1
+
+── BC 66 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the fourth Commandment?
+Answer       │ The fourth Commandment forbiddeth the Omission or careless Performance of the Duties required, and the profaning the Day by Idleness, or doing that which is in it self sinful;
+GUID           bm1:golden:cat:bc:66
+
+── BC 66 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the fourth Commandment?
+             │
+             │ The fourth Commandment forbiddeth the Omission or careless Performance of the Duties required, and the profaning the Day by Idleness, or doing that which is in it self sinful;
+Answer       │ or by unnecessary Thoughts, Words, or Works about worldly Employments or Recreations.
+GUID           bm1:golden:cat:bc:66:1
+
+── BC 67 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What are the Reasons annexed to the fourth Commandment?
+Answer       │ The Reasons annexed to the fourth Commandment, are God's allowing us six Days of the Week for our own lawful Employments,
+GUID           bm1:golden:cat:bc:67
+
+── BC 67 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What are the Reasons annexed to the fourth Commandment?
+             │
+             │ The Reasons annexed to the fourth Commandment, are God's allowing us six Days of the Week for our own lawful Employments,
+Answer       │ his challenging a special Propriety in a Seventh, his own Example, and his blessing the Sabbath Day.
+GUID           bm1:golden:cat:bc:67:1
+
+── BC 71 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Reason annexed to the fifth Commandment?
+Answer       │ The reason annexed to the fifth Commandment, is a Promise of long Life and Prosperity (as far as it shall serve for God's Glory,
+GUID           bm1:golden:cat:bc:71
+
+── BC 71 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is the Reason annexed to the fifth Commandment?
+             │
+             │ The reason annexed to the fifth Commandment, is a Promise of long Life and Prosperity (as far as it shall serve for God's Glory,
+Answer       │ and their own Good) to all such as keep this Commandment.
+GUID           bm1:golden:cat:bc:71:1
+
+── BC 84 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the tenth Commandment?
+Answer       │ The tenth Commandment is, "Thou shalt not covet thy Neighbor's House, that shalt not covet thy Neighbor's Wife,
+GUID           bm1:golden:cat:bc:84
+
+── BC 84 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the tenth Commandment?
+             │
+             │ The tenth Commandment is, "Thou shalt not covet thy Neighbor's House, that shalt not covet thy Neighbor's Wife,
+Answer       │ nor his Man-servant, nor his Maid-servant, nor his Ox, nor his Ass, nor any thing that is thy Neighbor's".
+GUID           bm1:golden:cat:bc:84:1
+
+── BC 86 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the tenth Commandment?
+Answer       │ The tenth Commandment forbiddeth all Discontentment with our own Estate;
+GUID           bm1:golden:cat:bc:86
+
+── BC 86 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the tenth Commandment?
+             │
+             │ The tenth Commandment forbiddeth all Discontentment with our own Estate;
+Answer       │ envying or grieving at the Good of our Neighbor, and all inordinate Motions and Affections to any thing that is his.
+GUID           bm1:golden:cat:bc:86:1
+
+── BC 90 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What doth God require of us, that we may escape his Wrath and Curse, due to us for Sin?
+Answer       │ To escape the Wrath and Curse of God due to us for Sin, God requireth of us Faith in Jesus Christ,
+GUID           bm1:golden:cat:bc:90
+
+── BC 90 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What doth God require of us, that we may escape his Wrath and Curse, due to us for Sin?
+             │
+             │ To escape the Wrath and Curse of God due to us for Sin, God requireth of us Faith in Jesus Christ,
+Answer       │ Repentance unto Life, with the diligent use all the outward Means, whereby Christ communicateth to us the Benefits of Redemption.
+GUID           bm1:golden:cat:bc:90:1
+
+── BC 92 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is Repentance unto Life?
+Answer       │ Repentance unto Life is a saving Grace, whereby a Sinner, out of a true Sense of his Sin, and Apprehension of the Mercy of God in Christ,
+GUID           bm1:golden:cat:bc:92
+
+── BC 92 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is Repentance unto Life?
+             │
+             │ Repentance unto Life is a saving Grace, whereby a Sinner, out of a true Sense of his Sin, and Apprehension of the Mercy of God in Christ,
+Answer       │ doth, with grief and hatred of his Sin, turn from it unto God, with full Purpose of, and Endeavor after, new Obedience.
+GUID           bm1:golden:cat:bc:92:1
+
+── BC 93 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What are the outward Means, whereby Christ communicateth to us the Benefits of Redemption?
+Answer       │ The outward in ordinary Means, whereby Christ communicateth to us the Benefits of Redemption, are his Ordinances, especially the Word, Baptism, the Lord's Supper, and Prayer;
+GUID           bm1:golden:cat:bc:93
+
+── BC 93 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What are the outward Means, whereby Christ communicateth to us the Benefits of Redemption?
+             │
+             │ The outward in ordinary Means, whereby Christ communicateth to us the Benefits of Redemption, are his Ordinances, especially the Word, Baptism, the Lord's Supper, and Prayer;
+Answer       │ all which Means are made effectual to the Elect for Salvation.
+GUID           bm1:golden:cat:bc:93:1
+
+── BC 94 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How is the Word made effectual to Salvation?
+Answer       │ The Spirit of God maketh the Reading, but especially the Preaching of the Word, an effectual Means of convincing and converting Sinners;
+GUID           bm1:golden:cat:bc:94
+
+── BC 94 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How is the Word made effectual to Salvation?
+             │
+             │ The Spirit of God maketh the Reading, but especially the Preaching of the Word, an effectual Means of convincing and converting Sinners;
+Answer       │ and of building them up in Holiness and Comfort through Faith unto Salvation.
+GUID           bm1:golden:cat:bc:94:1
+
+── BC 95 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How is the Word to be read and heard, that it may become effectual to Salvation?
+Answer       │ That the Word may become effectual to Salvation, we must attend thereunto with Diligence, Preparation, and Prayer;
+GUID           bm1:golden:cat:bc:95
+
+── BC 95 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How is the Word to be read and heard, that it may become effectual to Salvation?
+             │
+             │ That the Word may become effectual to Salvation, we must attend thereunto with Diligence, Preparation, and Prayer;
+Answer       │ receive it with Faith and Love, lay it up in our Hearts, and practice it in our Lives.
+GUID           bm1:golden:cat:bc:95:1
+
+── BC 96 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How do Baptism and the Lord's Supper, become effectual Means of Salvation?
+Answer       │ Baptism and the Lord's Supper become effectual Means of Salvation, not for any Virtue in them, or in him that doth administer them,
+GUID           bm1:golden:cat:bc:96
+
+── BC 96 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How do Baptism and the Lord's Supper, become effectual Means of Salvation?
+             │
+             │ Baptism and the Lord's Supper become effectual Means of Salvation, not for any Virtue in them, or in him that doth administer them,
+Answer       │ but only by the Blessing of Christ, and the working of the Spirit in those that by Faith received them.
+GUID           bm1:golden:cat:bc:96:1
+
+── BC 97 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is Baptism?
+Answer       │ Baptism is an Ordinance of the New Testament instituted by Jesus Christ, to be unto the Party baptised, a Sign of his Fellowship with him, in his Death, Burial, and Resurrection;
+GUID           bm1:golden:cat:bc:97
+
+── BC 97 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ What is Baptism?
+             │
+             │ Baptism is an Ordinance of the New Testament instituted by Jesus Christ, to be unto the Party baptised, a Sign of his Fellowship with him, in his Death, Burial, and Resurrection;
+Answer       │ of his being ingrafted into him; of Remission of Sins; and of his giving up himself unto God through Jesus Christ, to live and walk in newness of Life.
+GUID           bm1:golden:cat:bc:97:1
+
+── BC 99 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Are the Infants of such as are Professing Believers to be baptized?
+Answer       │ The Infants of such as are professing Believers are not to be baptized, because there is neither Command,
+GUID           bm1:golden:cat:bc:99
+
+── BC 99 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Are the Infants of such as are Professing Believers to be baptized?
+             │
+             │ The Infants of such as are professing Believers are not to be baptized, because there is neither Command,
+Answer       │ or Example in the Holy Scriptures, or certain Consequence from them to baptize such.
+GUID           bm1:golden:cat:bc:99:1
+
+── BC 100 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ How is Baptism rightly administered?
+Answer       │ Baptism is rightly administered, by Immersion, wore dipping the whole Body of the Party in Water, into the Name of the Father,
+GUID           bm1:golden:cat:bc:100
+
+── BC 100 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ How is Baptism rightly administered?
+             │
+             │ Baptism is rightly administered, by Immersion, wore dipping the whole Body of the Party in Water, into the Name of the Father,
+Answer       │ and of the Son, and of the Holy Spirit, according to Christ's Institution, and the Practice of the Apostles;
+GUID           bm1:golden:cat:bc:100:1
+
+── BC 100 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ How is Baptism rightly administered?
+             │
+             │ and of the Son, and of the Holy Spirit, according to Christ's Institution, and the Practice of the Apostles;
+Answer       │ and not by the sprinkling or pouring of Water, or dipping some Part of the Body, after the Tradition of Men.
+GUID           bm1:golden:cat:bc:100:2
+
+── BC 101 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the Duty of such who are rightly baptized?
+Answer       │ It is the Duty of such who are rightly baptized, to give up themselves to some particular and orderly Church of Jesus Christ,
+GUID           bm1:golden:cat:bc:101
+
+── BC 101 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the Duty of such who are rightly baptized?
+             │
+             │ It is the Duty of such who are rightly baptized, to give up themselves to some particular and orderly Church of Jesus Christ,
+Answer       │ that they may walk in all the Commandments and Ordinances of the Lord blameless.
+GUID           bm1:golden:cat:bc:101:1
+
+── BC 102 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ What is the Lord's Supper?
+Answer       │ The Lord's Supper is an Ordinance of the New Testament instituted by Jesus Christ;
+GUID           bm1:golden:cat:bc:102
+
+── BC 102 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ What is the Lord's Supper?
+             │
+             │ The Lord's Supper is an Ordinance of the New Testament instituted by Jesus Christ;
+Answer       │ wherein by giving and receiving Bread and Wine, according to his Appointment, his Death is shewed forth;
+GUID           bm1:golden:cat:bc:102:1
+
+── BC 102 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ What is the Lord's Supper?
+             │
+             │ wherein by giving and receiving Bread and Wine, according to his Appointment, his Death is shewed forth;
+Answer       │ and the worthy Receivers are, not after a Corporal and Carnal manner, but by Faith, made Partakers of his Body and Blood, with all his Benefits, to their spiritual Nourishment, and growth in Grace.
+GUID           bm1:golden:cat:bc:102:2
+
+── BC 104 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is required to the worthy receiving of the Lord's Supper?
+Answer       │ It is required of them that would worthily partake of the Lord's Supper, that they examine themselves, of their Knowledge to discern the Lord's Body,
+GUID           bm1:golden:cat:bc:104
+
+── BC 104 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is required to the worthy receiving of the Lord's Supper?
+             │
+             │ It is required of them that would worthily partake of the Lord's Supper, that they examine themselves, of their Knowledge to discern the Lord's Body,
+Answer       │ of their Faith to feed upon him, of their Repentance, Love, and new Obedience; lest coming unworthily, they eat and drink Judgment to themselves.
+GUID           bm1:golden:cat:bc:104:1
+
+── BC 105 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is Prayer?
+Answer       │ Prayer is an offering up our Desires to God, by the Assistance of the Holy Spirit, for things agreeable to his Will,
+GUID           bm1:golden:cat:bc:105
+
+── BC 105 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is Prayer?
+             │
+             │ Prayer is an offering up our Desires to God, by the Assistance of the Holy Spirit, for things agreeable to his Will,
+Answer       │ in the Name of Christ believing, with Confession of our Sins, and thankful Acknowledgment of his Mercies.
+GUID           bm1:golden:cat:bc:105:1
+
+── BC 106 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What Rule hath God given for our Direction in Prayer?
+Answer       │ The whole Word of God is of use to direct us in Prayer;
+GUID           bm1:golden:cat:bc:106
+
+── BC 106 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What Rule hath God given for our Direction in Prayer?
+             │
+             │ The whole Word of God is of use to direct us in Prayer;
+Answer       │ but the special Rule of Direction is, that Prayer which Christ taught his Disciples, commonly called, The Lord's Prayer.
+GUID           bm1:golden:cat:bc:106:1
+
+── BC 107 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What doth the Preface of the Lord's Prayer teach us?
+Answer       │ The Preface of the Lord's Prayer, which is, "Our Father which art in Heaven," teacheth us to draw near to God with all holy Reverence and Confidence,
+GUID           bm1:golden:cat:bc:107
+
+── BC 107 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What doth the Preface of the Lord's Prayer teach us?
+             │
+             │ The Preface of the Lord's Prayer, which is, "Our Father which art in Heaven," teacheth us to draw near to God with all holy Reverence and Confidence,
+Answer       │ as Children to a Father, able and ready to help us; and that we should pray with and for others.
+GUID           bm1:golden:cat:bc:107:1
+
+── BC 108 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the first Petition?
+Answer       │ In the first Petition, which is, "Hallowed be thy Name," we pray, that God would enable us and others, to glorify him in all that, whereby he maketh himself known;
+GUID           bm1:golden:cat:bc:108
+
+── BC 108 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the first Petition?
+             │
+             │ In the first Petition, which is, "Hallowed be thy Name," we pray, that God would enable us and others, to glorify him in all that, whereby he maketh himself known;
+Answer       │ and that he would dispose all things to his own Glory.
+GUID           bm1:golden:cat:bc:108:1
+
+── BC 109 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the Second Petition?
+Answer       │ In the second Petition, which is, "Thy Kingdom come," we pray that Satan's Kingdom may be destroyed, and that the Kingdom of Grace may be advanced,
+GUID           bm1:golden:cat:bc:109
+
+── BC 109 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the Second Petition?
+             │
+             │ In the second Petition, which is, "Thy Kingdom come," we pray that Satan's Kingdom may be destroyed, and that the Kingdom of Grace may be advanced,
+Answer       │ our selves and others brought into it and kept in it, and that the Kingdom of Glory may be hastened.
+GUID           bm1:golden:cat:bc:109:1
+
+── BC 110 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the third Petition?
+Answer       │ In the third Petition, which is, "Thy Will be done on Earth, as it is in Heaven," we pray,
+GUID           bm1:golden:cat:bc:110
+
+── BC 110 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the third Petition?
+             │
+             │ In the third Petition, which is, "Thy Will be done on Earth, as it is in Heaven," we pray,
+Answer       │ that God by his Grace would make us able and willing to know, obey, and submit to his Will in all things, as the Angels do in Heaven.
+GUID           bm1:golden:cat:bc:110:1
+
+── BC 111 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the fourth Petition?
+Answer       │ In the fourth Petition, which is, "Give us this Day our daily Bread," we pray, that of God's free Gift,
+GUID           bm1:golden:cat:bc:111
+
+── BC 111 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the fourth Petition?
+             │
+             │ In the fourth Petition, which is, "Give us this Day our daily Bread," we pray, that of God's free Gift,
+Answer       │ we may receive a competent Portion of the good Things of this Life, and enjoy his Blessing with them.
+GUID           bm1:golden:cat:bc:111:1
+
+── BC 112 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the fifth Petition?
+Answer       │ In the fifth Petition, which is, "And forgive us our Debts as we forgive our Debtors," we pray, that God for Christ's sake would freely pardon all our Sins;
+GUID           bm1:golden:cat:bc:112
+
+── BC 112 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the fifth Petition?
+             │
+             │ In the fifth Petition, which is, "And forgive us our Debts as we forgive our Debtors," we pray, that God for Christ's sake would freely pardon all our Sins;
+Answer       │ which we are the rather encouraged to ask, because by his Grace we are enabled from the Heart to forgive others.
+GUID           bm1:golden:cat:bc:112:1
+
+── BC 113 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the sixth Petition?
+Answer       │ In the sixth Petition, which is, "And lead us not into Temptation, but deliver us from Evil,"
+GUID           bm1:golden:cat:bc:113
+
+── BC 113 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the sixth Petition?
+             │
+             │ In the sixth Petition, which is, "And lead us not into Temptation, but deliver us from Evil,"
+Answer       │ we pray that God would either keep us from being tempted to Sin, or support and deliver us when we are tempted.
+GUID           bm1:golden:cat:bc:113:1
+
+── BC 114 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ What doth the Conclusion of the Lord's Prayer teach?
+Answer       │ The Conclusion of the Lord's Prayer, which is, "For thine is the Kingdom, and the Power, and the Glory, for ever, Amen,"
+GUID           bm1:golden:cat:bc:114
+
+── BC 114 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ What doth the Conclusion of the Lord's Prayer teach?
+             │
+             │ The Conclusion of the Lord's Prayer, which is, "For thine is the Kingdom, and the Power, and the Glory, for ever, Amen,"
+Answer       │ teacheth us to take our Encouragement in Prayer from God only, and in our Prayers to praise him, ascribing Kingdom, Power and Glory to him:
+GUID           bm1:golden:cat:bc:114:1
+
+── BC 114 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ What doth the Conclusion of the Lord's Prayer teach?
+             │
+             │ teacheth us to take our Encouragement in Prayer from God only, and in our Prayers to praise him, ascribing Kingdom, Power and Glory to him:
+Answer       │ And in testimony of our Desire, and Assurance to be heard, we say, Amen.
+GUID           bm1:golden:cat:bc:114:2

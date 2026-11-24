@@ -9,13 +9,14 @@ Everything runs in the browser. There is no server and no account, and decks are
 - One card per verse. The front shows the reference and the verse before it, dimmed, as a lead-in. The back shows the verse.
 - Each verse is asked once. A verse of more than about 30 words is split into two or three cards at its strongest punctuation, and you can move the breaks in the editor.
 - Poetry keeps its lines and indents. Psalm titles are shown above the first verse and are not asked. Selah is shown but is not part of the hint.
+- A catechism deck asks each question, with the question on the front. An answer of more than about 30 words is split into parts the same way, and each part's card shows the question and the part before it. A card already in Anki for a whole answer becomes the card for its first part, keeping its progress; the later parts are added as new cards.
 - A first-letter hint is behind a "Hint" link on the front.
 - Cards use Anki's own font, colours and night mode.
 
 ## Using it
 
 1. Create a deck, choose a translation and type the passages, one per line: `Psalm 23`, `John 3:16-18`, `John 14:1-3, 6`. A line starting with `#` is a heading. Mistakes are reported with their line number.
-2. Check the cards in the preview. "Adjust breaks" on a verse lets you choose where it is split.
+2. Check the cards in the preview. "Adjust breaks" on a verse or catechism answer lets you choose where it is split.
 3. "Export for Anki" downloads the deck. Open the file with Anki; the import options Anki suggests are right.
 
 To update a deck, change the list and export again. The export window says what was added and removed. Anki never deletes cards when importing, so when passages were removed the window also gives a search to paste into Anki's browser that finds the old cards.

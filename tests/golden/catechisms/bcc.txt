@@ -1,0 +1,13 @@
+The Baptist Catechism for Children: 1 of 145 answers split, into 2 cards
+
+── BCC 60 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ How can you receive the Holy Spirit?
+Answer       │ God has told us that we must pray to him for the Holy Spirit,
+GUID           bm1:golden:cat:bcc:60
+
+── BCC 60 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ How can you receive the Holy Spirit?
+             │
+             │ God has told us that we must pray to him for the Holy Spirit,
+Answer       │ but the evidence of his presence is seen most clearly in our trusting and loving the Lord Jesus Christ.
+GUID           bm1:golden:cat:bcc:60:1

@@ -1,0 +1,418 @@
+Compendium of the Heidelberg Catechism: 26 of 74 answers split, into 59 cards
+
+── HSC 1 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How many things are necessary for thee to know, that thou enjoying real comfort mayest live and die happily?
+Answer       │ Three: first, how great my sins and miseries are: the second, how I may be delivered from all my sins and miseries:
+GUID           bm1:golden:cat:hsc:1
+
+── HSC 1 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ How many things are necessary for thee to know, that thou enjoying real comfort mayest live and die happily?
+             │
+             │ Three: first, how great my sins and miseries are: the second, how I may be delivered from all my sins and miseries:
+Answer       │ the third, how I shall express my gratitude to God for such deliverance.
+GUID           bm1:golden:cat:hsc:1:1
+
+── HSC 3 (1/3) ─────────────────────────────────────────────────────────
+Lead-in      │ What hath God commanded thee in his law?
+Answer       │ That is contained in the ten commandments, which he hath revealed in Scripture, as follows:
+             │
+             │ I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage.
+             │
+             │ I. Com. Thou shalt have no other gods before me.
+             │
+             │ II. Thou shalt not make unto thee any graven image, nor any likeness of any thing that is in heaven above, or that is in the earth beneath, or that is in the water under the earth. Thou shalt not bow down thyself to them, nor serve them: for I, the LORD thy God, am a jealous God, visiting the iniquity of the fathers upon the children, unto the third and fourth generation of them that hate me, and showing mercy unto thousands of them that love me and keep my commandments.
+GUID           bm1:golden:cat:hsc:3
+
+── HSC 3 (2/3) ─────────────────────────────────────────────────────────
+Lead-in      │ What hath God commanded thee in his law?
+             │
+             │ That is contained in the ten commandments, which he hath revealed in Scripture, as follows:
+             │
+             │ I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage.
+             │
+             │ I. Com. Thou shalt have no other gods before me.
+             │
+             │ II. Thou shalt not make unto thee any graven image, nor any likeness of any thing that is in heaven above, or that is in the earth beneath, or that is in the water under the earth. Thou shalt not bow down thyself to them, nor serve them: for I, the LORD thy God, am a jealous God, visiting the iniquity of the fathers upon the children, unto the third and fourth generation of them that hate me, and showing mercy unto thousands of them that love me and keep my commandments.
+Answer       │ III. Thou shalt not take the name of the LORD thy God in vain: for the LORD will not hold him guiltless, that taketh his name in vain.
+             │
+             │ IV. Remember the sabbath day, to keep it holy. Six days shalt thou labour and do all thy work; but the seventh day is the sabbath of the LORD thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy man-servant, nor thy maid-servant, nor thy cattle, nor thy stranger that is within thy gates. For in six days the LORD made heaven and earth, the sea, and all that in them is, and rested the seventh day: wherefore the LORD blessed the sabbath day, and hallowed it.
+GUID           bm1:golden:cat:hsc:3:1
+
+── HSC 3 (3/3) ─────────────────────────────────────────────────────────
+Lead-in      │ What hath God commanded thee in his law?
+             │
+             │ III. Thou shalt not take the name of the LORD thy God in vain: for the LORD will not hold him guiltless, that taketh his name in vain.
+             │
+             │ IV. Remember the sabbath day, to keep it holy. Six days shalt thou labour and do all thy work; but the seventh day is the sabbath of the LORD thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy man-servant, nor thy maid-servant, nor thy cattle, nor thy stranger that is within thy gates. For in six days the LORD made heaven and earth, the sea, and all that in them is, and rested the seventh day: wherefore the LORD blessed the sabbath day, and hallowed it.
+Answer       │ V. Honour thy father and thy mother, that thy days may be long upon the land, which the LORD thy God giveth thee.
+             │
+             │ VI. Thou shalt not kill.
+             │
+             │ VII. Thou shalt not commit adultery.
+             │
+             │ VIII. Thou shalt not steal.
+             │
+             │ IX. Thou shalt not bear false witness against thy neighbour.
+             │
+             │ X. Thou shalt not covet thy neighbour's house; thou shalt not covet thy neighbour's wife, nor his man-servant, nor his maid-servant, nor his ox, nor his ass, nor any thing that is thy neighbour's.
+GUID           bm1:golden:cat:hsc:3:2
+
+── HSC 5 (1/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the sum of what God requires of thee in the four commandments of the first table?
+Answer       │ That I love the Lord my God with all my heart with all my soul,
+GUID           bm1:golden:cat:hsc:5
+
+── HSC 5 (2/2) ─────────────────────────────────────────────────────────
+Lead-in      │ Which is the sum of what God requires of thee in the four commandments of the first table?
+             │
+             │ That I love the Lord my God with all my heart with all my soul,
+Answer       │ with all my mind, and with all my strength: this is the first and great commandment.
+GUID           bm1:golden:cat:hsc:5:1
+
+── HSC 13 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Will God suffer such disobedience and corruption to go unpunished?
+Answer       │ By no means: but in his just judgment will punish them, both in time and eternity, as it is written:
+GUID           bm1:golden:cat:hsc:13
+
+── HSC 13 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Will God suffer such disobedience and corruption to go unpunished?
+             │
+             │ By no means: but in his just judgment will punish them, both in time and eternity, as it is written:
+Answer       │ "cursed is every one that continueth not in all things, which are written in the book of the law, to do them."
+GUID           bm1:golden:cat:hsc:13:1
+
+── HSC 18 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Shall all men then be saved by the Mediator, Jesus, as they are all condemned in Adam?
+Answer       │ No: but those only who receive him by a true faith:
+GUID           bm1:golden:cat:hsc:18
+
+── HSC 18 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Shall all men then be saved by the Mediator, Jesus, as they are all condemned in Adam?
+             │
+             │ No: but those only who receive him by a true faith:
+Answer       │ as it is written, "for God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+GUID           bm1:golden:cat:hsc:18:1
+
+── HSC 19 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is true faith?
+Answer       │ It is a certain knowledge of God, and of his promises revealed to us in the Gospel,
+GUID           bm1:golden:cat:hsc:19
+
+── HSC 19 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is true faith?
+             │
+             │ It is a certain knowledge of God, and of his promises revealed to us in the Gospel,
+Answer       │ and an hearty confidence that all my sins are forgiven me for Christ's sake.
+GUID           bm1:golden:cat:hsc:19:1
+
+── HSC 20 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ What is the sum of that which God hath promised in the Gospel, and commanded us to believe?
+Answer       │ That is comprehended in the twelve articles of the Catholic Christian Faith, which are as follows:
+             │
+             │ I. I believe in God, the Father Almighty, maker of heaven and earth.
+             │
+             │ II. And in Jesus Christ, his only begotten Son, our Lord:
+GUID           bm1:golden:cat:hsc:20
+
+── HSC 20 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ What is the sum of that which God hath promised in the Gospel, and commanded us to believe?
+             │
+             │ That is comprehended in the twelve articles of the Catholic Christian Faith, which are as follows:
+             │
+             │ I. I believe in God, the Father Almighty, maker of heaven and earth.
+             │
+             │ II. And in Jesus Christ, his only begotten Son, our Lord:
+Answer       │ III. Who was conceived by the Holy Ghost, born of the Virgin Mary:
+             │
+             │ IV. Suffered under Pontius Pilate, was crucified, dead and buried; he descended into hell.
+             │
+             │ V. The third day he rose again from the dead.
+             │
+             │ VI. He ascended into heaven, and sitteth on the right hand of God, the Father Almighty.
+GUID           bm1:golden:cat:hsc:20:1
+
+── HSC 20 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ What is the sum of that which God hath promised in the Gospel, and commanded us to believe?
+             │
+             │ III. Who was conceived by the Holy Ghost, born of the Virgin Mary:
+             │
+             │ IV. Suffered under Pontius Pilate, was crucified, dead and buried; he descended into hell.
+             │
+             │ V. The third day he rose again from the dead.
+             │
+             │ VI. He ascended into heaven, and sitteth on the right hand of God, the Father Almighty.
+Answer       │ VII. From thence he shall come to judge the quick and the dead.
+             │
+             │ VIII. I believe in the Holy Ghost.
+             │
+             │ IX. I believe in the holy Catholic Church: the communion of saints:
+             │
+             │ X. The forgiveness of sins:
+             │
+             │ XI. The resurrection of the body:
+             │
+             │ XII. And the life everlasting.
+GUID           bm1:golden:cat:hsc:20:2
+
+── HSC 22 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Why do you then name three, the Father, the Son, and the Holy Ghost?
+Answer       │ Because God hath so revealed himself in his word, that these three distinct persons are the only one and true God,
+GUID           bm1:golden:cat:hsc:22
+
+── HSC 22 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Why do you then name three, the Father, the Son, and the Holy Ghost?
+             │
+             │ Because God hath so revealed himself in his word, that these three distinct persons are the only one and true God,
+Answer       │ and we also are baptized in the name of the Father, and of the Son, and of the Holy Ghost.
+GUID           bm1:golden:cat:hsc:22:1
+
+── HSC 23 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What believest thou when thou sayest, "I believe in God, the Father Almighty, maker of heaven and earth?"
+Answer       │ That the eternal Father of our Lord Jesus Christ, who of nothing made heaven and earth,
+GUID           bm1:golden:cat:hsc:23
+
+── HSC 23 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What believest thou when thou sayest, "I believe in God, the Father Almighty, maker of heaven and earth?"
+             │
+             │ That the eternal Father of our Lord Jesus Christ, who of nothing made heaven and earth,
+Answer       │ and still upholds them by his providence, is my God and Father, for Christ his Son's sake.
+GUID           bm1:golden:cat:hsc:23:1
+
+── HSC 28 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Did he then bring his human nature from heaven?
+Answer       │ No: but he took it on him of the Virgin Mary, by the operation of the Holy Ghost,
+GUID           bm1:golden:cat:hsc:28
+
+── HSC 28 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Did he then bring his human nature from heaven?
+             │
+             │ No: but he took it on him of the Virgin Mary, by the operation of the Holy Ghost,
+Answer       │ and is thus become like unto us his brethren in all things, sin excepted.
+GUID           bm1:golden:cat:hsc:28:1
+
+── HSC 32 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What then hath Jesus Christ done to save us?
+Answer       │ He has suffered for us, was crucified and died, was buried, and descended into hell;
+GUID           bm1:golden:cat:hsc:32
+
+── HSC 32 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What then hath Jesus Christ done to save us?
+             │
+             │ He has suffered for us, was crucified and died, was buried, and descended into hell;
+Answer       │ that is, he suffered the torments of hell, and thus became obedient to his Father, that he might deliver us from the temporal and eternal punishment due to sin.
+GUID           bm1:golden:cat:hsc:32:1
+
+── HSC 38 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Is he not with us, then, even unto the end of the world, as he hath promised us, Matt. 28:20?
+Answer       │ With respect to his Godhead, majesty, grace and Spirit, he is never absent from us;
+GUID           bm1:golden:cat:hsc:38
+
+── HSC 38 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Is he not with us, then, even unto the end of the world, as he hath promised us, Matt. 28:20?
+             │
+             │ With respect to his Godhead, majesty, grace and Spirit, he is never absent from us;
+Answer       │ but with respect to his human nature, he remains in heaven until he shall come again to judge the quick and the dead.
+GUID           bm1:golden:cat:hsc:38:1
+
+── HSC 39 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do you believe concerning the Holy Ghost?
+Answer       │ That he is the true and coëternal God with the Father and Son;
+GUID           bm1:golden:cat:hsc:39
+
+── HSC 39 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What do you believe concerning the Holy Ghost?
+             │
+             │ That he is the true and coëternal God with the Father and Son;
+Answer       │ and that he, being given to me of the Father through Christ, regenerates me and leads me into all truth, comforts me, and will abide with me for ever.
+GUID           bm1:golden:cat:hsc:39:1
+
+── HSC 40 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What believest thou concerning the Holy Catholic Church?
+Answer       │ That the Son of God gathers by his word and Spirit out of the whole human race, those, who are chosen to eternal life, to be a Church to himself;
+GUID           bm1:golden:cat:hsc:40
+
+── HSC 40 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What believest thou concerning the Holy Catholic Church?
+             │
+             │ That the Son of God gathers by his word and Spirit out of the whole human race, those, who are chosen to eternal life, to be a Church to himself;
+Answer       │ of which I believe I am and always shall remain a living member.
+GUID           bm1:golden:cat:hsc:40:1
+
+── HSC 45 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ How is it to be understood that thou art justified by faith only?
+Answer       │ Thus: that the perfect satisfaction and righteousness of Christ alone are imputed to me of God, by which my sins are forgiven me, and I become an heir of everlasting life;
+GUID           bm1:golden:cat:hsc:45
+
+── HSC 45 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ How is it to be understood that thou art justified by faith only?
+             │
+             │ Thus: that the perfect satisfaction and righteousness of Christ alone are imputed to me of God, by which my sins are forgiven me, and I become an heir of everlasting life;
+Answer       │ and that I cannot receive that righteousness by any other means than by faith.
+GUID           bm1:golden:cat:hsc:45:1
+
+── HSC 51 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are the sacraments?
+Answer       │ They are holy signs and seals instituted by God, thereby to assure us,
+GUID           bm1:golden:cat:hsc:51
+
+── HSC 51 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are the sacraments?
+             │
+             │ They are holy signs and seals instituted by God, thereby to assure us,
+Answer       │ that he of grace grants us remission of sins and life eternal, for the sake of that one sacrifice of Christ finished on the cross.
+GUID           bm1:golden:cat:hsc:51:1
+
+── HSC 55 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Where hath Christ promised and assured us of this?
+Answer       │ In the institution of baptism; which is as follows, "Go ye into all the world, and preach the Gospel to every creature.
+GUID           bm1:golden:cat:hsc:55
+
+── HSC 55 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Where hath Christ promised and assured us of this?
+             │
+             │ In the institution of baptism; which is as follows, "Go ye into all the world, and preach the Gospel to every creature.
+Answer       │ He that believeth and is baptized shall be saved, but he that believeth not, shall be damned."
+GUID           bm1:golden:cat:hsc:55:1
+
+── HSC 59 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ Where hath Christ promised such things to us?
+Answer       │ In the institution of the Lord's Supper, which is thus expressed by St. Paul, "For I have received of the Lord, that which also I delivered unto you, that the Lord Jesus the same night in which he was betrayed, took bread; and when he had given thanks, brake it, and said, Take, eat: this is my body, which is broken for you: this do in remembrance of me.
+GUID           bm1:golden:cat:hsc:59
+
+── HSC 59 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ Where hath Christ promised such things to us?
+             │
+             │ In the institution of the Lord's Supper, which is thus expressed by St. Paul, "For I have received of the Lord, that which also I delivered unto you, that the Lord Jesus the same night in which he was betrayed, took bread; and when he had given thanks, brake it, and said, Take, eat: this is my body, which is broken for you: this do in remembrance of me.
+Answer       │ After the same manner also he took the cup, when he had supped, saying, this cup is the new testament in my blood: this do ye, as oft as ye drink it, in remembrance of me.
+GUID           bm1:golden:cat:hsc:59:1
+
+── HSC 59 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ Where hath Christ promised such things to us?
+             │
+             │ After the same manner also he took the cup, when he had supped, saying, this cup is the new testament in my blood: this do ye, as oft as ye drink it, in remembrance of me.
+Answer       │ For as oft as ye eat this bread, and drink this cup, ye do show the Lord's death till he come."
+GUID           bm1:golden:cat:hsc:59:2
+
+── HSC 61 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ After what manner must you examine yourself before you come to the Lord's Supper?
+Answer       │ 1. I must examine whether I abhor myself for my sins, and humble myself before God on account of them. 2.
+GUID           bm1:golden:cat:hsc:61
+
+── HSC 61 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ After what manner must you examine yourself before you come to the Lord's Supper?
+             │
+             │ 1. I must examine whether I abhor myself for my sins, and humble myself before God on account of them. 2.
+Answer       │ Whether I believe and trust that all my sins are forgiven me for Christ's sake. 3. Whether I also have a sincere resolution henceforward, to walk in all good works.
+GUID           bm1:golden:cat:hsc:61:1
+
+── HSC 63 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ How must we then deal with such persons?
+Answer       │ According to the appointment given us by Christ, "If thy brother shall trespass against thee, go and tell him his fault between thee and him alone: if he shall hear thee,
+GUID           bm1:golden:cat:hsc:63
+
+── HSC 63 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ How must we then deal with such persons?
+             │
+             │ According to the appointment given us by Christ, "If thy brother shall trespass against thee, go and tell him his fault between thee and him alone: if he shall hear thee,
+Answer       │ thou hast gained thy brother; but if he will not hear thee, then take with thee one or two more, that in the mouth of two or three witnesses every word may be established:
+GUID           bm1:golden:cat:hsc:63:1
+
+── HSC 63 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ How must we then deal with such persons?
+             │
+             │ thou hast gained thy brother; but if he will not hear thee, then take with thee one or two more, that in the mouth of two or three witnesses every word may be established:
+Answer       │ and if he shall neglect to hear them, tell it unto the Church; but if he neglect to hear the Church, let him be unto thee as an heathen man and a publican."
+GUID           bm1:golden:cat:hsc:63:2
+
+── HSC 65 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What purpose, then, do your good works answer?
+Answer       │ That I may thereby testify my thankfulness to God for all his benefits, and that he may be glorified by me;
+GUID           bm1:golden:cat:hsc:65
+
+── HSC 65 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What purpose, then, do your good works answer?
+             │
+             │ That I may thereby testify my thankfulness to God for all his benefits, and that he may be glorified by me;
+Answer       │ and that also I may be assured of the sincerity of my faith, by good works, as the fruits thereof; and that my neighbours may be edified thereby and gained to Christ.
+GUID           bm1:golden:cat:hsc:65:1
+
+── HSC 66 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Shall they also be saved who do no good works?
+Answer       │ No: for the Scripture saith, that neither fornicators, nor idolaters, nor adulterers, nor whoremongers, nor thieves, nor covetous, nor drunkards,
+GUID           bm1:golden:cat:hsc:66
+
+── HSC 66 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Shall they also be saved who do no good works?
+             │
+             │ No: for the Scripture saith, that neither fornicators, nor idolaters, nor adulterers, nor whoremongers, nor thieves, nor covetous, nor drunkards,
+Answer       │ nor revilers, nor robbers, nor such like, shall inherit the kingdom of God, unless they turn to the Lord.
+GUID           bm1:golden:cat:hsc:66:1
+
+── HSC 68 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are good works?
+Answer       │ Only those which proceed from a true faith; are done according to the law of God and to his glory;
+GUID           bm1:golden:cat:hsc:68
+
+── HSC 68 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are good works?
+             │
+             │ Only those which proceed from a true faith; are done according to the law of God and to his glory;
+Answer       │ and not those, which are founded on human institutions, or on our own imaginations.
+GUID           bm1:golden:cat:hsc:68:1
+
+── HSC 69 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ Can they, who are converted to God, perfectly keep the law?
+Answer       │ Not at all: but even the most holy men, as long as they are in this life, have only a small beginning of this obedience;
+GUID           bm1:golden:cat:hsc:69
+
+── HSC 69 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ Can they, who are converted to God, perfectly keep the law?
+             │
+             │ Not at all: but even the most holy men, as long as they are in this life, have only a small beginning of this obedience;
+Answer       │ yet so, that they with a sincere resolution begin to live not only according to some,
+GUID           bm1:golden:cat:hsc:69:1
+
+── HSC 69 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ Can they, who are converted to God, perfectly keep the law?
+             │
+             │ yet so, that they with a sincere resolution begin to live not only according to some,
+Answer       │ but according to all the commandments of God, as they also constantly pray to God that they may daily increase therein.
+GUID           bm1:golden:cat:hsc:69:2
+
+── HSC 73 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ What are the words of that prayer?
+Answer       │ Our Father which art in heaven, hallowed be thy name. Thy kingdom come. Thy will be done in earth, as it is in heaven.
+GUID           bm1:golden:cat:hsc:73
+
+── HSC 73 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ What are the words of that prayer?
+             │
+             │ Our Father which art in heaven, hallowed be thy name. Thy kingdom come. Thy will be done in earth, as it is in heaven.
+Answer       │ Give us this day our daily bread. And forgive us our debts as we forgive our debtors; and lead us not into temptation, but deliver us from evil.
+GUID           bm1:golden:cat:hsc:73:1
+
+── HSC 73 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ What are the words of that prayer?
+             │
+             │ Give us this day our daily bread. And forgive us our debts as we forgive our debtors; and lead us not into temptation, but deliver us from evil.
+Answer       │ For thine is the kingdom, and the power, and the glory, for ever. Amen.
+GUID           bm1:golden:cat:hsc:73:2
+
+── HSC 74 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ What do you desire of God in this prayer?
+Answer       │ 1. That all things which tend to the glory of God, may be promoted, and whatsoever is repugnant thereto, or contrary to his will, may be prevented.
+GUID           bm1:golden:cat:hsc:74
+
+── HSC 74 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ What do you desire of God in this prayer?
+             │
+             │ 1. That all things which tend to the glory of God, may be promoted, and whatsoever is repugnant thereto, or contrary to his will, may be prevented.
+Answer       │ 2. That he may provide me with all things necessary for the body, and as to my soul,
+GUID           bm1:golden:cat:hsc:74:1
+
+── HSC 74 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ What do you desire of God in this prayer?
+             │
+             │ 2. That he may provide me with all things necessary for the body, and as to my soul,
+Answer       │ preserve me from all evil, which might in any wise be detrimental to my salvation. Amen.
+GUID           bm1:golden:cat:hsc:74:2

@@ -1,0 +1,622 @@
+Westminster Shorter Catechism: 50 of 107 answers split, into 103 cards
+
+── WSC 12 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What special act of providence did God exercise toward man in the estate wherein he was created?
+Answer       │ When God had created man, he entered into a covenant of life with him, upon condition of perfect obedience;
+GUID           bm1:golden:cat:wsc:12
+
+── WSC 12 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What special act of providence did God exercise toward man in the estate wherein he was created?
+             │
+             │ When God had created man, he entered into a covenant of life with him, upon condition of perfect obedience;
+Answer       │ forbidding him to eat of the tree of the knowledge of good and evil, upon pain of death.
+GUID           bm1:golden:cat:wsc:12:1
+
+── WSC 16 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Did all mankind fall in Adam's first transgression?
+Answer       │ The covenant being made with Adam, not only for himself, but for his posterity;
+GUID           bm1:golden:cat:wsc:16
+
+── WSC 16 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Did all mankind fall in Adam's first transgression?
+             │
+             │ The covenant being made with Adam, not only for himself, but for his posterity;
+Answer       │ all mankind, descending from him by ordinary generation, sinned in him, and fell with him, in his first transgression.
+GUID           bm1:golden:cat:wsc:16:1
+
+── WSC 18 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Wherein consists the sinfulness of that estate whereinto man fell?
+Answer       │ The sinfulness of that estate whereinto man fell, consists in the guilt of Adam's first sin, the want of original righteousness,
+GUID           bm1:golden:cat:wsc:18
+
+── WSC 18 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Wherein consists the sinfulness of that estate whereinto man fell?
+             │
+             │ The sinfulness of that estate whereinto man fell, consists in the guilt of Adam's first sin, the want of original righteousness,
+Answer       │ and the corruption of his whole nature, which is commonly called original sin; together with all actual transgressions which proceed from it.
+GUID           bm1:golden:cat:wsc:18:1
+
+── WSC 19 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the misery of that estate whereinto man fell?
+Answer       │ All mankind by their fall lost communion with God, are under his wrath and curse,
+GUID           bm1:golden:cat:wsc:19
+
+── WSC 19 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the misery of that estate whereinto man fell?
+             │
+             │ All mankind by their fall lost communion with God, are under his wrath and curse,
+Answer       │ and so made liable to all miseries in this life, to death itself, and to the pains of hell for ever.
+GUID           bm1:golden:cat:wsc:19:1
+
+── WSC 20 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Did God leave all mankind to perish in the estate of sin and misery?
+Answer       │ God having, out of his mere good pleasure, from all eternity, elected some to everlasting life did enter into a covenant of grace,
+GUID           bm1:golden:cat:wsc:20
+
+── WSC 20 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Did God leave all mankind to perish in the estate of sin and misery?
+             │
+             │ God having, out of his mere good pleasure, from all eternity, elected some to everlasting life did enter into a covenant of grace,
+Answer       │ to deliver them out of the estate of sin and misery, and to bring them into an estate of salvation by a Redeemer.
+GUID           bm1:golden:cat:wsc:20:1
+
+── WSC 21 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Who is the Redeemer of God's elect?
+Answer       │ The only Redeemer of God's elect is the Lord Jesus Christ, who, being the eternal Son of God,
+GUID           bm1:golden:cat:wsc:21
+
+── WSC 21 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Who is the Redeemer of God's elect?
+             │
+             │ The only Redeemer of God's elect is the Lord Jesus Christ, who, being the eternal Son of God,
+Answer       │ became man and so was, and continueth to be, God and man in two distinct natures, and one person, forever.
+GUID           bm1:golden:cat:wsc:21:1
+
+── WSC 22 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ How did Christ, being the Son of God, become man?
+Answer       │ Christ, the Son of God, became man, by taking to himself a true body, and a reasonable soul,
+GUID           bm1:golden:cat:wsc:22
+
+── WSC 22 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ How did Christ, being the Son of God, become man?
+             │
+             │ Christ, the Son of God, became man, by taking to himself a true body, and a reasonable soul,
+Answer       │ being conceived by the power of the Holy Ghost, in the womb of the virgin Mary, and born of her yet without sin.
+GUID           bm1:golden:cat:wsc:22:1
+
+── WSC 25 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ How doth Christ execute the office of a priest?
+Answer       │ Christ executeth the office of a priest, in his once offering up of himself a sacrifice to satisfy divine justice,
+GUID           bm1:golden:cat:wsc:25
+
+── WSC 25 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ How doth Christ execute the office of a priest?
+             │
+             │ Christ executeth the office of a priest, in his once offering up of himself a sacrifice to satisfy divine justice,
+Answer       │ and reconcile us to God; and in making continual intercession for us.
+GUID           bm1:golden:cat:wsc:25:1
+
+── WSC 27 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Wherein did Christ's humiliation consist?
+Answer       │ Christ's humiliation consisted in his being born, and that in a low condition, made under the law, undergoing the miseries of this life, the wrath of God, and the cursed death of the cross;
+GUID           bm1:golden:cat:wsc:27
+
+── WSC 27 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Wherein did Christ's humiliation consist?
+             │
+             │ Christ's humiliation consisted in his being born, and that in a low condition, made under the law, undergoing the miseries of this life, the wrath of God, and the cursed death of the cross;
+Answer       │ in being buried, and continuing under the power of death for a time.
+GUID           bm1:golden:cat:wsc:27:1
+
+── WSC 28 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Wherein consisteth Christ's exaltation?
+Answer       │ Christ's exaltation consisteth in his rising again from the dead on the third day, in ascending up into heaven,
+GUID           bm1:golden:cat:wsc:28
+
+── WSC 28 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Wherein consisteth Christ's exaltation?
+             │
+             │ Christ's exaltation consisteth in his rising again from the dead on the third day, in ascending up into heaven,
+Answer       │ in sitting at the right hand of God the Father, and in coming to judge the world at the last day.
+GUID           bm1:golden:cat:wsc:28:1
+
+── WSC 31 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is effectual calling?
+Answer       │ Effectual calling is the work of God's Spirit, whereby, convincing us of our sin and misery, enlightening our minds in the knowledge of Christ,
+GUID           bm1:golden:cat:wsc:31
+
+── WSC 31 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is effectual calling?
+             │
+             │ Effectual calling is the work of God's Spirit, whereby, convincing us of our sin and misery, enlightening our minds in the knowledge of Christ,
+Answer       │ and renewing our wills, he doth persuade and enable us to embrace Jesus Christ, freely offered to us in the gospel.
+GUID           bm1:golden:cat:wsc:31:1
+
+── WSC 33 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is justification?
+Answer       │ Justification is an act of God's free grace, wherein he pardoneth all our sins,
+GUID           bm1:golden:cat:wsc:33
+
+── WSC 33 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is justification?
+             │
+             │ Justification is an act of God's free grace, wherein he pardoneth all our sins,
+Answer       │ and accepteth us as righteous in his sight, only for the righteousness of Christ imputed to us, and received by faith alone.
+GUID           bm1:golden:cat:wsc:33:1
+
+── WSC 35 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is sanctification?
+Answer       │ Sanctification is the work of God's free grace, whereby we are renewed in the whole man after the image of God,
+GUID           bm1:golden:cat:wsc:35
+
+── WSC 35 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is sanctification?
+             │
+             │ Sanctification is the work of God's free grace, whereby we are renewed in the whole man after the image of God,
+Answer       │ and are enabled more and more to die unto sin, and live unto righteousness.
+GUID           bm1:golden:cat:wsc:35:1
+
+── WSC 36 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are the benefits which in this life do accompany or flow from justification, adoption, and sanctification?
+Answer       │ The benefits which in this life do accompany or flow from justification, adoption, and sanctification, are, assurance of God's love,
+GUID           bm1:golden:cat:wsc:36
+
+── WSC 36 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are the benefits which in this life do accompany or flow from justification, adoption, and sanctification?
+             │
+             │ The benefits which in this life do accompany or flow from justification, adoption, and sanctification, are, assurance of God's love,
+Answer       │ peace of conscience, joy in the Holy Ghost, increase of grace, and perseverance therein to the end.
+GUID           bm1:golden:cat:wsc:36:1
+
+── WSC 37 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What benefits do believers receive from Christ at death?
+Answer       │ The souls of believers are at their death made perfect in holiness, and do immediately pass into glory;
+GUID           bm1:golden:cat:wsc:37
+
+── WSC 37 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What benefits do believers receive from Christ at death?
+             │
+             │ The souls of believers are at their death made perfect in holiness, and do immediately pass into glory;
+Answer       │ and their bodies, being still united to Christ, do rest in their graves till the resurrection.
+GUID           bm1:golden:cat:wsc:37:1
+
+── WSC 38 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What benefits do believers receive from Christ at the resurrection?
+Answer       │ At the resurrection, believers being raised up in glory, shall be openly acknowledged and acquitted in the day of judgment,
+GUID           bm1:golden:cat:wsc:38
+
+── WSC 38 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What benefits do believers receive from Christ at the resurrection?
+             │
+             │ At the resurrection, believers being raised up in glory, shall be openly acknowledged and acquitted in the day of judgment,
+Answer       │ and made perfectly blessed in the full enjoying of God to all eternity.
+GUID           bm1:golden:cat:wsc:38:1
+
+── WSC 42 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the sum of the ten commandments?
+Answer       │ The sum of the ten commandments is, To love the Lord our God with all our heart,
+GUID           bm1:golden:cat:wsc:42
+
+── WSC 42 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the sum of the ten commandments?
+             │
+             │ The sum of the ten commandments is, To love the Lord our God with all our heart,
+Answer       │ with all our soul, with all our strength, and with all our mind; and our neighbour as ourselves.
+GUID           bm1:golden:cat:wsc:42:1
+
+── WSC 43 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the preface to the ten commandments?
+Answer       │ The preface to the ten commandments is in these words, I am the Lord thy God,
+GUID           bm1:golden:cat:wsc:43
+
+── WSC 43 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the preface to the ten commandments?
+             │
+             │ The preface to the ten commandments is in these words, I am the Lord thy God,
+Answer       │ which have brought thee out of the land of Egypt, out of the house of bondage.
+GUID           bm1:golden:cat:wsc:43:1
+
+── WSC 47 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the first commandment?
+Answer       │ The first commandment forbiddeth the denying, or not worshipping and glorifying the true God as God, and our God;
+GUID           bm1:golden:cat:wsc:47
+
+── WSC 47 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the first commandment?
+             │
+             │ The first commandment forbiddeth the denying, or not worshipping and glorifying the true God as God, and our God;
+Answer       │ and the giving of that worship and glory to any other, which is due to him alone.
+GUID           bm1:golden:cat:wsc:47:1
+
+── WSC 48 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are we specially taught by these words, 'before me', in the first commandment?
+Answer       │ These words, before me, in the first commandment teach us, that God, who seeth all things,
+GUID           bm1:golden:cat:wsc:48
+
+── WSC 48 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are we specially taught by these words, 'before me', in the first commandment?
+             │
+             │ These words, before me, in the first commandment teach us, that God, who seeth all things,
+Answer       │ taketh notice of, and is much displeased with, the sin of having any other God.
+GUID           bm1:golden:cat:wsc:48:1
+
+── WSC 49 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the second commandment?
+Answer       │ The second commandment is, Thou shalt not make unto thee any graven image, or any likeness of anything that is in heaven above, or that is in the earth beneath,
+GUID           bm1:golden:cat:wsc:49
+
+── WSC 49 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the second commandment?
+             │
+             │ The second commandment is, Thou shalt not make unto thee any graven image, or any likeness of anything that is in heaven above, or that is in the earth beneath,
+Answer       │ or that is in the water under the earth: thou shalt not bow down thy self to them, nor serve them: for I the Lord thy God am a jealous God,
+GUID           bm1:golden:cat:wsc:49:1
+
+── WSC 49 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the second commandment?
+             │
+             │ or that is in the water under the earth: thou shalt not bow down thy self to them, nor serve them: for I the Lord thy God am a jealous God,
+Answer       │ visiting the iniquity of the fathers upon the children unto the third and fourth generation of them that hate me; and showing mercy unto thousands of them that love me, and keep my commandments.
+GUID           bm1:golden:cat:wsc:49:2
+
+── WSC 53 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the third commandment?
+Answer       │ The third commandment is, Thou shalt not take the name of the Lord thy God in vain;
+GUID           bm1:golden:cat:wsc:53
+
+── WSC 53 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the third commandment?
+             │
+             │ The third commandment is, Thou shalt not take the name of the Lord thy God in vain;
+Answer       │ for the Lord will not hold him guiltless that taketh his name in vain.
+GUID           bm1:golden:cat:wsc:53:1
+
+── WSC 56 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the reason annexed to the third commandment?
+Answer       │ The reason annexed to the third commandment is, that however the breakers of this commandment may escape punishment from men,
+GUID           bm1:golden:cat:wsc:56
+
+── WSC 56 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the reason annexed to the third commandment?
+             │
+             │ The reason annexed to the third commandment is, that however the breakers of this commandment may escape punishment from men,
+Answer       │ yet the Lord our God will not suffer them to escape his righteous judgment.
+GUID           bm1:golden:cat:wsc:56:1
+
+── WSC 57 (1/3) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the fourth commandment?
+Answer       │ The fourth commandment is, Remember the sabbath day, to keep it holy. Six days shalt thou labor, and do all thy work; but the seventh day is the sabbath of the Lord thy God:
+GUID           bm1:golden:cat:wsc:57
+
+── WSC 57 (2/3) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the fourth commandment?
+             │
+             │ The fourth commandment is, Remember the sabbath day, to keep it holy. Six days shalt thou labor, and do all thy work; but the seventh day is the sabbath of the Lord thy God:
+Answer       │ in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, nor thy maidservant, nor thy cattle, nor thy stranger that is within thy gates.
+GUID           bm1:golden:cat:wsc:57:1
+
+── WSC 57 (3/3) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the fourth commandment?
+             │
+             │ in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, nor thy maidservant, nor thy cattle, nor thy stranger that is within thy gates.
+Answer       │ For in six days the Lord made heaven and earth, the sea, and all that in them is, and rested the seventh day: wherefore the Lord blessed the sabbath day, and hallowed it.
+GUID           bm1:golden:cat:wsc:57:2
+
+── WSC 58 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is required in the fourth commandment?
+Answer       │ The fourth commandment requireth the keeping holy to God such set times as he hath appointed in his Word;
+GUID           bm1:golden:cat:wsc:58
+
+── WSC 58 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is required in the fourth commandment?
+             │
+             │ The fourth commandment requireth the keeping holy to God such set times as he hath appointed in his Word;
+Answer       │ expressly one whole day in seven, to be a holy sabbath to himself.
+GUID           bm1:golden:cat:wsc:58:1
+
+── WSC 59 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Which day of the seven hath God appointed to be the weekly sabbath?
+Answer       │ From the beginning of the world to the resurrection of Christ, God appointed the seventh day of the week to be the weekly sabbath;
+GUID           bm1:golden:cat:wsc:59
+
+── WSC 59 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Which day of the seven hath God appointed to be the weekly sabbath?
+             │
+             │ From the beginning of the world to the resurrection of Christ, God appointed the seventh day of the week to be the weekly sabbath;
+Answer       │ and the first day of the week ever since, to continue to the end of the world, which is the Christian sabbath.
+GUID           bm1:golden:cat:wsc:59:1
+
+── WSC 60 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ How is the sabbath to be sanctified?
+Answer       │ The sabbath is to be sanctified by a holy resting all that day, even from such worldly employments and recreations as are lawful on other days;
+GUID           bm1:golden:cat:wsc:60
+
+── WSC 60 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ How is the sabbath to be sanctified?
+             │
+             │ The sabbath is to be sanctified by a holy resting all that day, even from such worldly employments and recreations as are lawful on other days;
+Answer       │ and spending the whole time in the public and private exercises of God's worship, except so much as is to be taken up in the works of necessity and mercy.
+GUID           bm1:golden:cat:wsc:60:1
+
+── WSC 61 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the fourth commandment?
+Answer       │ The fourth commandment forbiddeth the omission or careless performance of the duties required, and the profaning the day by idleness,
+GUID           bm1:golden:cat:wsc:61
+
+── WSC 61 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is forbidden in the fourth commandment?
+             │
+             │ The fourth commandment forbiddeth the omission or careless performance of the duties required, and the profaning the day by idleness,
+Answer       │ or doing that which is in itself sinful, or by unnecessary thoughts, words, or works, about our worldly employments or recreations.
+GUID           bm1:golden:cat:wsc:61:1
+
+── WSC 62 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are the reasons annexed to the fourth commandment?
+Answer       │ The reasons annexed to the fourth commandment are, God's allowing us six days of the week for our own employments,
+GUID           bm1:golden:cat:wsc:62
+
+── WSC 62 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are the reasons annexed to the fourth commandment?
+             │
+             │ The reasons annexed to the fourth commandment are, God's allowing us six days of the week for our own employments,
+Answer       │ his challenging a special propriety in the seventh, his own example, and his blessing the sabbath day.
+GUID           bm1:golden:cat:wsc:62:1
+
+── WSC 79 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the tenth commandment?
+Answer       │ The tenth commandment is, Thou shalt not covet thy neighbour's house, thou shalt not covet thy neighbour's wife,
+GUID           bm1:golden:cat:wsc:79
+
+── WSC 79 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ Which is the tenth commandment?
+             │
+             │ The tenth commandment is, Thou shalt not covet thy neighbour's house, thou shalt not covet thy neighbour's wife,
+Answer       │ nor his manservant, nor his maidservant, nor his ox, nor his ass, nor anything that is thy neighbour's.
+GUID           bm1:golden:cat:wsc:79:1
+
+── WSC 85 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What doth God require of us, that we may escape his wrath and curse, due to us for sin?
+Answer       │ To escape the wrath and curse of God, due to us for sin, God requireth of us faith in Jesus Christ,
+GUID           bm1:golden:cat:wsc:85
+
+── WSC 85 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What doth God require of us, that we may escape his wrath and curse, due to us for sin?
+             │
+             │ To escape the wrath and curse of God, due to us for sin, God requireth of us faith in Jesus Christ,
+Answer       │ repentance unto life, with the diligent use of all the outward means whereby Christ communicateth to us the benefits of redemption.
+GUID           bm1:golden:cat:wsc:85:1
+
+── WSC 87 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is repentance unto life?
+Answer       │ Repentance unto life is a saving grace, whereby a sinner, out of a true sense of his sin, and apprehension of the mercy of God in Christ,
+GUID           bm1:golden:cat:wsc:87
+
+── WSC 87 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is repentance unto life?
+             │
+             │ Repentance unto life is a saving grace, whereby a sinner, out of a true sense of his sin, and apprehension of the mercy of God in Christ,
+Answer       │ doth, with grief and hatred of his sin, turn from it unto God, with full purpose of, and endeavour after, new obedience.
+GUID           bm1:golden:cat:wsc:87:1
+
+── WSC 88 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are the outward and ordinary means whereby Christ communicateth to us the benefits of redemption?
+Answer       │ The outward and ordinary means whereby Christ communicateth to us the benefits of redemption are, his ordinances, especially the Word, sacraments, and prayer;
+GUID           bm1:golden:cat:wsc:88
+
+── WSC 88 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What are the outward and ordinary means whereby Christ communicateth to us the benefits of redemption?
+             │
+             │ The outward and ordinary means whereby Christ communicateth to us the benefits of redemption are, his ordinances, especially the Word, sacraments, and prayer;
+Answer       │ all which are made effectual to the elect for salvation.
+GUID           bm1:golden:cat:wsc:88:1
+
+── WSC 89 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ How is the Word made effectual to salvation?
+Answer       │ The Spirit of God maketh the reading, but especially the preaching of the Word,
+GUID           bm1:golden:cat:wsc:89
+
+── WSC 89 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ How is the Word made effectual to salvation?
+             │
+             │ The Spirit of God maketh the reading, but especially the preaching of the Word,
+Answer       │ an effectual means of convincing and converting sinners, and of building them up in holiness and comfort, through faith, unto salvation.
+GUID           bm1:golden:cat:wsc:89:1
+
+── WSC 90 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ How is the Word to be read and heard, that it may become effectual to salvation?
+Answer       │ That the Word may become effectual to salvation, we must attend thereunto with diligence, preparation, and prayer;
+GUID           bm1:golden:cat:wsc:90
+
+── WSC 90 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ How is the Word to be read and heard, that it may become effectual to salvation?
+             │
+             │ That the Word may become effectual to salvation, we must attend thereunto with diligence, preparation, and prayer;
+Answer       │ receive it with faith and love, lay it up in our hearts, and practice it in our lives.
+GUID           bm1:golden:cat:wsc:90:1
+
+── WSC 91 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ How do the sacraments become effectual means of salvation?
+Answer       │ The sacraments become effectual means of salvation, not from any virtue in them, or in him that doth administer them;
+GUID           bm1:golden:cat:wsc:91
+
+── WSC 91 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ How do the sacraments become effectual means of salvation?
+             │
+             │ The sacraments become effectual means of salvation, not from any virtue in them, or in him that doth administer them;
+Answer       │ but only by the blessing of Christ, and the working of his Spirit in them that by faith receive them.
+GUID           bm1:golden:cat:wsc:91:1
+
+── WSC 94 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is Baptism?
+Answer       │ Baptism is a sacrament, wherein the washing with water in the name of the Father, and of the Son, and of the Holy Ghost,
+GUID           bm1:golden:cat:wsc:94
+
+── WSC 94 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is Baptism?
+             │
+             │ Baptism is a sacrament, wherein the washing with water in the name of the Father, and of the Son, and of the Holy Ghost,
+Answer       │ doth signify and seal our ingrafting into Christ, and partaking of the benefits of the covenant of grace, and our engagement to be the Lord's.
+GUID           bm1:golden:cat:wsc:94:1
+
+── WSC 95 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ To whom is Baptism to be administered?
+Answer       │ Baptism is not to be administered to any that are out of the visible church, till they profess their faith in Christ, and obedience to him;
+GUID           bm1:golden:cat:wsc:95
+
+── WSC 95 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ To whom is Baptism to be administered?
+             │
+             │ Baptism is not to be administered to any that are out of the visible church, till they profess their faith in Christ, and obedience to him;
+Answer       │ but the infants of such as are members of the visible church are to be baptized.
+GUID           bm1:golden:cat:wsc:95:1
+
+── WSC 96 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the Lord's Supper?
+Answer       │ The Lord's Supper is a sacrament, wherein, by giving and receiving bread and wine, according to Christ's appointment, his death is showed forth;
+GUID           bm1:golden:cat:wsc:96
+
+── WSC 96 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is the Lord's Supper?
+             │
+             │ The Lord's Supper is a sacrament, wherein, by giving and receiving bread and wine, according to Christ's appointment, his death is showed forth;
+Answer       │ and the worthy receivers are, not after a corporal and carnal manner, but by faith, made partakers of his body and blood, with all his benefits, to their spiritual nourishment, and growth in grace.
+GUID           bm1:golden:cat:wsc:96:1
+
+── WSC 97 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is required for the worthy receiving of the Lord's Supper?
+Answer       │ It is required of them that would worthily partake of the Lord's Supper, that they examine themselves of their knowledge to discern the Lord's body,
+GUID           bm1:golden:cat:wsc:97
+
+── WSC 97 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is required for the worthy receiving of the Lord's Supper?
+             │
+             │ It is required of them that would worthily partake of the Lord's Supper, that they examine themselves of their knowledge to discern the Lord's body,
+Answer       │ of their faith to feed upon him, of their repentance, love, and new obedience; lest, coming unworthily, they eat and drink judgment to themselves.
+GUID           bm1:golden:cat:wsc:97:1
+
+── WSC 98 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is prayer?
+Answer       │ Prayer is an offering up of our desires unto God, for things agreeable to his will,
+GUID           bm1:golden:cat:wsc:98
+
+── WSC 98 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What is prayer?
+             │
+             │ Prayer is an offering up of our desires unto God, for things agreeable to his will,
+Answer       │ in the name of Christ, with confession of our sins, and thankful acknowledgement of his mercies.
+GUID           bm1:golden:cat:wsc:98:1
+
+── WSC 99 (1/2) ────────────────────────────────────────────────────────
+Lead-in      │ What rule hath God given for our direction in prayer?
+Answer       │ The whole Word of God is of use to direct us in prayer;
+GUID           bm1:golden:cat:wsc:99
+
+── WSC 99 (2/2) ────────────────────────────────────────────────────────
+Lead-in      │ What rule hath God given for our direction in prayer?
+             │
+             │ The whole Word of God is of use to direct us in prayer;
+Answer       │ but the special rule of direction is that form of prayer which Christ taught his disciples, commonly called The Lord's Prayer.
+GUID           bm1:golden:cat:wsc:99:1
+
+── WSC 100 (1/2) ───────────────────────────────────────────────────────
+Lead-in      │ What doth the preface of the Lord's Prayer teach us?
+Answer       │ The preface of the Lord's Prayer, which is, Our Father which art in heaven, teacheth us to draw near to God with all holy reverence and confidence,
+GUID           bm1:golden:cat:wsc:100
+
+── WSC 100 (2/2) ───────────────────────────────────────────────────────
+Lead-in      │ What doth the preface of the Lord's Prayer teach us?
+             │
+             │ The preface of the Lord's Prayer, which is, Our Father which art in heaven, teacheth us to draw near to God with all holy reverence and confidence,
+Answer       │ as children to a father, able and ready to help us; and that we should pray with and for others.
+GUID           bm1:golden:cat:wsc:100:1
+
+── WSC 101 (1/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the first petition?
+Answer       │ In the first petition, which is, Hallowed be thy name, we pray, that God would enable us, and others, to glorify him in all that whereby he maketh himself known;
+GUID           bm1:golden:cat:wsc:101
+
+── WSC 101 (2/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the first petition?
+             │
+             │ In the first petition, which is, Hallowed be thy name, we pray, that God would enable us, and others, to glorify him in all that whereby he maketh himself known;
+Answer       │ and that he would dispose all things to his own glory.
+GUID           bm1:golden:cat:wsc:101:1
+
+── WSC 102 (1/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the second petition?
+Answer       │ In the second petition, which is, Thy kingdom come, we pray, that Satan's kingdom may be destroyed;
+GUID           bm1:golden:cat:wsc:102
+
+── WSC 102 (2/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the second petition?
+             │
+             │ In the second petition, which is, Thy kingdom come, we pray, that Satan's kingdom may be destroyed;
+Answer       │ and that the kingdom of grace may be advanced, ourselves and others brought into it, and kept in it; and that the kingdom of glory may be hastened.
+GUID           bm1:golden:cat:wsc:102:1
+
+── WSC 103 (1/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the third petition?
+Answer       │ In the third petition, which is, Thy will be done in earth, as it is in heaven, we pray, that God, by his grace,
+GUID           bm1:golden:cat:wsc:103
+
+── WSC 103 (2/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the third petition?
+             │
+             │ In the third petition, which is, Thy will be done in earth, as it is in heaven, we pray, that God, by his grace,
+Answer       │ would make us able and willing to know, obey, and submit to his will in all things, as the angels do in heaven.
+GUID           bm1:golden:cat:wsc:103:1
+
+── WSC 104 (1/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the fourth petition?
+Answer       │ In the fourth petition, which is, Give us this day our daily bread,
+GUID           bm1:golden:cat:wsc:104
+
+── WSC 104 (2/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the fourth petition?
+             │
+             │ In the fourth petition, which is, Give us this day our daily bread,
+Answer       │ we pray that of God's free gift we may receive a competent portion of the good things of this life, and enjoy his blessing with them.
+GUID           bm1:golden:cat:wsc:104:1
+
+── WSC 105 (1/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the fifth petition?
+Answer       │ In the fifth petition, which is, And forgive us our debts, as we forgive our debtors, we pray that God, for Christ's sake, would freely pardon all our sins;
+GUID           bm1:golden:cat:wsc:105
+
+── WSC 105 (2/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the fifth petition?
+             │
+             │ In the fifth petition, which is, And forgive us our debts, as we forgive our debtors, we pray that God, for Christ's sake, would freely pardon all our sins;
+Answer       │ which we are the rather encouraged to ask, because by his grace we are enabled from the heart to forgive others.
+GUID           bm1:golden:cat:wsc:105:1
+
+── WSC 106 (1/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the sixth petition?
+Answer       │ In the sixth petition, which is, And lead us not into temptation, but deliver us from evil, we pray,
+GUID           bm1:golden:cat:wsc:106
+
+── WSC 106 (2/2) ───────────────────────────────────────────────────────
+Lead-in      │ What do we pray for in the sixth petition?
+             │
+             │ In the sixth petition, which is, And lead us not into temptation, but deliver us from evil, we pray,
+Answer       │ that God would either keep us from being tempted to sin, or support and deliver us when we are tempted.
+GUID           bm1:golden:cat:wsc:106:1
+
+── WSC 107 (1/3) ───────────────────────────────────────────────────────
+Lead-in      │ What doth the conclusion of the Lord's Prayer teach us?
+Answer       │ The conclusion of the Lord's Prayer, which is, For thine is the kingdom, and the power, and the glory, for ever, Amen.
+GUID           bm1:golden:cat:wsc:107
+
+── WSC 107 (2/3) ───────────────────────────────────────────────────────
+Lead-in      │ What doth the conclusion of the Lord's Prayer teach us?
+             │
+             │ The conclusion of the Lord's Prayer, which is, For thine is the kingdom, and the power, and the glory, for ever, Amen.
+Answer       │ teacheth us to take our encouragement in prayer from God only, and in our prayers to praise him, ascribing kingdom, power, and glory to him;
+GUID           bm1:golden:cat:wsc:107:1
+
+── WSC 107 (3/3) ───────────────────────────────────────────────────────
+Lead-in      │ What doth the conclusion of the Lord's Prayer teach us?
+             │
+             │ teacheth us to take our encouragement in prayer from God only, and in our prayers to praise him, ascribing kingdom, power, and glory to him;
+Answer       │ and, in testimony of our desire, and assurance to be heard, we say, Amen.
+GUID           bm1:golden:cat:wsc:107:2

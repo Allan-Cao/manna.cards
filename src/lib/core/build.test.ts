@@ -374,6 +374,38 @@ describe.each(['bsb', 'web', 'kjv'] as TranslationId[])('golden cards: %s', (tra
 	});
 });
 
+// Every catechism answer that is split, part by part. Proofs and hints are left out: the split is
+// what this is for, and proofs are edited separately.
+describe('golden catechism splits', () => {
+	it.each(Object.values(CATECHISMS))('$short', async ({ id, name, count }) => {
+		const def = deck({ id: 'golden', catechism: id, list: `1-${count}` });
+		const { build } = await buildDeck(def, fromDisk, 1_800_000_000, async (c) =>
+			JSON.parse(
+				await readFile(new URL(`../../../static/catechisms/${c}.json`, import.meta.url), 'utf8')
+			)
+		);
+		const block = (label: string, html: string) =>
+			lines(html)
+				.map((line, i) => (i === 0 ? label : '').padEnd(8) + line)
+				.join('\n');
+		const split = build.notes.filter((n) => / \(\d+\/\d+\)$/.test(n.fields.Reference));
+		const body = split
+			.map((note) =>
+				[
+					`── ${note.fields.Reference} `.padEnd(72, '─'),
+					block('Lead-in', note.fields.Context),
+					block('Answer', note.fields.Answer),
+					`${'GUID'.padEnd(15)}${note.guid}`
+				].join('\n')
+			)
+			.join('\n\n');
+		const questions = new Set(split.map((n) => n.fields.Reference.replace(/ \(.*/, ''))).size;
+		await expect(
+			`${name}: ${questions} of ${count} answers split, into ${split.length} cards\n\n${body}\n`
+		).toMatchFileSnapshot(`../../../tests/golden/catechisms/${id}.txt`);
+	});
+});
+
 describe('buildDeck: ESV', () => {
 	// Made-up words in the shape of the ESV API's output: the ESV text is copyrighted.
 	const esvLoader =
