@@ -20,12 +20,8 @@ export const changelog: { date: string; note: string }[] = [
 		note: 'Added the Baptist Catechism for Children (145 questions), by permission of Fairview Baptist Church.'
 	},
 	{
-		date: '2026-11-23',
-		note: 'Removed the Heidelberg and Westminster Larger catechisms: their long answers do not work as one card per question.'
-	},
-	{
 		date: '2026-11-20',
-		note: 'Added catechism decks: Westminster Shorter, Westminster Larger, the Baptist Catechism and the Heidelberg Catechism.'
+		note: 'Added catechism decks: the Westminster Shorter Catechism and the Baptist Catechism.'
 	},
 	{ date: '2026-11-20', note: 'Renamed the site to manna.cards.' },
 	{ date: '2026-11-20', note: 'Added a link to the Billy Graham decision card.' },
