@@ -8,6 +8,7 @@ import {
 	convertCatechism,
 	convertCompendium,
 	convertFairview,
+	convertShorterCatechism,
 	fixOcr,
 	osisToLabel,
 	referencesToLabels
@@ -269,5 +270,72 @@ CONFESSION`;
 	it('rejects parts that start elsewhere than the registry says', () => {
 		const moved = { ...small, sections: [small.sections[0], { heading: 'Misery', first: 3 }] };
 		expect(() => convertCompendium(book(), moved, [], cites)).toThrow(/sections/);
+	});
+});
+
+describe('convertShorterCatechism', () => {
+	const small = { id: 'wsc' as const, short: 'WSC', name: 'Small', count: 3 };
+	const creeds = {
+		Data: [
+			{ Number: 1, Question: 'What is the chief end of man?', Answer: 'To glorify God.' },
+			{ Number: 2, Question: 'How doth God execute his decrees?', Answer: 'In his works' },
+			{ Number: 3, Question: 'What is sin?', Answer: 'Any want of conformity.' }
+		]
+	};
+	const question = (q: string, notes: string[]) =>
+		`<div type="question"><head>Q. <hi>${q}</hi></head><p>A. Text ${notes
+			.map((n) => `<note place="margin">${n}</note>`)
+			.join(', ')}.</p></div>`;
+	const tei = (notes: string[][] = [['1 Cor. 10 31. Rom. 11. 36'], [], ['1 Ioh. 3. 4']]) =>
+		`<TEI><div type="text"><head>THE SHORTER CATECHISM, First agreed upon</head>
+${question('What is the chief end of man?', notes[0])}
+${question('How doth God execute his Decrees?', notes[1])}
+${question('What is sin?', notes[2])}
+</div></TEI>`;
+
+	it('takes the text from Creeds.json and the proofs from the margin, naming both sources', () => {
+		expect(convertShorterCatechism(creeds, tei(), small, [2], {})).toEqual({
+			id: 'wsc',
+			source:
+				'Creeds.json (public domain); proofs from The Confession of Faith and Catechisms (London: Robert Bostock, 1649), EEBO-TCP A80320 (CC0)',
+			questions: [
+				{
+					n: 1,
+					q: 'What is the chief end of man?',
+					a: 'To glorify God.',
+					proofs: ['1 Corinthians 10:31', 'Romans 11:36']
+				},
+				{ n: 2, q: 'How doth God execute his decrees?', a: 'In his works.', proofs: [] },
+				{ n: 3, q: 'What is sin?', a: 'Any want of conformity.', proofs: ['1 John 3:4'] }
+			]
+		});
+	});
+	it('applies the fixes it is given', () => {
+		const misprint = tei([['1 Cor. 10 31. Rom. 11. 36'], [], ['1 Ioh. 3. 40']]);
+		expect(() => convertShorterCatechism(creeds, misprint, small, [2], {})).toThrow(
+			/question 3: 1 John 3:40.*1 John 3 has 24 verses/
+		);
+		const fixed = convertShorterCatechism(creeds, misprint, small, [2], {
+			3: [['3. 40', '3. 4']]
+		});
+		expect(fixed.questions[2].proofs).toEqual(['1 John 3:4']);
+	});
+	it('rejects a missing or unexpected proof list', () => {
+		expect(() => convertShorterCatechism(creeds, tei(), small, [], {})).toThrow(
+			/question 2 has no proof/
+		);
+		expect(() => convertShorterCatechism(creeds, tei(), small, [2, 3], {})).toThrow(
+			/question 3 has proofs/
+		);
+	});
+	it('rejects a printing whose questions do not line up with the text', () => {
+		const swapped = tei().replace('What is sin?', 'What is the work of creation?');
+		expect(() => convertShorterCatechism(creeds, swapped, small, [2], {})).toThrow(
+			/question 3 .*does not match/
+		);
+		const short = tei().replace(/<div type="question"><head>Q. <hi>What is sin[\s\S]*?<\/div>/, '');
+		expect(() => convertShorterCatechism(creeds, short, small, [2], {})).toThrow(
+			/2 questions in the printing, 3 in the text/
+		);
 	});
 });

@@ -1,7 +1,8 @@
 /**
  * Builds the app's bundled catechisms:
  *   static/catechisms/{id}.json  one CatechismText per catechism, compact JSON
- * wsc and bc come from Creeds.json (NonlinearFruit, public domain texts); bcc from Fairview Baptist
+ * wsc and bc come from Creeds.json (NonlinearFruit, public domain texts), wsc's proofs from the TCP's
+ * transcription of a 1649 printing (see tcp-shorter-catechism.ts); bcc from Fairview Baptist
  * Church's web page, used by permission (see fairview-catechism.ts); hsc from the Internet Archive's
  * OCR of an 1860 public-domain printing of the Compendium (see rca-compendium.ts).
  *
@@ -16,6 +17,9 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { BOOKS } from '../src/lib/core/books.ts';
 import { CATECHISMS } from '../src/lib/core/catechisms.ts';
+import type { Versification } from '../src/lib/core/model.ts';
+import { parseReference } from '../src/lib/core/refs.ts';
+import { versificationFor } from '../src/lib/core/versification.ts';
 import type {
 	Catechism,
 	CatechismId,
@@ -40,6 +44,13 @@ import {
 	type Citation,
 	type Fix
 } from './rca-compendium.ts';
+import {
+	WSC_PROOF_FIXES,
+	fixNotes,
+	marginLabels,
+	parseShorterCatechism,
+	type Fix as MarginFix
+} from './tcp-shorter-catechism.ts';
 
 /** OSIS book code (as Creeds.json spells it) to USFM code, for all 66 books. */
 export const OSIS_TO_USFM: Readonly<Record<string, string>> = {
@@ -230,8 +241,14 @@ export interface RawCatechism {
 }
 
 export function convertCatechism(id: CatechismId, raw: RawCatechism): CatechismText {
+	const questions = creedsQuestions(id, raw);
+	checkQuestions(id, CATECHISMS[id].count, questions);
+	return { id, source: 'Creeds.json (public domain)', questions };
+}
+
+function creedsQuestions(id: CatechismId, raw: RawCatechism): CatechismQuestion[] {
 	const fix = id === 'bc' ? fixOcr : (s: string) => s;
-	const questions: CatechismQuestion[] = raw.Data.map((e) => {
+	return raw.Data.map((e) => {
 		const proofs: string[] = [];
 		for (const label of referencesToLabels((e.Proofs ?? []).flatMap((p) => p.References))) {
 			if (!proofs.includes(label)) proofs.push(label);
@@ -243,8 +260,76 @@ export function convertCatechism(id: CatechismId, raw: RawCatechism): CatechismT
 			proofs
 		};
 	});
-	checkQuestions(id, CATECHISMS[id].count, questions);
-	return { id, source: 'Creeds.json (public domain)', questions };
+}
+
+/** The questions of the Shorter Catechism that the Assembly gave no proof ("How doth God execute his decrees?"). */
+export const WSC_WITHOUT_PROOFS: readonly number[] = [8];
+
+/** Lower-case words of a question, for lining up two printings with different spelling. */
+const words = (text: string) => new Set(text.toLowerCase().match(/[a-z]+/g) ?? []);
+
+/**
+ * The Shorter Catechism: question and answer text from Creeds.json, proofs from the margin of the
+ * 1649 printing (see tcp-shorter-catechism.ts), corrected by `fixes`. Besides the usual checks,
+ * the printing has as many questions as the text and each shares most of its words with the
+ * text's (half the words of the longer), every question has proofs except those in `withoutProofs`, and every proof label reads
+ * back unchanged through the app's reference parser with the KJV's verse counts.
+ */
+export function convertShorterCatechism(
+	creeds: RawCatechism,
+	tei: string,
+	catechism: Catechism = CATECHISMS.wsc,
+	withoutProofs: readonly number[] = WSC_WITHOUT_PROOFS,
+	fixes: Readonly<Record<number, readonly MarginFix[]>> = WSC_PROOF_FIXES,
+	versification: Versification = versificationFor('kjv')
+): CatechismText {
+	const { id, count } = catechism;
+	const text = creedsQuestions(id, creeds);
+	checkQuestions(id, count, text);
+	const margin = parseShorterCatechism(tei);
+	if (margin.length !== text.length) {
+		throw new Error(
+			`${id}: ${margin.length} questions in the printing, ${text.length} in the text`
+		);
+	}
+	const questions = text.map((question, i): CatechismQuestion => {
+		const { n } = question;
+		const printed = margin[i];
+		const [ours, theirs] = [words(question.q), words(printed.q)];
+		const shared = [...theirs].filter((w) => ours.has(w)).length;
+		if (shared < Math.max(ours.size, theirs.size) / 2) {
+			throw new Error(`${id}: question ${n} "${printed.q}" does not match "${question.q}"`);
+		}
+		const proofs: string[] = [];
+		for (const note of fixNotes(n, printed.notes, fixes)) {
+			for (const label of marginLabels(note, versification)) {
+				if (!proofs.includes(label)) proofs.push(label);
+			}
+		}
+		for (const label of proofs) {
+			let parsed: string;
+			try {
+				parsed = parseReference(label, versification).label;
+			} catch (e) {
+				throw new Error(`${id}: question ${n}: ${label}: ${(e as Error).message}`, {
+					cause: e
+				});
+			}
+			if (parsed !== label.replaceAll(EN_DASH, '-')) {
+				throw new Error(`${id}: question ${n}: ${label} reads back as ${parsed}`);
+			}
+		}
+		const expectNone = withoutProofs.includes(n);
+		if (expectNone && proofs.length) throw new Error(`${id}: question ${n} has proofs`);
+		if (!expectNone && !proofs.length) throw new Error(`${id}: question ${n} has no proof`);
+		return { ...question, proofs };
+	});
+	return {
+		id,
+		source:
+			'Creeds.json (public domain); proofs from The Confession of Faith and Catechisms (London: Robert Bostock, 1649), EEBO-TCP A80320 (CC0)',
+		questions
+	};
 }
 
 /** Throws unless there are `count` questions numbered from 1, each with a question and an answer. */
@@ -333,31 +418,56 @@ export function convertCompendium(
 	return { id, source: credit, questions };
 }
 
-interface Source {
+interface Download {
 	url: string;
 	/** Under .cache/. */
 	cache: string;
-	convert: (body: string) => CatechismText;
+}
+
+interface Source {
+	/** Downloaded once each and passed to `convert` in this order. */
+	files: Download[];
+	convert: (...bodies: string[]) => CatechismText;
 }
 
 const CREEDS_URL = 'https://raw.githubusercontent.com/NonlinearFruit/Creeds.json/master/creeds/';
-const creeds = (id: CatechismId, file: string): Source => ({
+const creedsFile = (file: string): Download => ({
 	url: CREEDS_URL + file,
-	cache: `creeds/${file}`,
+	cache: `creeds/${file}`
+});
+const creeds = (id: CatechismId, file: string): Source => ({
+	files: [creedsFile(file)],
 	convert: (body) => convertCatechism(id, JSON.parse(body) as RawCatechism)
 });
 
 const SOURCES: Record<CatechismId, Source> = {
-	wsc: creeds('wsc', 'westminster_shorter_catechism.json'),
+	wsc: {
+		files: [
+			creedsFile('westminster_shorter_catechism.json'),
+			{
+				url: 'https://raw.githubusercontent.com/textcreationpartnership/A80320/master/A80320.xml',
+				cache: 'tcp/A80320.xml'
+			}
+		],
+		convert: (json, tei) => convertShorterCatechism(JSON.parse(json) as RawCatechism, tei)
+	},
 	bc: creeds('bc', '1695_baptist_catechism.json'),
 	bcc: {
-		url: 'https://www.fairviewbaptistchurch.ca/childrens-catechism/',
-		cache: 'fairview/childrens-catechism.html',
+		files: [
+			{
+				url: 'https://www.fairviewbaptistchurch.ca/childrens-catechism/',
+				cache: 'fairview/childrens-catechism.html'
+			}
+		],
 		convert: (body) => convertFairview(body)
 	},
 	hsc: {
-		url: 'https://archive.org/download/psalmshymnswit00refo/psalmshymnswit00refo_djvu.txt',
-		cache: 'archive/psalmshymnswit00refo_djvu.txt',
+		files: [
+			{
+				url: 'https://archive.org/download/psalmshymnswit00refo/psalmshymnswit00refo_djvu.txt',
+				cache: 'archive/psalmshymnswit00refo_djvu.txt'
+			}
+		],
 		convert: (body) => convertCompendium(body)
 	}
 };
@@ -370,15 +480,19 @@ async function main(): Promise<void> {
 	const outDir = new URL('static/catechisms/', root);
 	mkdirSync(fileURLToPath(outDir), { recursive: true });
 	for (const id of Object.keys(SOURCES) as CatechismId[]) {
-		const { url, cache, convert } = SOURCES[id];
-		const file = new URL(cache, cacheDir);
-		if (refresh || !existsSync(file)) {
-			const res = await fetch(url);
-			if (!res.ok) throw new Error(`Download of ${url} failed: HTTP ${res.status}`);
-			mkdirSync(fileURLToPath(new URL('./', file)), { recursive: true });
-			writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+		const { files, convert } = SOURCES[id];
+		const bodies: string[] = [];
+		for (const { url, cache } of files) {
+			const file = new URL(cache, cacheDir);
+			if (refresh || !existsSync(file)) {
+				const res = await fetch(url);
+				if (!res.ok) throw new Error(`Download of ${url} failed: HTTP ${res.status}`);
+				mkdirSync(fileURLToPath(new URL('./', file)), { recursive: true });
+				writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+			}
+			bodies.push(readFileSync(file, 'utf8'));
 		}
-		const text = convert(readFileSync(file, 'utf8'));
+		const text = convert(...bodies);
 		writeFileSync(new URL(`${id}.json`, outDir), JSON.stringify(text) + '\n');
 		console.log(`${id}: ${text.questions.length} questions`);
 	}
