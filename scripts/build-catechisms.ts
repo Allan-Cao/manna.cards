@@ -29,12 +29,15 @@ import {
 	straightenQuotes
 } from './fairview-catechism.ts';
 import {
+	COMPENDIUM_CITATIONS,
 	COMPENDIUM_FIXES,
 	applyFixes,
+	moveCitations,
 	normaliseLines,
 	parseCompendium,
 	sliceCompendium,
 	tidyReferences,
+	type Citation,
 	type Fix
 } from './rca-compendium.ts';
 
@@ -296,24 +299,28 @@ export function convertFairview(
 }
 
 /**
- * The Compendium from the OCR text of its printing (see rca-compendium.ts), corrected by `fixes`.
+ * The Compendium from the OCR text of its printing (see rca-compendium.ts), corrected by `fixes`,
+ * with the Scripture citations printed in answers moved into proofs by `citations`.
  * Besides the usual checks, the printed parts start where the registry's sections do; the registry
  * may add a first section for the questions before the first part.
  */
 export function convertCompendium(
 	djvu: string,
 	catechism: Catechism = CATECHISMS.hsc,
-	fixes: readonly Fix[] = COMPENDIUM_FIXES
+	fixes: readonly Fix[] = COMPENDIUM_FIXES,
+	citations: Readonly<Record<number, readonly Citation[]>> = COMPENDIUM_CITATIONS
 ): CatechismText {
 	const { id, credit, count, sections } = catechism;
 	if (!credit) throw new Error(`${id}: the registry has no credit for this source`);
 	const parsed = parseCompendium(applyFixes(normaliseLines(sliceCompendium(djvu)), fixes));
-	const questions = parsed.entries.map(({ n, q, a }): CatechismQuestion => ({
-		n,
-		q: cleanQuestion(tidyReferences(q)),
-		a: tidyReferences(cleanAnswerLines(a)),
-		proofs: []
-	}));
+	const questions = parsed.entries.map(({ n, q, a }): CatechismQuestion => {
+		const moved = moveCitations(n, tidyReferences(cleanAnswerLines(a)), citations);
+		const proofs: string[] = [];
+		for (const label of moved.refs.flatMap(proofLabels)) {
+			if (!proofs.includes(label)) proofs.push(label);
+		}
+		return { n, q: cleanQuestion(tidyReferences(q)), a: moved.a, proofs };
+	});
 	checkQuestions(id, count, questions);
 	const printed = parsed.sections.map((s) => s.first);
 	if (printed[0] !== 1) printed.unshift(1);

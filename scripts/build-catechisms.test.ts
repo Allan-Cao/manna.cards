@@ -226,8 +226,10 @@ A.  Thus.
 When  those  who  are  inclined  to  become  members
 CONFESSION`;
 
-	it('reads the Compendium, keeping line breaks in lists and tidying references', () => {
-		expect(convertCompendium(book(), small, [])).toEqual({
+	const cites = { 2: [{ from: ', Heb. 2:17, as', to: ', as', ref: 'Heb 2:17' }] };
+
+	it('reads the Compendium, keeping line breaks in lists and moving citations into proofs', () => {
+		expect(convertCompendium(book(), small, [], cites)).toEqual({
 			id: 'hsc',
 			source: 'Small, public domain.',
 			questions: [
@@ -240,23 +242,32 @@ CONFESSION`;
 				{
 					n: 2,
 					q: 'Whence knowest thou it?',
-					a: 'Out of the law, Heb. 2:17, as follows:\nI. Com. Thou shalt have no other gods.',
-					proofs: []
+					a: 'Out of the law, as follows:\nI. Com. Thou shalt have no other gods.',
+					proofs: ['Hebrews 2:17']
 				},
 				{ n: 3, q: 'How then?', a: 'Thus.', proofs: [] }
 			]
 		});
 	});
 	it('applies the fixes it is given', () => {
-		const fixed = convertCompendium(book('Q.  S.  How  then ?'), small, [['Q. S.', 'Q. 3.']]);
+		const fixed = convertCompendium(
+			book('Q.  S.  How  then ?'),
+			small,
+			[['Q. S.', 'Q. 3.']],
+			cites
+		);
 		expect(fixed.questions[2].n).toBe(3);
 	});
 	it('rejects a wrong count or numbering', () => {
-		expect(() => convertCompendium(book(), { ...small, count: 4 }, [])).toThrow(/expected 4/);
-		expect(() => convertCompendium(book('Q.  4.  How  then ?'), small, [])).toThrow(/numbered 4/);
+		expect(() => convertCompendium(book(), { ...small, count: 4 }, [], cites)).toThrow(
+			/expected 4/
+		);
+		expect(() => convertCompendium(book('Q.  4.  How  then ?'), small, [], cites)).toThrow(
+			/numbered 4/
+		);
 	});
 	it('rejects parts that start elsewhere than the registry says', () => {
 		const moved = { ...small, sections: [small.sections[0], { heading: 'Misery', first: 3 }] };
-		expect(() => convertCompendium(book(), moved, [])).toThrow(/sections/);
+		expect(() => convertCompendium(book(), moved, [], cites)).toThrow(/sections/);
 	});
 });

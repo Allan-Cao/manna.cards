@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+	COMPENDIUM_CITATIONS,
 	COMPENDIUM_FIXES,
 	applyFixes,
+	moveCitations,
 	normaliseLines,
 	parseCompendium,
 	sliceCompendium,
@@ -138,5 +140,43 @@ describe('parseCompendium', () => {
 describe('COMPENDIUM_FIXES', () => {
 	it('changes something with every fix', () => {
 		for (const [from, to] of COMPENDIUM_FIXES) expect(from).not.toBe(to);
+	});
+});
+
+describe('moveCitations', () => {
+	const table = {
+		30: [{ from: ', Acts 4:12.', to: '.', ref: 'Acts 4:12' }],
+		71: [
+			{ from: 'of Christ, (John 16:23), and', to: 'of Christ, and', ref: 'John 16:23' },
+			{ from: ', Rom. 5:10.', to: '.', ref: 'Rom 5:10' }
+		]
+	};
+	it('takes the citations out of the answer and returns their references in order', () => {
+		expect(moveCitations(30, 'Than the name of Jesus, Acts 4:12.', table)).toEqual({
+			a: 'Than the name of Jesus.',
+			refs: ['Acts 4:12']
+		});
+		expect(
+			moveCitations(71, 'Only in the name of Christ, (John 16:23), and God, Rom. 5:10.', table)
+		).toEqual({ a: 'Only in the name of Christ, and God.', refs: ['John 16:23', 'Rom 5:10'] });
+	});
+	it('leaves an answer without citations alone', () => {
+		expect(moveCitations(2, 'Out of the law of God.', table)).toEqual({
+			a: 'Out of the law of God.',
+			refs: []
+		});
+	});
+	it('fails when a listed citation is missing, or a citation is left in the answer', () => {
+		expect(() => moveCitations(30, 'Than the name of Jesus.', table)).toThrow(
+			/question 30 has no ", Acts 4:12\."/
+		);
+		expect(() => moveCitations(5, 'As in Heb. 2:17.', table)).toThrow(/question 5 still cites/);
+		expect(() => moveCitations(5, 'Exodus xx. I am.', table)).toThrow(/question 5 still cites/);
+	});
+	it('lists only questions of the Compendium', () => {
+		for (const n of Object.keys(COMPENDIUM_CITATIONS).map(Number)) {
+			expect(n).toBeGreaterThanOrEqual(1);
+			expect(n).toBeLessThanOrEqual(74);
+		}
 	});
 });

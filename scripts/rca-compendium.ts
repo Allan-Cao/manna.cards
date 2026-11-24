@@ -153,6 +153,61 @@ export const COMPENDIUM_FIXES: readonly Fix[] = [
 	['Lord lias', 'Lord has']
 ];
 
+/** One Scripture citation printed in an answer: the text to cut, what replaces it, the reference. */
+export interface Citation {
+	/** Exact text of the cleaned answer, including the punctuation around the citation. */
+	from: string;
+	to: string;
+	/** As fairview-catechism.ts `proofLabels` reads it: "Rom 10:14-17", "Exod 20; Deut 5:4, 5". */
+	ref: string;
+}
+
+/**
+ * The citations printed inside answers, by question. They become proof labels, so the answer to
+ * recite holds only the Compendium's words. The citation in the question of Q38 stays: it is part
+ * of what is asked. Q43 cites Rom. 5:10 as printed here and in Beets (1915).
+ */
+export const COMPENDIUM_CITATIONS: Readonly<Record<number, readonly Citation[]>> = {
+	3: [
+		{ from: '\nExodus xx. and Deut. 5:4, 5, &c. I am', to: '\nI am', ref: 'Exod 20; Deut 5:4, 5' }
+	],
+	18: [{ from: 'written, (John 3:16,) "for', to: 'written, "for', ref: 'John 3:16' }],
+	28: [{ from: ', Heb. 2:17 and 4:15.', to: '.', ref: 'Heb 2:17; Heb 4:15' }],
+	30: [{ from: ', Acts 4:12.', to: '.', ref: 'Acts 4:12' }],
+	35: [{ from: ', Rom. 4:25.', to: '.', ref: 'Rom 4:25' }],
+	36: [{ from: ', Eph. 1:20, 21.', to: '.', ref: 'Eph 1:20, 21' }],
+	43: [{ from: ', Rom. 5:10.', to: '.', ref: 'Rom 5:10' }],
+	49: [{ from: ', Rom. 10:14-17.', to: '.', ref: 'Rom 10:14-17' }],
+	59: [{ from: 'St. Paul, (1 Cor. 11:23-26), "For', to: 'St. Paul, "For', ref: '1 Cor 11:23-26' }],
+	63: [{ from: 'by Christ, (Matt. 18:15-17.) "If', to: 'by Christ, "If', ref: 'Matt 18:15-17' }],
+	66: [{ from: 'of God, (1 Cor. 6:9, 10), unless', to: 'of God, unless', ref: '1 Cor 6:9, 10' }],
+	71: [{ from: 'of Christ, (John 16:23), and', to: 'of Christ, and', ref: 'John 16:23' }]
+};
+
+/** A chapter-and-verse or the Exodus heading of Q3, left in an answer. */
+const CITES = /\d+:\d+|Exodus xx/;
+
+/**
+ * Cuts question `n`'s citations out of its cleaned answer. Each listed citation must occur exactly
+ * once, and no other may be left behind.
+ */
+export function moveCitations(
+	n: number,
+	answer: string,
+	table: Readonly<Record<number, readonly Citation[]>>
+): { a: string; refs: string[] } {
+	let a = answer;
+	const refs: string[] = [];
+	for (const { from, to, ref } of table[n] ?? []) {
+		if (a.split(from).length !== 2) throw new Error(`Compendium: question ${n} has no "${from}"`);
+		a = a.replace(from, () => to);
+		refs.push(ref);
+	}
+	const left = CITES.exec(a);
+	if (left) throw new Error(`Compendium: question ${n} still cites "${left[0]}"`);
+	return { a, refs };
+}
+
 const QUESTION = /^(?:Question|Q)\.? (\d+)\. (.*)$/;
 const ANSWER = /^(?:Answer|A)\. (.*)$/;
 const PART = /^THE (FIRST|SECOND|THIRD) PART\.$/;
