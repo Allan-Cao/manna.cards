@@ -120,11 +120,14 @@ export const COMPENDIUM_FIXES: readonly Fix[] = [
 	// Q23-Q47.
 	['earth?"-', 'earth?"'],
 	['King. v', 'King.'],
+	['coessential', 'coëssential'],
+	['coeternal', 'coëternal'],
 	['against siu', 'against sin'],
 	['Rom. 4: 5:5,', 'Rom. 4:25.'],
 	['ttiere be', 'there be'],
+	['With respect, to', 'With respect to'],
 	['Matt. 23 : 20', 'Matt. 28:20'],
-	['Rom. 5; 10.', 'Rom. 5:1.'],
+	['Rom. 5; 10.', 'Rom. 5:10.'],
 	['heir cf', 'heir of'],
 	// Q52-Q63.
 	['tes-\ntament 9', 'tes-\ntament?'],
@@ -132,6 +135,8 @@ export const COMPENDIUM_FIXES: readonly Fix[] = [
 	['1 Cor. 1 1 : 23-26', '1 Cor. 11:23-26'],
 	['" For I have', '"For I have'],
 	['lie took the cup', 'he took the cup'],
+	['brake It', 'brake it'],
+	['on account, of them', 'on account of them'],
 	['Matt, IS:', 'Matt. 18:'],
 	['let hiua be', 'let him be'],
 	// Q64-Q72.
@@ -142,7 +147,9 @@ export const COMPENDIUM_FIXES: readonly Fix[] = [
 	['all good words', 'all good works'],
 	['are clone', 'are done'],
 	['and hot those', 'and not those'],
+	['own imaginations,', 'own imaginations.'],
 	['John 16 : 28', 'John 16:23'],
+	['body, Which Christ', 'body, which Christ'],
 	['Lord lias', 'Lord has']
 ];
 
