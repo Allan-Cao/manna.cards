@@ -9,6 +9,7 @@ import { buildDeck, type LoadBooks, type LoadCatechism } from './build.ts';
 import { CATECHISMS, type CatechismId } from './catechisms.ts';
 import type { BookId, BookText, DeckDefinition, NoteSpec, TranslationId } from './model.ts';
 import { FIXTURE } from './questions.fixture.ts';
+import { escapeHtml } from './render.ts';
 import { esvBooks, esvQuery, esvVersesNeeded, parseEsvResponse } from './sources/esv.ts';
 import { versificationFor } from './versification.ts';
 import { verseKey } from './refs.ts';
@@ -169,6 +170,20 @@ describe('buildDeck: catechism decks', () => {
 		expect(result.build.notes[0].tags).toEqual(['bm::k3x9::r4']);
 	});
 
+	it('describes the deck with the catechism credit, when it has one', async () => {
+		const plain = await buildDeck(catechismDeck('1'), noBooks, 0, loadCatechism);
+		expect(plain.build.description).toBeUndefined();
+		const credited = await buildDeck(
+			deck({ catechism: 'bcc', list: '1' }),
+			noBooks,
+			0,
+			async () => ({ ...FIXTURE, id: 'bcc' })
+		);
+		expect(credited.build.description).toBe(
+			'The Baptist Catechism for Children, © 2023 Cross &amp; Crown Press. Used by permission of Fairview Baptist Church.'
+		);
+	});
+
 	it('checks numbers against the catechism and still builds the valid lines', async () => {
 		const result = await buildDeck(catechismDeck('1\n0\n108'), noBooks, 0, loadCatechism);
 		expect(result.errors.map((e) => e.line)).toEqual([2, 3]);
@@ -219,7 +234,9 @@ describe('bundled catechisms end to end', () => {
 		for (const note of build.notes) {
 			expect(note.fields.Context).toMatch(/^<div class="line">.+<\/div>$/);
 			expect(note.fields.Answer).toMatch(/^<div class="line">.+<\/div>$/);
-			expect(note.fields.Info).toMatch(new RegExp(`${CATECHISMS[id].name}$`));
+			expect(
+				note.fields.Info.endsWith(escapeHtml(CATECHISMS[id].credit ?? CATECHISMS[id].name))
+			).toBe(true);
 		}
 	});
 });

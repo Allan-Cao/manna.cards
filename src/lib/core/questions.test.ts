@@ -6,8 +6,10 @@ import {
 	parseQuestionList,
 	planQuestions,
 	questionGuid,
+	questionInfo,
 	questionLabel
 } from './questions.ts';
+import { CATECHISMS } from './catechisms.ts';
 import { FIXTURE } from './questions.fixture.ts';
 
 const groups = (text: string, count = 107) =>
@@ -133,6 +135,22 @@ describe('answerLines', () => {
 			{ text: 'First.', indent: 0 },
 			{ text: 'Second.', indent: 0, paragraph: true }
 		]);
+	});
+});
+
+describe('questionInfo', () => {
+	it('lists the proofs, then the catechism name', () => {
+		expect(questionInfo('wsc', ['Romans 11:36', 'Genesis 3'])).toBe(
+			'Romans 11:36; Genesis 3 · Westminster Shorter Catechism'
+		);
+		expect(questionInfo('bc', [])).toBe('The Baptist Catechism');
+	});
+
+	it('shows the credit in place of the name when the catechism has one', () => {
+		expect(questionInfo('bcc', ['Genesis 1:27'])).toBe(
+			'Genesis 1:27 · The Baptist Catechism for Children, © 2023 Cross & Crown Press. Used by permission of Fairview Baptist Church.'
+		);
+		expect(questionInfo('bcc', [])).toBe(CATECHISMS.bcc.credit);
 	});
 });
 

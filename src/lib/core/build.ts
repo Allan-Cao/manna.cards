@@ -9,6 +9,7 @@ import { makeNotes } from './cards.ts';
 import { CATECHISMS, type CatechismId, type CatechismText } from './catechisms.ts';
 import { cleanDeckName } from './deckdef.ts';
 import { parseList } from './list.ts';
+import { escapeHtml } from './render.ts';
 import type {
 	BookId,
 	BookText,
@@ -79,8 +80,15 @@ export async function buildDeck(
 		const { groups, errors } = parseQuestionList(def.list, CATECHISMS[id].count);
 		const questions = groups.length ? planQuestions(id, await loadCatechism(id), groups) : [];
 		const notes = makeQuestionNotes(def, questions);
+		const { credit } = CATECHISMS[id];
 		return {
-			build: { deckId: def.id, deckName, notes, exportedAt },
+			build: {
+				deckId: def.id,
+				deckName,
+				notes,
+				exportedAt,
+				...(credit && { description: escapeHtml(credit) })
+			},
 			groups: [],
 			passages: [],
 			questions,

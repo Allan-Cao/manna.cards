@@ -137,9 +137,10 @@ export function answerLines(answer: string): Line[] {
 		.map((text, i): Line => (i === 0 ? { text, indent: 0 } : { text, indent: 0, paragraph: true }));
 }
 
-/** The small text under the answer: the proof texts, then the catechism's name. */
+/** The small text under the answer: the proof texts, then the catechism's credit, or its name. */
 export function questionInfo(catechism: CatechismId, proofs: string[]): string {
-	return [...(proofs.length ? [proofs.join('; ')] : []), CATECHISMS[catechism].name].join(' · ');
+	const { name, credit } = CATECHISMS[catechism];
+	return [...(proofs.length ? [proofs.join('; ')] : []), credit ?? name].join(' · ');
 }
 
 export function makeQuestionNotes(def: DeckDefinition, plan: PlannedQuestionGroup[]): NoteSpec[] {

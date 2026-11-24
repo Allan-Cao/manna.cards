@@ -1,6 +1,6 @@
 /** The bundled catechisms, in the order the picker lists them, and the shape of their text files. */
 
-export type CatechismId = 'wsc' | 'bc';
+export type CatechismId = 'wsc' | 'bc' | 'bcc';
 
 export interface Catechism {
 	id: CatechismId;
@@ -10,12 +10,47 @@ export interface Catechism {
 	name: string;
 	/** Number of questions, so lists can be validated without loading the text. */
 	count: number;
+	/**
+	 * The credit its publisher asks for, starting with `name`. Shown on cards in place of the name,
+	 * as the deck description and on the about page. Absent for public-domain texts.
+	 */
+	credit?: string;
+	/** The catechism's own parts, by first question, in order. A new deck lists them as headings. */
+	sections?: readonly { heading: string; first: number }[];
 }
 
 export const CATECHISMS: Record<CatechismId, Catechism> = {
 	wsc: { id: 'wsc', short: 'WSC', name: 'Westminster Shorter Catechism', count: 107 },
-	bc: { id: 'bc', short: 'BC', name: 'The Baptist Catechism', count: 114 }
+	bc: { id: 'bc', short: 'BC', name: 'The Baptist Catechism', count: 114 },
+	bcc: {
+		id: 'bcc',
+		short: 'BCC',
+		name: 'The Baptist Catechism for Children',
+		count: 145,
+		credit:
+			'The Baptist Catechism for Children, © 2023 Cross & Crown Press. Used by permission of Fairview Baptist Church.',
+		sections: [
+			{ heading: 'God, Man and Sin', first: 1 },
+			{ heading: 'Salvation', first: 38 },
+			{ heading: 'Ten Commandments', first: 73 },
+			{ heading: 'Prayer', first: 105 },
+			{ heading: 'Word, Church and Ordinances', first: 122 },
+			{ heading: 'Last Things', first: 136 }
+		]
+	}
 };
+
+/** The list a new deck starts with: every question, under the catechism's section headings if it has them. */
+export function defaultQuestionList(id: CatechismId): string {
+	const { count, sections } = CATECHISMS[id];
+	if (!sections) return `1-${count}`;
+	return sections
+		.map(({ heading, first }, i) => {
+			const last = (sections[i + 1]?.first ?? count + 1) - 1;
+			return `# ${heading}\n${first === last ? first : `${first}-${last}`}`;
+		})
+		.join('\n');
+}
 
 /** Catechisms the app no longer offers, by id, with their names. Saved decks and links may still use them. */
 export const RETIRED_CATECHISMS: Readonly<Record<string, string>> = {

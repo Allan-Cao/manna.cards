@@ -5,6 +5,7 @@ import {
 	cleanAnswer,
 	cleanQuestion,
 	convertCatechism,
+	convertFairview,
 	fixOcr,
 	osisToLabel,
 	referencesToLabels
@@ -119,5 +120,69 @@ describe('convertCatechism', () => {
 			'Romans 11:36',
 			'Genesis 3'
 		]);
+	});
+});
+
+describe('convertFairview', () => {
+	const small = {
+		id: 'bcc' as const,
+		short: 'BCC',
+		name: 'Small',
+		count: 3,
+		credit: 'Small, used by permission.',
+		sections: [
+			{ heading: 'Start', first: 1 },
+			{ heading: 'Ten Things', first: 3 }
+		]
+	};
+	const qa = (n: number, q: string, a: string) =>
+		`<h5 class="wp-block-heading">${n}. ${q}</h5>\n<p class="wp-block-paragraph">${a}</p>`;
+	const page = (
+		questions: string[],
+		headings = ['Questions about Start', 'Questions about the 10 Things']
+	) =>
+		`<article><h4>${headings[0]}</h4><p><a href="#toc">Back to Contents</a></p>
+${questions.slice(0, 2).join('\n')}
+<h5><span>${headings[1]}</span></h5>
+${questions.slice(2).join('\n')}
+</article>`;
+	const good = [
+		qa(1, 'Who made you?', 'God made me. (Gen 2:7, 21-22)'),
+		qa(2, 'What&#8217;s next?', 'God&#8217;s &#8220;word&#8221;. (Rom 6:3-4).'),
+		qa(3, 'How many?', 'Six.')
+	];
+
+	it('converts questions, answers and proofs, crediting the source', () => {
+		expect(convertFairview(page(good), small, [3])).toEqual({
+			id: 'bcc',
+			source: 'Small, used by permission.',
+			questions: [
+				{
+					n: 1,
+					q: 'Who made you?',
+					a: 'God made me.',
+					proofs: ['Genesis 2:7', 'Genesis 2:21–22']
+				},
+				{ n: 2, q: "What's next?", a: 'God\'s "word".', proofs: ['Romans 6:3–4'] },
+				{ n: 3, q: 'How many?', a: 'Six.', proofs: [] }
+			]
+		});
+	});
+	it('rejects a wrong count or numbering', () => {
+		expect(() => convertFairview(page(good), { ...small, count: 4 }, [3])).toThrow(/expected 4/);
+		const skipped = [good[0], qa(3, 'Two?', 'Yes. (Gen 1:1)'), good[2]];
+		expect(() => convertFairview(page(skipped), small, [3])).toThrow(/numbered 3/);
+	});
+	it('rejects a missing or unexpected proof list', () => {
+		expect(() => convertFairview(page(good), small, [])).toThrow(/question 3 has no proof/);
+		expect(() => convertFairview(page(good), small, [2, 3])).toThrow(/question 2 has proofs/);
+	});
+	it('rejects an unknown book', () => {
+		const bad = [good[0], qa(2, 'Q?', 'A. (Hezek 1:1)'), good[2]];
+		expect(() => convertFairview(page(bad), small, [3])).toThrow(/Hezek/);
+	});
+	it('rejects sections that start elsewhere than the registry says', () => {
+		const moved = { ...small, sections: [small.sections[0], { heading: 'Ten Things', first: 2 }] };
+		expect(() => convertFairview(page(good), moved, [3])).toThrow(/sections/);
 	});
 });
