@@ -1,6 +1,10 @@
 export const changelog: { date: string; note: string }[] = [
 	{
 		date: '2026-11-23',
+		note: 'New fonts and colours: Averia Serif Libre headings, Figtree text and warm brown accents, in light and dark mode.'
+	},
+	{
+		date: '2026-11-23',
 		note: "Added the Westminster Assembly's Scripture proofs to the Shorter Catechism, from its 1649 printing."
 	},
 	{
