@@ -1,5 +1,9 @@
 export const changelog: { date: string; note: string }[] = [
 	{
+		date: '2026-11-26',
+		note: 'Added the Romans Road as a ready-made deck: five verses on sin, love, and salvation, in the order they are usually learned.'
+	},
+	{
 		date: '2026-11-23',
 		note: "Added the Westminster Assembly's Scripture proofs to the Shorter Catechism, from its 1649 printing."
 	},

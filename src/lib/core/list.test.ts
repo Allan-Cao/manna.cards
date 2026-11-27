@@ -127,12 +127,27 @@ describe('preset lists', () => {
 	it.each(
 		(['bsb', 'web', 'kjv'] as const).flatMap((t) => [
 			['ot.txt', t],
-			['nt.txt', t]
+			['nt.txt', t],
+			['romans-road.txt', t]
 		])
 	)('every reference in %s parses against %s verse counts', (file, translation) => {
 		const text = readFileSync(new URL(`../../../presets/${file}`, import.meta.url), 'utf8');
 		const { groups, errors } = parseList(text, versificationFor(translation));
 		expect(errors).toEqual([]);
-		expect(groups.flatMap((g) => g.refs).length).toBeGreaterThan(10);
+		expect(groups.flatMap((g) => g.refs).length).toBeGreaterThan(
+			file === 'romans-road.txt' ? 4 : 10
+		);
+	});
+
+	it('keeps the Romans Road in its learning order, with headings', () => {
+		const text = readFileSync(new URL('../../../presets/romans-road.txt', import.meta.url), 'utf8');
+		const { groups } = parseList(text, versificationFor('kjv'));
+		expect(groups.map((g) => [g.heading, g.refs.map((r) => r.label)])).toEqual([
+			['All have sinned', ['Romans 3:23']],
+			['The wages of sin', ['Romans 6:23']],
+			["God's love", ['Romans 5:8']],
+			['Confess and believe', ['Romans 10:9-10']],
+			['Call on the Lord', ['Romans 10:13']]
+		]);
 	});
 });

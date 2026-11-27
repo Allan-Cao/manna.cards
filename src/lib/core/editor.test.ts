@@ -63,7 +63,7 @@ describe('previewDeck', () => {
 	});
 
 	it('matches the notes card for card, in both presets', async () => {
-		for (const file of ['ot.txt', 'nt.txt']) {
+		for (const file of ['ot.txt', 'nt.txt', 'romans-road.txt']) {
 			const list = await readFile(new URL(`../../../presets/${file}`, import.meta.url), 'utf8');
 			const { result, groups } = await preview(deck({ list }));
 			const cards = groups.flatMap((g) =>
