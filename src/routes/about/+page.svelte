@@ -15,7 +15,7 @@
 		},
 		{
 			q: 'How do I get the deck into Anki?',
-			a: 'Choose Export for Anki, then open the .apkg file with Anki, or choose File › Import in Anki. To set how many new cards you see a day, tick Import any deck presets, then open the deck’s Options in Anki and set New cards/day. Anki does not let a deck file set it.'
+			a: 'Choose Export for Anki, then open the .apkg file with Anki, or choose File › Import in Anki. Leave the import options as they are. To set how many new cards you see a day, open the deck’s Options in Anki, choose the This deck tab and set New cards/day. Anki does not let a deck file set it.'
 		},
 		{
 			q: 'Can I change a deck I already imported?',

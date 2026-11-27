@@ -49,7 +49,9 @@ test('make, fix, export, update and share a deck', async ({ page, browser, brows
 	await expect(dialog.getByText('Changes since your last export')).toHaveCount(0);
 	// New cards per day: 5 for Scripture, and the instructions follow the number.
 	await expect(dialog.getByRole('spinbutton', { name: 'New cards per day' })).toHaveValue('5');
-	await expect(dialog.getByText('Import any deck presets')).toBeVisible();
+	await expect(dialog.getByText('Leave the import options as they are.')).toBeVisible();
+	await expect(dialog.getByText('This deck', { exact: true })).toBeVisible();
+	await expect(dialog.getByText('presets')).toHaveCount(0);
 	await expect(dialog.getByTestId('new-per-day-value')).toHaveText('5');
 	await dialog.getByRole('spinbutton', { name: 'New cards per day' }).fill('8');
 	await expect(dialog.getByTestId('new-per-day-value')).toHaveText('8');

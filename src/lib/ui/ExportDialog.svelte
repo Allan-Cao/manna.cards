@@ -43,7 +43,7 @@
 		{/if}
 		<p>
 			Open <strong class="break-all">{report.fileName}</strong> with Anki, or choose
-			<strong>File › Import</strong> in Anki.
+			<strong>File › Import</strong> in Anki. Leave the import options as they are.
 		</p>
 
 		<section aria-labelledby="limit-heading">
@@ -66,15 +66,12 @@
 					{catechism ? 'Questions' : 'Verses'} a day is a good pace to start with.
 				</span>
 			</div>
-			<ol class="mt-2 list-decimal space-y-1 pl-5">
-				<li>When Anki shows the import options, tick <strong>Import any deck presets</strong>.</li>
-				<li>
-					After importing, click the gear beside this deck, choose <strong>Options</strong>, set
-					<strong>New cards/day</strong> to
-					<strong data-testid="new-per-day-value">{perDay}</strong>, and click
-					<strong>Save</strong>.
-				</li>
-			</ol>
+			<p class="mt-2">
+				After importing, click the gear beside this deck, choose <strong>Options</strong>, open the
+				<strong>This deck</strong>
+				tab beside <strong>New cards/day</strong>, set it to
+				<strong data-testid="new-per-day-value">{perDay}</strong>, and click <strong>Save</strong>.
+			</p>
 			<p class="mt-1 text-sm {muted}">
 				Anki does not let a deck file set this, so you set it yourself. The limit is for this deck
 				only; each deck has its own.
