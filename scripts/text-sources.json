@@ -1,0 +1,23 @@
+{
+	"bsb": {
+		"url": "https://eBible.org/Scriptures/engbsb_usfm.zip",
+		"zipSha256": "75ca91d5a5c69ca4cbdeabdb03ea1a458db20cf3966abe15d86df086acf7fbc4",
+		"usfmSha256": "7074e84e8266663de9a9251819029eb06f73b16128418eb92f1b9f659fe7a843",
+		"stated": "2026-10-30",
+		"downloaded": "2026-11-14"
+	},
+	"web": {
+		"url": "https://eBible.org/Scriptures/engwebp_usfm.zip",
+		"zipSha256": "3bb1ac4fe06e9adf50fe6659237fa0b3743bf651ce15cc9acebc36c5070ae62d",
+		"usfmSha256": "431e93b43f6ad15fa5c020bec3542e81cc958cf1322e4d1d44815be15567f70e",
+		"stated": "2026-11-13",
+		"downloaded": "2026-11-14"
+	},
+	"kjv": {
+		"url": "https://eBible.org/Scriptures/eng-kjv2006_usfm.zip",
+		"zipSha256": "dce1ec3ea45a155ac05e975fc8d817da403a817713d554eb9cc3a2177a6cfd1c",
+		"usfmSha256": "d46867823ba3f368da0ea6ba0a3f2b63e343a983b1e984490953c1acb90f6a39",
+		"stated": "2026-11-09",
+		"downloaded": "2026-11-14"
+	}
+}

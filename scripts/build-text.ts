@@ -6,6 +6,12 @@
  * Run:  npx tsx scripts/build-text.ts            (downloads the zips into .cache/usfm/ once)
  *       npx tsx scripts/build-text.ts --refresh  (downloads them again)
  *
+ * Provenance: scripts/text-sources.json records, per translation, the source URL, the sha256 of
+ * the zip, the sha256 of the .usfm files alone, the date copr.htm states and the download date.
+ * Each build compares against it and prints per translation: unchanged / package changed, USFM
+ * identical (re-signed or re-stamped, text the same) / USFM changed (review the text diff).
+ * The zips are unpinned "latest", so commit the manifest together with any text it changes.
+ *
  * Only a small subset of USFM is understood. Any other marker, a verse bridge, or text that
  * cannot be placed makes the build fail with the book, chapter and verse, so nothing leaks
  * into the text silently. The parsing functions are pure; only `main` does I/O.
@@ -18,6 +24,13 @@ import type {
 	TranslationId,
 	Versification
 } from '../src/lib/core/model.ts';
+import {
+	compareSource,
+	sha256,
+	statedDate,
+	usfmDigest,
+	type SourceRecord
+} from './text-manifest.ts';
 
 /** The 66 books of the Protestant canon as USFM codes, in canonical order. */
 export const BOOK_CODES: readonly string[] = BOOKS.map((b) => b.id);
@@ -479,15 +492,40 @@ async function main(): Promise<void> {
 	)
 		? JSON.parse(fs.readFileSync(versificationFile, 'utf8'))
 		: {};
+	const manifestFile = path.join(import.meta.dirname, 'text-sources.json');
+	const previous: Record<string, SourceRecord> = fs.existsSync(manifestFile)
+		? JSON.parse(fs.readFileSync(manifestFile, 'utf8'))
+		: {};
+	const manifest: Record<string, SourceRecord> = {};
+	const summary: string[] = [];
+	const today = new Date().toISOString().slice(0, 10);
 	for (const [translation, url] of Object.entries(SOURCES) as [TranslationId, string][]) {
 		const zipPath = path.join(cache, path.basename(url));
-		if (refresh || !fs.existsSync(zipPath)) {
+		const fetched = refresh || !fs.existsSync(zipPath);
+		if (fetched) {
 			console.log(`downloading ${url}`);
 			const res = await fetch(url);
 			if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
 			fs.writeFileSync(zipPath, new Uint8Array(await res.arrayBuffer()));
 		}
-		const entries = unzipSync(fs.readFileSync(zipPath));
+		const zip = fs.readFileSync(zipPath);
+		const entries = unzipSync(zip);
+		const record = {
+			url,
+			zipSha256: sha256(zip),
+			usfmSha256: usfmDigest(entries),
+			stated: entries['copr.htm'] ? statedDate(strFromU8(entries['copr.htm'])) : null,
+			downloaded:
+				previous[translation]?.zipSha256 === sha256(zip) && !fetched
+					? previous[translation].downloaded
+					: fetched
+						? today
+						: fs.statSync(zipPath).mtime.toISOString().slice(0, 10)
+		};
+		const change = compareSource(previous[translation], record);
+		if (change === 'unchanged') record.downloaded = previous[translation].downloaded;
+		manifest[translation] = record;
+		summary.push(`${translation}: ${change} (stated ${record.stated ?? 'unknown'})`);
 		const books: BookText[] = [];
 		const skipped: string[] = [];
 		for (const [name, data] of Object.entries(entries)) {
@@ -515,11 +553,16 @@ async function main(): Promise<void> {
 	}
 
 	const prettier = await import('prettier');
-	const file = versificationFile;
-	const options = (await prettier.resolveConfig(file)) ?? {};
-	const json = await prettier.format(JSON.stringify(versification), { ...options, filepath: file });
-	fs.writeFileSync(file, json);
-	console.log(`wrote ${path.relative(root, file)}`);
+	for (const [file, data] of [
+		[versificationFile, versification],
+		[manifestFile, manifest]
+	] as const) {
+		const options = (await prettier.resolveConfig(file)) ?? {};
+		const json = await prettier.format(JSON.stringify(data), { ...options, filepath: file });
+		fs.writeFileSync(file, json);
+		console.log(`wrote ${path.relative(root, file)}`);
+	}
+	console.log(`\nsources:\n  ${summary.join('\n  ')}`);
 }
 
 const entry = process.argv[1] && (await import('node:url')).pathToFileURL(process.argv[1]).href;
