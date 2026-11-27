@@ -47,6 +47,12 @@ test('make, fix, export, update and share a deck', async ({ page, browser, brows
 	const dialog = page.getByRole('dialog');
 	await expect(dialog.getByText('Your deck is downloading')).toBeVisible();
 	await expect(dialog.getByText('Changes since your last export')).toHaveCount(0);
+	// New cards per day: 5 for Scripture, and the instructions follow the number.
+	await expect(dialog.getByRole('spinbutton', { name: 'New cards per day' })).toHaveValue('5');
+	await expect(dialog.getByText('Import any deck presets')).toBeVisible();
+	await expect(dialog.getByTestId('new-per-day-value')).toHaveText('5');
+	await dialog.getByRole('spinbutton', { name: 'New cards per day' }).fill('8');
+	await expect(dialog.getByTestId('new-per-day-value')).toHaveText('8');
 	await dialog.getByRole('button', { name: 'Close' }).click();
 
 	// Remove Psalm 23, add Romans 8:38-39, export again.

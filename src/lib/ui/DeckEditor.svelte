@@ -399,5 +399,5 @@
 	confirm="Change translation"
 	onconfirm={() => askTranslation && setTranslation(askTranslation)}
 />
-<ExportDialog bind:open={exportOpen} {report} error={exportError} />
+<ExportDialog bind:open={exportOpen} {report} error={exportError} catechism={!!catechism} />
 <ShareDialog bind:open={shareOpen} {def} />

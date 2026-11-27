@@ -8,6 +8,10 @@ export const changelog: { date: string; note: string }[] = [
 		note: 'Added the Romans Road as a ready-made deck: five verses on sin, love, and salvation, in the order they are usually learned.'
 	},
 	{
+		date: '2026-11-26',
+		note: 'The export window now says how to set new cards per day in Anki, starting at 5 for Scripture and 3 for catechisms. A deck file cannot set it, so you set it once in the deck’s Options.'
+	},
+	{
 		date: '2026-11-23',
 		note: "Added the Westminster Assembly's Scripture proofs to the Shorter Catechism, from its 1649 printing."
 	},
