@@ -104,8 +104,23 @@ describe('writeApkg deck', () => {
 		const { decks, conf } = col(db);
 		const id = ankiDeckId('k3f9x2ab');
 		expect(Object.keys(decks).sort()).toEqual(['1', String(id)].sort());
-		expect(decks[id]).toMatchObject({ id, name: 'Romans Road', dyn: 0, conf: 1 });
+		expect(decks[id]).toMatchObject({ id, name: 'Romans Road', dyn: 0, conf: 1700000000123 });
+		expect(decks[1]).toMatchObject({ conf: 1 });
 		expect(conf.curDeck).toBe(id);
+	});
+
+	it('writes the manna.cards preset with a fixed id, 5 new cards a day and the export time', () => {
+		const { db } = open(writeApkg(build({ exportedAt: 1700000500 }), SQL));
+		const { dconf } = col(db);
+		expect(Object.keys(dconf).sort()).toEqual(['1', '1700000000123']);
+		expect(dconf[1]).toMatchObject({ name: 'Default', new: { perDay: 20 } });
+		expect(dconf[1700000000123]).toMatchObject({
+			id: 1700000000123,
+			name: 'manna.cards',
+			mod: 1700000500,
+			dyn: false,
+			new: { perDay: 5 }
+		});
 	});
 
 	it('writes the deck description, empty when the build has none', () => {

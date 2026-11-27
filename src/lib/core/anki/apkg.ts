@@ -57,6 +57,17 @@ CREATE INDEX ix_notes_csum on notes (csum);
 
 const DEFAULT_DECK_ID = 1;
 const DEFAULT_CONF_ID = 1;
+/**
+ * Id of the "manna.cards" deck options preset. It must never change: Anki matches presets by id
+ * on import, creates one it has not seen and never updates it afterwards, so a new id would
+ * leave every user with a second copy. It is in the millisecond-timestamp range because ids
+ * below that (such as the Default preset's 1) are mapped onto the user's existing Default preset.
+ * Anki only imports it when the user ticks the deck presets import option.
+ */
+export const MANNA_CONF_ID = 1700000000123;
+export const MANNA_CONF_NAME = 'manna.cards';
+/** New cards per day in the bonus preset. */
+export const MANNA_NEW_PER_DAY = 5;
 
 /**
  * Numeric Anki deck id for a DeckDefinition id: a 53-bit string hash (cyrb53) folded into
@@ -76,7 +87,7 @@ export function ankiDeckId(deckId: string): number {
 	return 2 ** 40 + (hash % 2 ** 40);
 }
 
-function deckJson(id: number, name: string, mod: number, desc = '') {
+function deckJson(id: number, name: string, mod: number, desc = '', confId = DEFAULT_CONF_ID) {
 	return {
 		id,
 		name,
@@ -84,7 +95,7 @@ function deckJson(id: number, name: string, mod: number, desc = '') {
 		usn: -1,
 		desc,
 		dyn: 0,
-		conf: DEFAULT_CONF_ID,
+		conf: confId,
 		collapsed: false,
 		browserCollapsed: false,
 		extendNew: 0,
@@ -96,11 +107,11 @@ function deckJson(id: number, name: string, mod: number, desc = '') {
 	};
 }
 
-function deckConfJson() {
+function deckConfJson(id = DEFAULT_CONF_ID, name = 'Default', mod = 0, perDay = 20) {
 	return {
-		id: DEFAULT_CONF_ID,
-		name: 'Default',
-		mod: 0,
+		id,
+		name,
+		mod,
 		usn: 0,
 		maxTaken: 60,
 		autoplay: true,
@@ -113,7 +124,7 @@ function deckConfJson() {
 			initialFactor: 2500,
 			ints: [1, 4, 0],
 			order: 1,
-			perDay: 20
+			perDay
 		},
 		rev: { bury: false, ease4: 1.3, ivlFct: 1, maxIvl: 36500, perDay: 200, hardFactor: 1.2 },
 		lapse: { delays: [10], leechAction: 1, leechFails: 8, minInt: 1, mult: 0 }
@@ -140,7 +151,7 @@ function writeCollection(db: Database, build: DeckBuild): void {
 	};
 	const decks = {
 		[DEFAULT_DECK_ID]: deckJson(DEFAULT_DECK_ID, 'Default', t),
-		[did]: deckJson(did, build.deckName, t, build.description)
+		[did]: deckJson(did, build.deckName, t, build.description, MANNA_CONF_ID)
 	};
 	db.run('INSERT INTO col VALUES (1, ?, ?, ?, 11, 0, 0, 0, ?, ?, ?, ?, ?)', [
 		t,
@@ -149,7 +160,10 @@ function writeCollection(db: Database, build: DeckBuild): void {
 		JSON.stringify(conf),
 		JSON.stringify({ [MODEL_ID]: noteTypeJson(did) }),
 		JSON.stringify(decks),
-		JSON.stringify({ [DEFAULT_CONF_ID]: deckConfJson() }),
+		JSON.stringify({
+			[DEFAULT_CONF_ID]: deckConfJson(),
+			[MANNA_CONF_ID]: deckConfJson(MANNA_CONF_ID, MANNA_CONF_NAME, t, MANNA_NEW_PER_DAY)
+		}),
 		'{}'
 	]);
 }
