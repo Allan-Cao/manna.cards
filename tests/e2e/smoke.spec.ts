@@ -47,14 +47,19 @@ test('make, fix, export, update and share a deck', async ({ page, browser, brows
 	const dialog = page.getByRole('dialog');
 	await expect(dialog.getByText('Your deck is downloading')).toBeVisible();
 	await expect(dialog.getByText('Changes since your last export')).toHaveCount(0);
-	// New cards per day: 5 for Scripture, and the instructions follow the number.
-	await expect(dialog.getByRole('spinbutton', { name: 'New cards per day' })).toHaveValue('5');
+	// New cards a day: a static note with a link to Anki's guide, no input.
+	await expect(dialog.getByRole('heading', { name: 'New cards a day' })).toBeVisible();
+	await expect(dialog.getByRole('spinbutton')).toHaveCount(0);
+	await expect(dialog.getByText('We suggest 5.')).toBeVisible();
 	await expect(dialog.getByText('Leave the import options as they are.')).toBeVisible();
 	await expect(dialog.getByText('This deck', { exact: true })).toBeVisible();
 	await expect(dialog.getByText('presets')).toHaveCount(0);
-	await expect(dialog.getByTestId('new-per-day-value')).toHaveText('5');
-	await dialog.getByRole('spinbutton', { name: 'New cards per day' }).fill('8');
-	await expect(dialog.getByTestId('new-per-day-value')).toHaveText('8');
+	const guide = dialog.getByRole('link', { name: 'Anki’s guide to daily limits' });
+	await expect(guide).toHaveAttribute(
+		'href',
+		'https://docs.ankiweb.net/deck-options.html#daily-limits'
+	);
+	await expect(guide).toHaveAttribute('target', '_blank');
 	await dialog.getByRole('button', { name: 'Close' }).click();
 
 	// Remove Psalm 23, add Romans 8:38-39, export again.

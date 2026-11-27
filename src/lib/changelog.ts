@@ -9,7 +9,7 @@ export const changelog: { date: string; note: string }[] = [
 	},
 	{
 		date: '2026-11-26',
-		note: 'The export window now says how to set new cards per day in Anki, starting at 5 for Scripture and 3 for catechisms. A deck file cannot set it, so you set it once in the deck’s Options.'
+		note: 'The export window says how to set new cards a day in Anki, and suggests 5.'
 	},
 	{
 		date: '2026-11-23',
@@ -46,7 +46,4 @@ export const changelog: { date: string; note: string }[] = [
 	{ date: '2026-11-14', note: 'Added the about page and share links.' }
 ];
 
-export const planned: string[] = [
-	'The English Standard Version (ESV), once Crossway grants permission.',
-	'The NET Bible, once Biblical Studies Press confirms our use.'
-];
+export const planned: string[] = ['More translations, including the ESV and the NET Bible.'];

@@ -1,30 +1,18 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import type { ExportReport } from './browser.ts';
 	import CopyField from './CopyField.svelte';
 	import Modal from './Modal.svelte';
-	import { field, muted, notice } from './styles.ts';
+	import { link, notice } from './styles.ts';
 
 	let {
 		open = $bindable(false),
 		report,
-		error,
-		catechism = false
+		error
 	}: {
 		open: boolean;
 		report: ExportReport | null;
 		error: string | null;
-		catechism?: boolean;
 	} = $props();
-
-	/** Only the instructions use this: Anki does not let a deck file set the limit. A deck never changes kind. */
-	const defaultPerDay = untrack(() => (catechism ? 3 : 5));
-	let perDayInput = $state<number | null>(defaultPerDay);
-	const perDay = $derived(
-		Number.isInteger(perDayInput) && perDayInput! >= 1 && perDayInput! <= 9999
-			? perDayInput!
-			: defaultPerDay
-	);
 
 	const cards = (n: number) => (n === 1 ? '1 card' : `${n} cards`);
 	const changes = $derived(report?.changes);
@@ -47,34 +35,25 @@
 		</p>
 
 		<section aria-labelledby="limit-heading">
-			<h3 id="limit-heading" class="font-semibold text-ink dark:text-ink-dark">
-				New cards per day
-			</h3>
-			<div class="mt-1 flex items-center gap-2">
-				<input
-					id="new-per-day"
-					type="number"
-					min="1"
-					max="9999"
-					step="1"
-					inputmode="numeric"
-					class="{field} w-24"
-					bind:value={perDayInput}
-					aria-label="New cards per day"
-				/>
-				<span class="text-sm {muted}">
-					{catechism ? 'Questions' : 'Verses'} a day is a good pace to start with.
-				</span>
-			</div>
-			<p class="mt-2">
-				After importing, click the gear beside this deck, choose <strong>Options</strong>, open the
-				<strong>This deck</strong>
-				tab beside <strong>New cards/day</strong>, set it to
-				<strong data-testid="new-per-day-value">{perDay}</strong>, and click <strong>Save</strong>.
+			<h3 id="limit-heading" class="font-semibold text-ink dark:text-ink-dark">New cards a day</h3>
+			<p class="mt-1">
+				Anki starts decks at 20 new cards a day, which is a lot for memorizing. We suggest 5.
 			</p>
-			<p class="mt-1 text-sm {muted}">
-				Anki does not let a deck file set this, so you set it yourself. The limit is for this deck
-				only; each deck has its own.
+			<p class="mt-2">
+				In Anki, click the gear beside the deck, choose <strong>Options</strong>, set
+				<strong>New cards/day</strong>
+				to 5 and click <strong>Save</strong>. This changes the deck’s preset, so every deck that
+				uses it gets the same limit. To give one deck its own limit, use the
+				<strong>This deck</strong>
+				tab beside <strong>New cards/day</strong>.
+			</p>
+			<p class="mt-2">
+				<a
+					class={link}
+					href="https://docs.ankiweb.net/deck-options.html#daily-limits"
+					target="_blank"
+					rel="noreferrer">Anki’s guide to daily limits</a
+				>
 			</p>
 		</section>
 

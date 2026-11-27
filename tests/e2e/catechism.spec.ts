@@ -98,11 +98,6 @@ test('a long answer is asked in parts, whose breaks can be moved and are kept', 
 	expect(collection).toContain('WSC 31 (1/2)');
 	expect(collection).toContain('WSC 31 (2/2)');
 	expect(collection).toMatch(/bm1:[a-z0-9]+:cat:wsc:31:1/);
-
-	// A catechism deck suggests 3 new cards a day.
-	const dialog = page.getByRole('dialog');
-	await expect(dialog.getByRole('spinbutton', { name: 'New cards per day' })).toHaveValue('3');
-	await expect(dialog.getByTestId('new-per-day-value')).toHaveText('3');
 });
 
 test('a Baptist Catechism for Children deck starts with its sections and credits the church', async ({
