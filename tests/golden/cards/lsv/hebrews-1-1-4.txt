@@ -1,0 +1,36 @@
+Hebrews 1:1-4 (LSV)
+
+── 1. Hebrews 1:1 ──────────────────────────────────────────────────────
+Lead-in        (none)
+Answer     1 │ In many parts and many ways, God, having spoken long ago to the fathers by the prophets,
+Hint         │ I m p a m w, G, h s l a t t f b t p,
+Info           Hebrews 1:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:HEB.1.1:0
+
+── 2. Hebrews 1:2 ──────────────────────────────────────────────────────
+Lead-in    1 │ In many parts and many ways, God, having spoken long ago to the fathers by the prophets,
+Answer     2 │ in these last days speaks to us in [His] Son, whom He appointed heir of all things, through whom He also made the ages;
+Hint         │ i t l d s t u i [H] S, w H a h o a t, t w H a m t a;
+Info           Hebrews 1:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:HEB.1.2:0
+
+── 3. Hebrews 1:3 (1/2) ────────────────────────────────────────────────
+Lead-in    2 │ in these last days speaks to us in [His] Son, whom He appointed heir of all things, through whom He also made the ages;
+Answer     3 │ who being the brightness of the glory, and the impress of His subsistence,
+Hint         │ w b t b o t g, a t i o H s,
+Info           Hebrews 1:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:HEB.1.3:0
+
+── 4. Hebrews 1:3 (2/2) ────────────────────────────────────────────────
+Lead-in    3 │ who being the brightness of the glory, and the impress of His subsistence,
+Answer       │ bearing up also all things by the saying of His might—having made a cleansing of our sins through Himself, sat down at the right hand of the Greatness in the highest,
+Hint         │ b u a a t b t s o H m—h m a c o o s t H, s d a t r h o t G i t h,
+Info           Hebrews 1:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:HEB.1.3:1
+
+── 5. Hebrews 1:4 ──────────────────────────────────────────────────────
+Lead-in      │ bearing up also all things by the saying of His might—having made a cleansing of our sins through Himself, sat down at the right hand of the Greatness in the highest,
+Answer     4 │ having become so much better than the messengers, as He inherited a more excellent name than them.
+Hint         │ h b s m b t t m, a H i a m e n t t.
+Info           Hebrews 1:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:HEB.1.4:0

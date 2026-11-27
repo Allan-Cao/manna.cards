@@ -362,17 +362,20 @@ const GOLDEN: [file: string, ref: string][] = [
 	['ephesians-1-3-14', 'Ephesians 1:3-14']
 ];
 
-describe.each(['bsb', 'web', 'kjv'] as TranslationId[])('golden cards: %s', (translation) => {
-	it.each(GOLDEN)('%s', async (file, ref) => {
-		const def = deck({ id: 'golden', translation, list: ref });
-		const { build, errors, passages } = await buildDeck(def, fromDisk, 1_800_000_000);
-		expect(errors).toEqual([]);
-		const body = build.notes.map(describeNote).join('\n\n');
-		await expect(
-			`${passages[0].ref.label} (${translation.toUpperCase()})\n\n${body}\n`
-		).toMatchFileSnapshot(`../../../tests/golden/cards/${translation}/${file}.txt`);
-	});
-});
+describe.each(['bsb', 'web', 'kjv', 'lsv'] as TranslationId[])(
+	'golden cards: %s',
+	(translation) => {
+		it.each(GOLDEN)('%s', async (file, ref) => {
+			const def = deck({ id: 'golden', translation, list: ref });
+			const { build, errors, passages } = await buildDeck(def, fromDisk, 1_800_000_000);
+			expect(errors).toEqual([]);
+			const body = build.notes.map(describeNote).join('\n\n');
+			await expect(
+				`${passages[0].ref.label} (${translation.toUpperCase()})\n\n${body}\n`
+			).toMatchFileSnapshot(`../../../tests/golden/cards/${translation}/${file}.txt`);
+		});
+	}
+);
 
 // Every catechism answer that is split, part by part. Proofs and hints are left out: the split is
 // what this is for, and proofs are edited separately.
@@ -461,6 +464,17 @@ describe('buildDeck: ESV', () => {
 		);
 		const bsb = await buildDeck(deck({ list: 'John 3:16' }), fromDisk, 1_800_000_000);
 		expect('description' in bsb.build).toBe(false);
+	});
+
+	it('puts the LSV credit, license and changes notice in the deck description', async () => {
+		const { build } = await buildDeck(
+			deck({ translation: 'lsv', list: 'John 3:16' }),
+			fromDisk,
+			1_800_000_000
+		);
+		expect(build.description).toContain('copyright © 2020 Covenant Press');
+		expect(build.description).toContain('https://creativecommons.org/licenses/by-sa/4.0/');
+		expect(build.description).toContain('<a href="https://lsvbible.com">https://lsvbible.com</a>');
 	});
 
 	it('checks Crossway’s limits first and loads nothing when they are passed', async () => {

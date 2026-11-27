@@ -23,6 +23,15 @@ export const TRANSLATIONS: Record<TranslationId, Translation> = {
 	bsb: { id: 'bsb', short: 'BSB', name: 'Berean Standard Bible' },
 	web: { id: 'web', short: 'WEB', name: 'World English Bible' },
 	kjv: { id: 'kjv', short: 'KJV', name: 'King James Version' },
+	lsv: {
+		id: 'lsv',
+		short: 'LSV',
+		name: 'Literal Standard Version',
+		link: 'https://lsvbible.com',
+		// CC BY-SA 4.0 asks for the copyright and source, a note of the changes, and the same license.
+		copyright:
+			'Literal Standard Version (LSV), copyright © 2020 Covenant Press, from eBible.org (https://ebible.org/find/details.php?id=engLSV), licensed under Creative Commons Attribution-ShareAlike 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Changes: the text is cut into flashcards, with long verses split into parts, lead-in verses and first-letter hints added. Covenant Press does not endorse these changes. This deck is shared under the same license.'
+	},
 	esv: {
 		id: 'esv',
 		short: 'ESV',

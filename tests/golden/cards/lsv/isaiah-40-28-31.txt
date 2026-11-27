@@ -1,0 +1,54 @@
+Isaiah 40:28-31 (LSV)
+
+── 1. Isaiah 40:28 (1/2) ───────────────────────────────────────────────
+Lead-in        (none)
+Answer    28 │ Have you not known? Have you not heard? The God of the age—YHWH,
+Hint         │ H y n k? H y n h? T G o t a—Y,
+Info           Isaiah 40:28-31 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:ISA.40.28:0
+
+── 2. Isaiah 40:28 (2/2) ───────────────────────────────────────────────
+Lead-in   28 │ Have you not known? Have you not heard? The God of the age—YHWH,
+Answer       │ Preparer of the ends of the earth,
+             │ Is not wearied nor fatigued,
+             │ There is no searching of His understanding.
+Hint         │ P o t e o t e,
+             │ I n w n f,
+             │ T i n s o H u.
+Info           Isaiah 40:28-31 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:ISA.40.28:1
+
+── 3. Isaiah 40:29 ─────────────────────────────────────────────────────
+Lead-in      │ Preparer of the ends of the earth,
+             │ Is not wearied nor fatigued,
+             │ There is no searching of His understanding.
+Answer    29 │ He is giving power to the weary,
+             │ And to those not strong He increases might.
+Hint         │ H i g p t t w,
+             │ A t t n s H i m.
+Info           Isaiah 40:28-31 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:ISA.40.29:0
+
+── 4. Isaiah 40:30 ─────────────────────────────────────────────────────
+Lead-in   29 │ He is giving power to the weary,
+             │ And to those not strong He increases might.
+Answer    30 │ Even youths are wearied and fatigued,
+             │ And young men utterly stumble,
+Hint         │ E y a w a f,
+             │ A y m u s,
+Info           Isaiah 40:28-31 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:ISA.40.30:0
+
+── 5. Isaiah 40:31 ─────────────────────────────────────────────────────
+Lead-in   30 │ Even youths are wearied and fatigued,
+             │ And young men utterly stumble,
+Answer    31 │ But those expecting YHWH pass [to] power,
+             │ They raise up the pinion as eagles,
+             │ They run and are not fatigued,
+             │ They go on and do not faint!
+Hint         │ B t e Y p [t] p,
+             │ T r u t p a e,
+             │ T r a a n f,
+             │ T g o a d n f!
+Info           Isaiah 40:28-31 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:ISA.40.31:0

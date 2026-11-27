@@ -1,0 +1,51 @@
+Psalm 51:1-4 (LSV)
+
+── 1. Psalm 51:1 (1/2) ─────────────────────────────────────────────────
+Lead-in        (none)
+Answer     1 │ TO THE OVERSEER. A PSALM OF DAVID, IN THE COMING OF NATHAN THE PROPHET TO HIM WHEN HE HAS GONE IN TO BATHSHEBA. Favor me, O God, according to Your kindness,
+Hint         │ T T O. A P O D, I T C O N T P T H W H H G I T B. F m, O G, a t Y k,
+Info           Psalm 51:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.51.1:0
+
+── 2. Psalm 51:1 (2/2) ─────────────────────────────────────────────────
+Lead-in    1 │ TO THE OVERSEER. A PSALM OF DAVID, IN THE COMING OF NATHAN THE PROPHET TO HIM WHEN HE HAS GONE IN TO BATHSHEBA. Favor me, O God, according to Your kindness,
+Answer       │ According to the abundance of Your mercies,
+             │ Blot out my transgressions.
+Hint         │ A t t a o Y m,
+             │ B o m t.
+Info           Psalm 51:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.51.1:1
+
+── 3. Psalm 51:2 ───────────────────────────────────────────────────────
+Lead-in      │ According to the abundance of Your mercies,
+             │ Blot out my transgressions.
+Answer     2 │ Thoroughly wash me from my iniquity,
+             │ And cleanse me from my sin,
+Hint         │ T w m f m i,
+             │ A c m f m s,
+Info           Psalm 51:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.51.2:0
+
+── 4. Psalm 51:3 ───────────────────────────────────────────────────────
+Lead-in    2 │ Thoroughly wash me from my iniquity,
+             │ And cleanse me from my sin,
+Answer     3 │ For I know my transgressions,
+             │ And my sin [is] continually before me.
+Hint         │ F I k m t,
+             │ A m s [i] c b m.
+Info           Psalm 51:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.51.3:0
+
+── 5. Psalm 51:4 ───────────────────────────────────────────────────────
+Lead-in    3 │ For I know my transgressions,
+             │ And my sin [is] continually before me.
+Answer     4 │ Against You, You only, I have sinned,
+             │ And done evil in Your eyes,
+             │ So that You are righteous in Your words,
+             │ You are pure in Your judging.
+Hint         │ A Y, Y o, I h s,
+             │ A d e i Y e,
+             │ S t Y a r i Y w,
+             │ Y a p i Y j.
+Info           Psalm 51:1-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.51.4:0

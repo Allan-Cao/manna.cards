@@ -1,6 +1,6 @@
 /**
  * Converts eBible.org USFM into the app's committed Bible text:
- *   static/text/{bsb,web,kjv}/{BOOK}.json  one BookText per book, compact JSON
+ *   static/text/{bsb,web,kjv,lsv}/{BOOK}.json  one BookText per book, compact JSON
  *   src/lib/core/versification.json        highest verse number of each chapter
  *
  * Run:  npx tsx scripts/build-text.ts            (downloads the zips into .cache/usfm/ once)
@@ -103,6 +103,7 @@ function clean(text: string): string {
 	return text
 		.replace(/[ \t\r\n]+/g, ' ')
 		.replace(/([‘’“”])\u00a0(?=[‘’“”])/g, '$1')
+		.replace(/\[\[ /g, '[[')
 		.trim();
 }
 
@@ -323,6 +324,10 @@ class Parser {
 		const style = this.style;
 		this.buf = null;
 		if (!text) return;
+		if (text === '-') {
+			this.verseHasNote = true; // LSV: a verse it leaves out is a lone "-", dropped by endVerse
+			return;
+		}
 		const lines = this.verse!.lines;
 		const para: Partial<Line> = style.paragraph ? { paragraph: true } : {};
 		const right = style.right && /^(.*\bSelah)[\s.,:;—–-]*$/.exec(text);
@@ -330,7 +335,13 @@ class Parser {
 			lines.push({ text: right[1], indent: 0, ...para, selah: true });
 			return;
 		}
-		splitSelah(text).forEach((part, k) => {
+		// LSV marks poetry lines inside a paragraph with "||"; its Psalm 119 verses open with "[ALEPH]".
+		const pieces = text
+			.replace(/^\[[A-Z]{2,}\]\s*/, '')
+			.split(/\s*\|\|\s*/)
+			.filter(Boolean)
+			.flatMap((piece) => splitSelah(piece));
+		pieces.forEach((part, k) => {
 			const flag = k === 0 ? para : {};
 			if (part.selah) lines.push({ text: part.text, indent: 0, ...flag, selah: true });
 			else lines.push({ text: part.text, indent: style.indent, ...flag });
@@ -439,12 +450,16 @@ export function versificationOf(books: BookText[]): Versification {
 // ---------------------------------------------------------------------------------------------
 // I/O
 
-/** eBible.org USFM downloads. Licence (from each details page): Public Domain. */
+/**
+ * eBible.org USFM downloads. Licence (from each details page): Public Domain, except the LSV
+ * (Covenant Press, CC BY-SA 4.0; details page last updated 2026-10-30).
+ */
 export const SOURCES: Record<Exclude<TranslationId, 'esv'>, string> = {
 	bsb: 'https://eBible.org/Scriptures/engbsb_usfm.zip',
 	// The Protestant edition, which renders the divine name "LORD" (eng-web says "Yahweh").
 	web: 'https://eBible.org/Scriptures/engwebp_usfm.zip',
-	kjv: 'https://eBible.org/Scriptures/eng-kjv2006_usfm.zip'
+	kjv: 'https://eBible.org/Scriptures/eng-kjv2006_usfm.zip',
+	lsv: 'https://eBible.org/Scriptures/englsv_usfm.zip'
 };
 
 async function main(): Promise<void> {

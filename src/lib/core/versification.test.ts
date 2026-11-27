@@ -3,12 +3,12 @@ import { BOOKS } from './books.ts';
 import { versificationFor } from './versification.ts';
 
 describe('versificationFor', () => {
-	it.each(['bsb', 'web', 'kjv'] as const)('covers all 66 books for %s', (t) => {
+	it.each(['bsb', 'web', 'kjv', 'lsv'] as const)('covers all 66 books for %s', (t) => {
 		const v = versificationFor(t);
 		expect(Object.keys(v)).toEqual(BOOKS.map((b) => b.id));
 	});
 
-	it.each(['bsb', 'web', 'kjv'] as const)('has the expected chapter counts for %s', (t) => {
+	it.each(['bsb', 'web', 'kjv', 'lsv'] as const)('has the expected chapter counts for %s', (t) => {
 		const v = versificationFor(t);
 		expect(v.PSA).toHaveLength(150);
 		expect(v.JHN).toHaveLength(21);

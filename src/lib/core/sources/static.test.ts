@@ -135,7 +135,7 @@ const GOLDEN: [name: string, book: BookId, sc: number, sv: number, ec: number, e
 	['psalm-46-1-3', 'PSA', 46, 1, 46, 3]
 ];
 
-describe.each(['bsb', 'web', 'kjv'] as const)('golden text: %s', (translation) => {
+describe.each(['bsb', 'web', 'kjv', 'lsv'] as const)('golden text: %s', (translation) => {
 	it.each(GOLDEN)('%s', async (name, book, sc, sv, ec, ev) => {
 		const p = passageFromBooks(ref(book, sc, sv, ec, ev), translation, {
 			[book]: load(translation, book)
