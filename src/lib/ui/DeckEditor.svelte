@@ -288,6 +288,12 @@
 				<a class={link} href="https://www.esv.org">www.esv.org</a>
 			</p>
 		{/if}
+		{#if !catechism && def.translation === 'lsv'}
+			<p class="mt-3 text-sm {muted}">
+				{TRANSLATIONS.lsv.copyright}
+				<a class={link} href="https://lsvbible.com">lsvbible.com</a>
+			</p>
+		{/if}
 		{#if stale.length}
 			<p class="{notice} mt-3">
 				The text of {stale.join(', ')} has changed. Your breaks there were replaced with automatic ones.

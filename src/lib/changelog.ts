@@ -1,5 +1,9 @@
 export const changelog: { date: string; note: string }[] = [
 	{
+		date: '2026-11-26',
+		note: 'Added the Literal Standard Version (LSV), by Covenant Press under CC BY-SA 4.0. Decks in it carry the credit and license in their description.'
+	},
+	{
 		date: '2026-11-23',
 		note: "Added the Westminster Assembly's Scripture proofs to the Shorter Catechism, from its 1649 printing."
 	},

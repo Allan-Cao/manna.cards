@@ -92,8 +92,9 @@
 			<h3 class="font-semibold">Bible translations</h3>
 			<p class="mt-3 {muted}">
 				{#if __ESV_ENABLED__}
-					The BSB, WEB and KJV come from <a class={link} href="https://ebible.org/">eBible.org</a>;
-					the ESV is fetched from Crossway's ESV API as you build a deck, and is not stored.
+					The BSB, WEB, KJV and LSV come from <a class={link} href="https://ebible.org/"
+						>eBible.org</a
+					>; the ESV is fetched from Crossway's ESV API as you build a deck, and is not stored.
 				{:else}
 					From <a class={link} href="https://ebible.org/">eBible.org</a>.
 				{/if}
@@ -110,6 +111,17 @@
 				<div>
 					<dt class="font-medium">King James Version (KJV)</dt>
 					<dd class={muted}>Public domain outside the United Kingdom.</dd>
+				</div>
+				<div>
+					<dt class="font-medium">Literal Standard Version (LSV)</dt>
+					<dd class={muted}>
+						Copyright © 2020 Covenant Press, licensed under
+						<a class={link} href="https://creativecommons.org/licenses/by-sa/4.0/"
+							>Creative Commons Attribution-ShareAlike 4.0</a
+						>. Decks that use it carry that credit and are shared under the same license. The LSV
+						writes the divine name as YHWH, and brackets words it supplies.
+						<a class={link} href="https://lsvbible.com">lsvbible.com</a>
+					</dd>
 				</div>
 				{#if __ESV_ENABLED__}
 					<div>
