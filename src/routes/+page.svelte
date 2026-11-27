@@ -29,6 +29,7 @@
 	import TranslationSelect from '#lib/ui/TranslationSelect.svelte';
 	import ot from '../../presets/ot.txt?raw';
 	import nt from '../../presets/nt.txt?raw';
+	import romansRoad from '../../presets/romans-road.txt?raw';
 
 	let decks = $state<DeckDefinition[]>([]);
 	/** Decks for a catechism that is no longer offered: listed so they can be deleted. */
@@ -258,6 +259,17 @@
 						onclick={() => create('New Testament Memory Verses', nt)}
 					>
 						New Testament verses
+					</button>
+				</div>
+				<p class="mt-4 text-sm {muted}">Or learn the way of salvation in five verses:</p>
+				<div class="mt-2">
+					<button
+						type="button"
+						class="{button} min-h-11 w-full"
+						disabled={!ready}
+						onclick={() => create('Romans Road', romansRoad)}
+					>
+						Romans Road
 					</button>
 				</div>
 			{/if}

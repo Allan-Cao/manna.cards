@@ -282,28 +282,31 @@ describe('bundled catechisms end to end', () => {
 });
 
 describe('presets end to end', () => {
-	it.each(['nt.txt', 'ot.txt'])('%s builds and writes a package Anki can read', async (file) => {
-		const list = await readFile(new URL(`../../../presets/${file}`, import.meta.url), 'utf8');
-		const { build, errors, passages } = await buildDeck(deck({ list }), fromDisk, 1_800_000_000);
-		expect(errors).toEqual([]);
+	it.each(['nt.txt', 'ot.txt', 'romans-road.txt'])(
+		'%s builds and writes a package Anki can read',
+		async (file) => {
+			const list = await readFile(new URL(`../../../presets/${file}`, import.meta.url), 'utf8');
+			const { build, errors, passages } = await buildDeck(deck({ list }), fromDisk, 1_800_000_000);
+			expect(errors).toEqual([]);
 
-		// Each verse is asked once, however many passages contain it.
-		const verses = new Map(passages.flatMap((p) => p.verses.map((v) => [verseKey(v.ref), v])));
-		const units = [...verses.values()].reduce((n, v) => n + splitUnits(v).units.length, 0);
+			// Each verse is asked once, however many passages contain it.
+			const verses = new Map(passages.flatMap((p) => p.verses.map((v) => [verseKey(v.ref), v])));
+			const units = [...verses.values()].reduce((n, v) => n + splitUnits(v).units.length, 0);
 
-		const sqlDist = dirname(createRequire(import.meta.url).resolve('sql.js'));
-		const SQL = await initSqlJs({ locateFile: (f) => join(sqlDist, f) });
-		const db = new SQL.Database(unzipSync(writeApkg(build, SQL))['collection.anki2']);
-		const rows = db.exec(
-			'SELECT n.guid, c.due FROM notes n JOIN cards c ON c.nid = n.id ORDER BY n.id'
-		)[0].values as [string, number][];
-		db.close();
+			const sqlDist = dirname(createRequire(import.meta.url).resolve('sql.js'));
+			const SQL = await initSqlJs({ locateFile: (f) => join(sqlDist, f) });
+			const db = new SQL.Database(unzipSync(writeApkg(build, SQL))['collection.anki2']);
+			const rows = db.exec(
+				'SELECT n.guid, c.due FROM notes n JOIN cards c ON c.nid = n.id ORDER BY n.id'
+			)[0].values as [string, number][];
+			db.close();
 
-		expect(rows.length).toBe(units);
-		expect(new Set(rows.map(([guid]) => guid)).size).toBe(rows.length);
-		expect(rows.map(([guid]) => guid)).toEqual(build.notes.map((n) => n.guid));
-		expect(rows.map(([, due]) => due)).toEqual(rows.map((_, i) => i));
-	});
+			expect(rows.length).toBe(units);
+			expect(new Set(rows.map(([guid]) => guid)).size).toBe(rows.length);
+			expect(rows.map(([guid]) => guid)).toEqual(build.notes.map((n) => n.guid));
+			expect(rows.map(([, due]) => due)).toEqual(rows.map((_, i) => i));
+		}
+	);
 });
 
 // ---------------------------------------------------------------------------------------------
