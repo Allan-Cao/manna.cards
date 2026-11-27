@@ -4,20 +4,27 @@
 		"zipSha256": "75ca91d5a5c69ca4cbdeabdb03ea1a458db20cf3966abe15d86df086acf7fbc4",
 		"usfmSha256": "7074e84e8266663de9a9251819029eb06f73b16128418eb92f1b9f659fe7a843",
 		"stated": "2026-10-30",
-		"downloaded": "2026-11-14"
+		"downloaded": "2026-11-26"
 	},
 	"web": {
 		"url": "https://eBible.org/Scriptures/engwebp_usfm.zip",
-		"zipSha256": "3bb1ac4fe06e9adf50fe6659237fa0b3743bf651ce15cc9acebc36c5070ae62d",
-		"usfmSha256": "431e93b43f6ad15fa5c020bec3542e81cc958cf1322e4d1d44815be15567f70e",
-		"stated": "2026-11-13",
-		"downloaded": "2026-11-14"
+		"zipSha256": "a78b49d0faf717d128ff95ed89c237722197eaf70ba4f0c169d708795a43964d",
+		"usfmSha256": "eca1a49a5a8e2027f2a9d874002c8ca6a2415c5e28c1083c6443830d8f80a4e0",
+		"stated": "2026-11-24",
+		"downloaded": "2026-11-26"
 	},
 	"kjv": {
 		"url": "https://eBible.org/Scriptures/eng-kjv2006_usfm.zip",
-		"zipSha256": "dce1ec3ea45a155ac05e975fc8d817da403a817713d554eb9cc3a2177a6cfd1c",
+		"zipSha256": "b6faa67117ccaba49df9e7df224a553f11758ae7c5d58f0f7979e2b73ac4480b",
 		"usfmSha256": "d46867823ba3f368da0ea6ba0a3f2b63e343a983b1e984490953c1acb90f6a39",
-		"stated": "2026-11-09",
-		"downloaded": "2026-11-14"
+		"stated": "2026-11-15",
+		"downloaded": "2026-11-26"
+	},
+	"lsv": {
+		"url": "https://eBible.org/Scriptures/englsv_usfm.zip",
+		"zipSha256": "b5fd551d49086785430ca4d670e2914b53c63fd65cb84717b7b200466305861f",
+		"usfmSha256": "fe15300b6975161a1ed1cbef7044477182d36121039806bac28cfb0d863b8a05",
+		"stated": "2026-10-30",
+		"downloaded": "2026-11-26"
 	}
 }
