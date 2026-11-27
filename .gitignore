@@ -32,3 +32,6 @@ Thumbs.db
 
 # Cloudflare local state (npx wrangler dev)
 /.wrangler
+
+# Claude Code worktrees
+/.claude/worktrees
