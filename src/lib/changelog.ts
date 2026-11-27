@@ -34,4 +34,7 @@ export const changelog: { date: string; note: string }[] = [
 	{ date: '2026-11-14', note: 'Added the about page and share links.' }
 ];
 
-export const planned: string[] = [];
+export const planned: string[] = [
+	'The English Standard Version (ESV), once Crossway grants permission.',
+	'The NET Bible, once Biblical Studies Press confirms our use.'
+];
