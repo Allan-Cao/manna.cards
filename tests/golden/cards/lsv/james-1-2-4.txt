@@ -1,0 +1,22 @@
+James 1:2-4 (LSV)
+
+── 1. James 1:2 ────────────────────────────────────────────────────────
+Lead-in        (none)
+Answer     2 │ Count [it] all joy, my brothers, when you may fall into manifold temptations,
+Hint         │ C [i] a j, m b, w y m f i m t,
+Info           James 1:2-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:JAS.1.2:0
+
+── 2. James 1:3 ────────────────────────────────────────────────────────
+Lead-in    2 │ Count [it] all joy, my brothers, when you may fall into manifold temptations,
+Answer     3 │ knowing that the proof of your faith works endurance,
+Hint         │ k t t p o y f w e,
+Info           James 1:2-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:JAS.1.3:0
+
+── 3. James 1:4 ────────────────────────────────────────────────────────
+Lead-in    3 │ knowing that the proof of your faith works endurance,
+Answer     4 │ and let the endurance have a perfect work, that you may be perfect and complete, lacking in nothing.
+Hint         │ a l t e h a p w, t y m b p a c, l i n.
+Info           James 1:2-4 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:JAS.1.4:0

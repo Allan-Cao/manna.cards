@@ -125,7 +125,7 @@ describe('parseList: duplicates', () => {
 
 describe('preset lists', () => {
 	it.each(
-		(['bsb', 'web', 'kjv'] as const).flatMap((t) => [
+		(['bsb', 'web', 'kjv', 'lsv'] as const).flatMap((t) => [
 			['ot.txt', t],
 			['nt.txt', t],
 			['romans-road.txt', t]

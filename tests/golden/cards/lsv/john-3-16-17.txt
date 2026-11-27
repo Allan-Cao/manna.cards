@@ -1,0 +1,15 @@
+John 3:16-17 (LSV)
+
+── 1. John 3:16 ────────────────────────────────────────────────────────
+Lead-in        (none)
+Answer    16 │ for God so loved the world that He gave the only begotten Son, that everyone who is believing in Him may not perish, but may have continuous life.
+Hint         │ f G s l t w t H g t o b S, t e w i b i H m n p, b m h c l.
+Info           John 3:16-17 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:JHN.3.16:0
+
+── 2. John 3:17 ────────────────────────────────────────────────────────
+Lead-in   16 │ for God so loved the world that He gave the only begotten Son, that everyone who is believing in Him may not perish, but may have continuous life.
+Answer    17 │ For God did not send His Son into the world that He may judge the world, but that the world may be saved through Him;
+Hint         │ F G d n s H S i t w t H m j t w, b t t w m b s t H;
+Info           John 3:16-17 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:JHN.3.17:0

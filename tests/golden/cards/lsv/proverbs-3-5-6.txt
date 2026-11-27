@@ -1,0 +1,20 @@
+Proverbs 3:5-6 (LSV)
+
+── 1. Proverbs 3:5 ─────────────────────────────────────────────────────
+Lead-in        (none)
+Answer     5 │ Trust to YHWH with all your heart,
+             │ And do not lean to your own understanding.
+Hint         │ T t Y w a y h,
+             │ A d n l t y o u.
+Info           Proverbs 3:5-6 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PRO.3.5:0
+
+── 2. Proverbs 3:6 ─────────────────────────────────────────────────────
+Lead-in    5 │ Trust to YHWH with all your heart,
+             │ And do not lean to your own understanding.
+Answer     6 │ In all your ways know Him,
+             │ And He makes your paths straight.
+Hint         │ I a y w k H,
+             │ A H m y p s.
+Info           Proverbs 3:5-6 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PRO.3.6:0

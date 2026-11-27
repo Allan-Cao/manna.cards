@@ -1,6 +1,10 @@
 export const changelog: { date: string; note: string }[] = [
 	{
 		date: '2026-11-26',
+		note: 'Added the Literal Standard Version (LSV), by Covenant Press under CC BY-SA 4.0. Decks in it carry the credit and license in their description.'
+	},
+	{
+		date: '2026-11-26',
 		note: 'Added the Romans Road as a ready-made deck: five verses on sin, love, and salvation, in the order they are usually learned.'
 	},
 	{

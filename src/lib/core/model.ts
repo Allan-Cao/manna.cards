@@ -6,7 +6,7 @@
 
 import type { CatechismId } from './catechisms.ts';
 
-export type TranslationId = 'bsb' | 'web' | 'kjv' | 'esv';
+export type TranslationId = 'bsb' | 'web' | 'kjv' | 'lsv' | 'esv';
 
 /** USFM book code, e.g. 'GEN', 'PSA', 'JHN', '1JN'. */
 export type BookId = string;

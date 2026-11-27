@@ -1,0 +1,29 @@
+Matthew 17:20-22 (LSV)
+
+── 1. Matthew 17:20 (1/2) ──────────────────────────────────────────────
+Lead-in        (none)
+Answer    20 │ And Jesus said to them, “Through your want of faith; for truly I say to you, if you may have faith as a grain of mustard,
+Hint         │ A J s t t, “T y w o f; f t I s t y, i y m h f a a g o m,
+Info           Matthew 17:20-22 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:MAT.17.20:0
+
+── 2. Matthew 17:20 (2/2) ──────────────────────────────────────────────
+Lead-in   20 │ And Jesus said to them, “Through your want of faith; for truly I say to you, if you may have faith as a grain of mustard,
+Answer       │ you will say to this mountain, Move from here to there, and it will move, and nothing will be impossible to you,
+Hint         │ y w s t t m, M f h t t, a i w m, a n w b i t y,
+Info           Matthew 17:20-22 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:MAT.17.20:1
+
+── 3. Matthew 17:21 ────────────────────────────────────────────────────
+Lead-in      │ you will say to this mountain, Move from here to there, and it will move, and nothing will be impossible to you,
+Answer    21 │ [[and this kind does not go forth except in prayer and fasting.”]]
+Hint         │ [[a t k d n g f e i p a f.”]]
+Info           Matthew 17:20-22 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:MAT.17.21:0
+
+── 4. Matthew 17:22 ────────────────────────────────────────────────────
+Lead-in   21 │ [[and this kind does not go forth except in prayer and fasting.”]]
+Answer    22 │ And while they are living in Galilee, Jesus said to them, “The Son of Man is about to be delivered up into the hands of men,
+Hint         │ A w t a l i G, J s t t, “T S o M i a t b d u i t h o m,
+Info           Matthew 17:20-22 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:MAT.17.22:0

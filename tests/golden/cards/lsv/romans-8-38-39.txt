@@ -1,0 +1,22 @@
+Romans 8:38-39 (LSV)
+
+── 1. Romans 8:38 ──────────────────────────────────────────────────────
+Lead-in        (none)
+Answer    38 │ for I am persuaded that neither death, nor life, nor messengers, nor principalities, nor powers, nor things present,
+Hint         │ f I a p t n d, n l, n m, n p, n p, n t p,
+Info           Romans 8:38-39 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:ROM.8.38:0
+
+── 2. Romans 8:39 (1/2) ────────────────────────────────────────────────
+Lead-in   38 │ for I am persuaded that neither death, nor life, nor messengers, nor principalities, nor powers, nor things present,
+Answer    39 │ nor things about to be, nor height, nor depth, nor any other created thing,
+Hint         │ n t a t b, n h, n d, n a o c t,
+Info           Romans 8:38-39 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:ROM.8.39:0
+
+── 3. Romans 8:39 (2/2) ────────────────────────────────────────────────
+Lead-in   39 │ nor things about to be, nor height, nor depth, nor any other created thing,
+Answer       │ will be able to separate us from the love of God that [is] in Christ Jesus our Lord.
+Hint         │ w b a t s u f t l o G t [i] i C J o L.
+Info           Romans 8:38-39 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:ROM.8.39:1

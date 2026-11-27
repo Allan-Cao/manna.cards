@@ -120,3 +120,21 @@ test('every page has the footer', async ({ page }) => {
 		);
 	}
 });
+
+test('an LSV deck carries the CC BY-SA credit in its description', async ({ page }) => {
+	await page.goto('/');
+	await page.getByLabel('Name').fill('Smoke deck');
+	await page.getByLabel('Translation').click();
+	await page.getByRole('option', { name: 'Literal Standard Version (LSV)' }).click();
+	await page.getByRole('button', { name: 'Create deck' }).click();
+	await expect(page).toHaveURL(/\/deck\/[a-z0-9]+$/);
+	await page.getByLabel('Passages').fill('John 3:16');
+	await expect(page.getByText('1 passage · 1 verse · 1 card')).toBeVisible();
+	await expect(page.getByText('copyright © 2020 Covenant Press')).toBeVisible();
+
+	const files = unzipSync(await exportDeck(page));
+	const collection = new TextDecoder().decode(files['collection.anki2']);
+	expect(collection).toContain('copyright © 2020 Covenant Press');
+	expect(collection).toContain('https://creativecommons.org/licenses/by-sa/4.0/');
+	expect(collection).toContain('John 3:16 · <a href="https://lsvbible.com">LSV</a>');
+});

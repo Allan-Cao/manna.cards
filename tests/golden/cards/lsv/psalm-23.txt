@@ -1,0 +1,73 @@
+Psalm 23 (LSV)
+
+── 1. Psalm 23:1 ───────────────────────────────────────────────────────
+Lead-in        (none)
+Answer     1 │ A PSALM OF DAVID. YHWH [is] my shepherd, I do not lack,
+Hint         │ A P O D. Y [i] m s, I d n l,
+Info           Psalm 23 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.23.1:0
+
+── 2. Psalm 23:2 ───────────────────────────────────────────────────────
+Lead-in    1 │ A PSALM OF DAVID. YHWH [is] my shepherd, I do not lack,
+Answer     2 │ He causes me to lie down in pastures of tender grass,
+             │ He leads me by quiet waters.
+Hint         │ H c m t l d i p o t g,
+             │ H l m b q w.
+Info           Psalm 23 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.23.2:0
+
+── 3. Psalm 23:3 ───────────────────────────────────────────────────────
+Lead-in    2 │ He causes me to lie down in pastures of tender grass,
+             │ He leads me by quiet waters.
+Answer     3 │ He refreshes my soul,
+             │ He leads me in paths of righteousness
+             │ For His Name’s sake;
+Hint         │ H r m s,
+             │ H l m i p o r
+             │ F H N s;
+Info           Psalm 23 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.23.3:0
+
+── 4. Psalm 23:4 ───────────────────────────────────────────────────────
+Lead-in    3 │ He refreshes my soul,
+             │ He leads me in paths of righteousness
+             │ For His Name’s sake;
+Answer     4 │ Also—when I walk in a valley of death-shade,
+             │ I fear no evil, for You [are] with me,
+             │ Your rod and Your staff—they comfort me.
+Hint         │ A—w I w i a v o d-s,
+             │ I f n e, f Y [a] w m,
+             │ Y r a Y s—t c m.
+Info           Psalm 23 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.23.4:0
+
+── 5. Psalm 23:5 ───────────────────────────────────────────────────────
+Lead-in    4 │ Also—when I walk in a valley of death-shade,
+             │ I fear no evil, for You [are] with me,
+             │ Your rod and Your staff—they comfort me.
+Answer     5 │ You arrange a table before me,
+             │ In front of my adversaries,
+             │ You have anointed my head with oil,
+             │ My cup is full!
+Hint         │ Y a a t b m,
+             │ I f o m a,
+             │ Y h a m h w o,
+             │ M c i f!
+Info           Psalm 23 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.23.5:0
+
+── 6. Psalm 23:6 ───────────────────────────────────────────────────────
+Lead-in    5 │ You arrange a table before me,
+             │ In front of my adversaries,
+             │ You have anointed my head with oil,
+             │ My cup is full!
+Answer     6 │ Surely goodness and kindness pursue me
+             │ All the days of my life,
+             │ And my dwelling [is] in the house of YHWH,
+             │ For [the] length of [my] days!
+Hint         │ S g a k p m
+             │ A t d o m l,
+             │ A m d [i] i t h o Y,
+             │ F [t] l o [m] d!
+Info           Psalm 23 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.23.6:0

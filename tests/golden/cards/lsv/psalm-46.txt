@@ -1,0 +1,125 @@
+Psalm 46 (LSV)
+
+── 1. Psalm 46:1 ───────────────────────────────────────────────────────
+Lead-in        (none)
+Answer     1 │ TO THE OVERSEER. BY SONS OF KORAH. FOR GIRLS’ [VOICES]. A SONG. God [is] our refuge and strength,
+             │ A most sure help in adversities.
+Hint         │ T T O. B S O K. F G’ [V]. A S. G [i] o r a s,
+             │ A m s h i a.
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.1:0
+
+── 2. Psalm 46:2 ───────────────────────────────────────────────────────
+Lead-in    1 │ TO THE OVERSEER. BY SONS OF KORAH. FOR GIRLS’ [VOICES]. A SONG. God [is] our refuge and strength,
+             │ A most sure help in adversities.
+Answer     2 │ Therefore we do not fear in the changing of earth,
+             │ And in the slipping of mountains
+             │ Into the heart of the seas.
+Hint         │ T w d n f i t c o e,
+             │ A i t s o m
+             │ I t h o t s.
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.2:0
+
+── 3. Psalm 46:3 ───────────────────────────────────────────────────────
+Lead-in    2 │ Therefore we do not fear in the changing of earth,
+             │ And in the slipping of mountains
+             │ Into the heart of the seas.
+Answer     3 │ Roar—troubled are its waters,
+             │ Mountains shake in its pride.
+             │ Selah
+Hint         │ R—t a i w,
+             │ M s i i p.
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.3:0
+
+── 4. Psalm 46:4 ───────────────────────────────────────────────────────
+Lead-in    3 │ Roar—troubled are its waters,
+             │ Mountains shake in its pride.
+Answer     4 │ A river—its streams make glad the city of God,
+             │ Your holy place of the dwelling places of the Most High.
+Hint         │ A r—i s m g t c o G,
+             │ Y h p o t d p o t M H.
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.4:0
+
+── 5. Psalm 46:5 ───────────────────────────────────────────────────────
+Lead-in    4 │ A river—its streams make glad the city of God,
+             │ Your holy place of the dwelling places of the Most High.
+Answer     5 │ God [is] in her midst—she is not moved, God helps her at the turn of the morning!
+Hint         │ G [i] i h m—s i n m, G h h a t t o t m!
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.5:0
+
+── 6. Psalm 46:6 ───────────────────────────────────────────────────────
+Lead-in    5 │ God [is] in her midst—she is not moved, God helps her at the turn of the morning!
+Answer     6 │ Nations have been troubled,
+             │ Kingdoms have been moved,
+             │ He has given forth with His voice—earth melts.
+Hint         │ N h b t,
+             │ K h b m,
+             │ H h g f w H v—e m.
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.6:0
+
+── 7. Psalm 46:7 ───────────────────────────────────────────────────────
+Lead-in    6 │ Nations have been troubled,
+             │ Kingdoms have been moved,
+             │ He has given forth with His voice—earth melts.
+Answer     7 │ YHWH of Hosts [is] with us,
+             │ The God of Jacob [is] a tower for us.
+             │ Selah
+Hint         │ Y o H [i] w u,
+             │ T G o J [i] a t f u.
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.7:0
+
+── 8. Psalm 46:8 ───────────────────────────────────────────────────────
+Lead-in    7 │ YHWH of Hosts [is] with us,
+             │ The God of Jacob [is] a tower for us.
+Answer     8 │ Come, see the works of YHWH,
+             │ Who has done astonishing things in the earth,
+Hint         │ C, s t w o Y,
+             │ W h d a t i t e,
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.8:0
+
+── 9. Psalm 46:9 ───────────────────────────────────────────────────────
+Lead-in    8 │ Come, see the works of YHWH,
+             │ Who has done astonishing things in the earth,
+Answer     9 │ Causing wars to cease,
+             │ To the end of the earth, He shatters the bow,
+             │ And He has cut apart the spear,
+             │ He burns chariots with fire.
+Hint         │ C w t c,
+             │ T t e o t e, H s t b,
+             │ A H h c a t s,
+             │ H b c w f.
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.9:0
+
+── 10. Psalm 46:10 ─────────────────────────────────────────────────────
+Lead-in    9 │ Causing wars to cease,
+             │ To the end of the earth, He shatters the bow,
+             │ And He has cut apart the spear,
+             │ He burns chariots with fire.
+Answer    10 │ Desist, and know that I [am] God,
+             │ I am exalted among nations,
+             │ I am exalted in the earth.
+Hint         │ D, a k t I [a] G,
+             │ I a e a n,
+             │ I a e i t e.
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.10:0
+
+── 11. Psalm 46:11 ─────────────────────────────────────────────────────
+Lead-in   10 │ Desist, and know that I [am] God,
+             │ I am exalted among nations,
+             │ I am exalted in the earth.
+Answer    11 │ YHWH of hosts [is] with us,
+             │ The God of Jacob [is] a tower for us!
+             │ Selah
+Hint         │ Y o h [i] w u,
+             │ T G o J [i] a t f u!
+Info           Psalm 46 · <a href="https://lsvbible.com">LSV</a>
+GUID           bm1:golden:lsv:PSA.46.11:0
