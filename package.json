@@ -23,6 +23,7 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
 		"test:e2e": "playwright test",
+		"test:anki": "uv run --with anki==26.9.4 python scripts/anki-import-check.py",
 		"build:text": "tsx scripts/build-text.ts",
 		"build:catechisms": "tsx scripts/build-catechisms.ts"
 	},

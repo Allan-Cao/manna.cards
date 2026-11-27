@@ -4,7 +4,7 @@ Dev-only. Builds test packages with scripts/make-test-apkg.ts, imports them into
 collections with the import options a normal user gets by default, and checks that re-importing
 an updated deck updates notes in place and keeps scheduling.
 
-    uv run --with anki python scripts/anki-import-check.py
+    npm run test:anki   (uv run --with anki==26.9.4 python scripts/anki-import-check.py)
 
 Exits non-zero if any check fails.
 """
@@ -44,9 +44,10 @@ def note(msg: str) -> None:
     print(f"  ....  {msg}")
 
 
-def import_pkg(col: Collection, path: str, label: str):
+def import_pkg(col: Collection, path: str, label: str, with_deck_configs: bool = False):
     # The presets are what Anki's import screen starts with for a normal user.
     options = col._backend.get_import_anki_package_presets()
+    options.with_deck_configs = with_deck_configs
     res = col.import_anki_package(ImportAnkiPackageRequest(package_path=path, options=options))
     log = res.log
     note(
@@ -282,6 +283,39 @@ def scenario_collide(pkgs: dict, m: dict, tmp: Path) -> None:
         col.close()
 
 
+def scenario_preset(pkgs: dict, m: dict, tmp: Path) -> None:
+    print("\n== Scenario 4: the manna.cards deck options preset ==")
+    # The deck is "Import Check". The preset is only imported when the user ticks the option.
+    col = Collection(str(tmp / "preset_on.anki2"))
+    try:
+        import_pkg(col, pkgs["v1"], "v1 with deck presets", with_deck_configs=True)
+        deck = deck_named(col, "Import Check")
+        conf = col.decks.get_config(deck["conf"])
+        check("presets on: deck uses the 'manna.cards' preset", conf["name"] == "manna.cards", conf["name"])
+        check("presets on: the preset allows 5 new cards a day", conf["new"]["perDay"] == 5, conf["new"]["perDay"])
+        import_pkg(col, pkgs["v2"], "v2 with deck presets", with_deck_configs=True)
+        deck = deck_named(col, "Import Check")
+        names = [c["name"] for c in col.decks.all_config()]
+        check("presets on: re-import keeps one 'manna.cards' preset", names.count("manna.cards") == 1, names)
+        check("presets on: re-import keeps the deck on it", col.decks.get_config(deck["conf"])["name"] == "manna.cards")
+    finally:
+        col.close()
+
+    col = Collection(str(tmp / "preset_off.anki2"))
+    try:
+        import_pkg(col, pkgs["v1"], "v1 default options")
+        deck = deck_named(col, "Import Check")
+        conf = col.decks.get_config(deck["conf"])
+        check("defaults: import succeeds and the deck lands on Default", conf["name"] == "Default", conf["name"])
+        check("defaults: no 'manna.cards' preset was added", "manna.cards" not in [c["name"] for c in col.decks.all_config()])
+        import_pkg(col, pkgs["v2"], "v2 default options")
+        deck = deck_named(col, "Import Check")
+        check("defaults: re-import keeps the deck on Default", col.decks.get_config(deck["conf"])["name"] == "Default")
+        check("defaults: re-import still updates the notes", col.note_count() == 6, col.note_count())
+    finally:
+        col.close()
+
+
 def main() -> int:
     print(f"Anki {anki_version}")
     with tempfile.TemporaryDirectory() as t:
@@ -292,6 +326,7 @@ def main() -> int:
         scenario_update(pkgs, m, tmp)
         scenario_rename(pkgs, m, tmp)
         scenario_collide(pkgs, m, tmp)
+        scenario_preset(pkgs, m, tmp)
     failed = [r for r in results if not r[0]]
     print(f"\n{len(results) - len(failed)} passed, {len(failed)} failed (Anki {anki_version})")
     for _, name, detail in failed:
